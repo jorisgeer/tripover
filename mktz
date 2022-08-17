@@ -1,0 +1,850 @@
+#!/usr/bin/perl -W
+
+# mktz - make timezone info
+
+# This file is part of Tripover, a broad-search journey planner.
+
+#  Copyright (C) 2016 Joris van der Geer.
+
+# process iana timezone db
+
+use 5.012;
+use strict;
+use utf8;
+
+use POSIX ();
+
+# perl -MO=Xref,-ounused.out
+
+my $version_maj = 1;
+my $version_min = '0.1';
+my $lastchanged = " 28 Jan 2016";
+
+my $copyright = "Copyright (C) 2014-2016 Joris van der Geer";
+
+my $credits = "Derived from Time Zone Data v. 2016a (Released 2016-01-26) at https://www.iana.org/time-zones\n";
+
+my $verbose = 0;
+my $dryrun = 0;
+my $testonly = 0;
+my $conditional = 1;
+
+my $warningcnt = 0;
+my $errorcnt = 0;
+
+my $tzfname = 'tzdb.txt';
+
+my $curyear = 2016;
+my $firstyear = 2015;
+
+my $logname = 'mktz.log';
+my $logfd;
+
+my ($indir,$outdir,$format);
+
+my $glinno = 0;
+
+# stop at compile-time warnings
+local $SIG{__WARN__} = sub { print "$_[0] input line $glinno\n"; exit 1; };
+
+if (-t STDOUT) {
+  for (my $bck = 3; $bck >= 0; $bck--) {
+    rename($logname . '.' . $bck,$logname . '.' . ($bck+1)) if (-f $logname . '.' . $bck);
+  }
+  rename($logname,$logname . '.0') if -f $logname;
+  open($logfd,'>:encoding(UTF-8)',$logname) or print("cannot create $logname:$!");
+}
+
+# unbuffered i/o
+my $orgfh = select STDOUT; $| = 1;
+  select STDERR; $| = 1;
+  if (defined $logfd) { select $logfd; $| = 1; }
+select $orgfh;
+
+binmode(STDOUT,':utf8');
+
+sub basemsg($) {
+  my ($m) = @_;
+
+  print("$m\n");
+  print($logfd "$m\n") if defined $logfd;
+  return 1;
+}
+
+my $clron = sprintf('%c[1;36m',27); # 32 green 36 cyan
+my $clrof = sprintf('%c[0m',27);
+
+my %msgcounts;
+
+sub msg($) {
+  my ($m) = @_;
+
+  my $t = time2yyyymmdd(time(),1,'sec');
+  my $tt = substr($t,11);  # only from hh in yyyy-mm-dd hh:mm:ss
+
+  my ($package,$filename,$line,$sub,$hasargs) = caller(1);
+  my $fln = sprintf("%4u",$line);
+  print("$clron$tt $fln $clrof$m\n");
+  print($logfd "$t $fln $m\n") if defined $logfd;
+  return 1;
+}
+
+my %infocnts;
+sub info($) {
+  my ($package,$filename,$line,$sub,$hasargs) = caller(0);
+  ($package,$filename,$line,$sub) = caller(1) if defined $sub and $sub eq 'main::info';
+  $line = 0 unless defined $line;
+  $infocnts{$line} = 0 unless defined $infocnts{$line};
+  my $cnt = $infocnts{$line};
+  return 1 if $cnt > 1000;
+  $cnt++;
+  if ($cnt == 1000) { msg("message at line $line repeated 100 times"); $cnt++; }
+  $infocnts{$line} = $cnt;
+  return msg($_[0]);
+}
+
+sub dinfo($) {
+  my ($package,$filename,$line,$sub,$hasargs) = caller(0);
+  return msg($_[0] . " fn $sub ln $line");
+}
+
+my (%warnings,%warncnts);
+sub warning($) {
+  my ($package,$filename,$line,$sub,$hasargs) = caller(0);
+  ($package,$filename,$line,$sub) = caller(1) if defined $sub and $sub eq 'main::error';
+  $line = 0 unless defined $line;
+
+  $warnings{$line} = $_[0] unless exists $warnings{$line};
+  $warncnts{$line} = 0 unless defined $warncnts{$line};
+  $warningcnt++;
+  my $cnt = $warncnts{$line};
+  return 1 if $cnt > 100;
+  $cnt++;
+  if ($cnt == 100) { msg("warning at line $line repeated 100 times"); $cnt++; }
+  $warncnts{$line} = $cnt;
+
+  msg("warning: " . $_[0]);
+  return 1;
+}
+
+sub uwarning($) {
+  my ($package,$filename,$line,$sub,$hasargs) = caller(0);
+  ($package,$filename,$line,$sub) = caller(1) if defined $sub and $sub eq 'main::error';
+  $line = 0 unless defined $line;
+
+  $warnings{$line} = $_[0] unless exists $warnings{$line};
+  $warncnts{$line} = 0 unless defined $warncnts{$line};
+  $warningcnt++;
+  my $cnt = $warncnts{$line};
+  $cnt++;
+  $warncnts{$line} = $cnt;
+
+  msg("warning: " . $_[0]);
+  return 1;
+}
+
+sub error($) {
+  my ($package,$filename,$line,$sub) = caller(0);
+  ($package,$filename,$line,$sub) = caller(1) if defined $sub and $sub eq 'main::error';
+  $sub = '(main)' unless defined $sub;
+  $sub =~ s/^main:://;
+  msg("error: $_[0] in $sub");
+  $errorcnt++;
+  return 0;
+}
+
+sub error_exit($) {
+  my ($package,$filename,$line,$sub) = caller(0);
+  ($package,$filename,$line,$sub) = caller(1) if defined $sub and $sub eq 'main::error_exit';
+  $sub = '(main)' unless defined $sub;
+
+  msg("error: $_[0] in $sub");
+  $errorcnt++;
+  exit 1;
+}
+
+sub vrb($) {
+  msg($_[0]) if $verbose;
+  return 1;
+}
+sub vrb0($) { vrb($_[0]); }
+
+sub infovrb($$) {
+  info($_[1]) if $_[0];
+  vrb($_[1]);
+}
+
+sub plural($$)
+{
+  my ($n,$str) = @_;
+  my $s = "$n $str";
+  $s .= 's' if $n != 1;
+  return $s;
+}
+
+sub usage()
+{
+  my $m = "usage: mktz [options]\n\n";
+  $m .= "options:\n";
+  $m .= "-v -verbose        verbose mode\n";
+  $m .= "-n -dryrun         dryrun mode\n";
+  $m .= "-h -help           show help and quit\n";
+  $m .= "-t -test           test only, no output\n";
+  $m .= "-V -version        show version and quit\n";
+  basemsg($m);
+}
+
+sub max($$) {
+  my ($a,$b) = @_;
+  return ($a > $b ? $a : $b);
+}
+sub min($$) {
+  my ($a,$b) = @_;
+  return ($a < $b ? $a : $b);
+}
+
+sub trimws($) {
+  my ($s) = @_;
+  $s =~ s/[ \t\r\n]+/ /g;
+  $s =~ s/^ //;
+  $s =~ s/ $//;
+  return $s;
+}
+
+my $hhmmpat = qr'^([0-9]+):([0-9]+):([0-9]+)$';
+
+sub time2yyyymmdd($$$) {
+  my ($nixsec,$local,$res) = @_;
+
+  my ($fmt,$sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst);
+
+  ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = ($local ? localtime($nixsec) : gmtime($nixsec));
+  return sprintf('%04u-%02u-%02u %02u:%02u:%02u',($year + 1900,$mon + 1,$mday,$hour,$min,$sec)) if $res eq 'sec';
+  return sprintf('%04u-%02u-%02u %02u:%02u',($year + 1900,$mon + 1,$mday,$hour,$min)) if $res eq 'min';
+  return sprintf('%04u-%02u-%02u %02u:%02u',($year + 1900,$mon + 1,$mday));
+}
+
+my $nondigits = qr'[^0-9]';
+
+my $unquoter = qr'/""/"/g';
+
+sub inarray($@) {
+  my ($a,@arr) = @_;
+
+  foreach my $b (@arr) { return 1 if $a eq $b; }
+  return 0;
+}
+
+sub showvers($)
+{
+  my ($full) = @_;
+
+  basemsg("Tripover timetable generator version $version_maj.$version_min");
+  basemsg("last changed $lastchanged") if $full; 
+  basemsg("$copyright\n");
+}
+
+sub min2hhmm($$)
+{
+  my ($t,$fln) = @_;
+
+  my $h = int($t / 60);
+  my $m = int ($t % 60);
+
+  return sprintf("%02u%02u",$h,$m);
+}
+
+sub hhmm2min($$)
+{
+  my ($s,$fln) = @_;
+
+  my ($thh,$tmm) = ($s =~ '^([0-9]+):([0-9]+)$');
+  error_exit("$fln: unrecognised time '$s'") unless defined $thh and defined $tmm;
+  my $tmin = int(($thh * 60) + $tmm);
+  return $tmin;
+}
+
+sub hhmm2sec($$)
+{
+  my ($s,$fln) = @_;
+
+  my ($thh,$tmm,$tss) = ($s =~ $hhmmpat);
+  error_exit("$fln: unrecognised time $s") unless defined $thh and defined $tmm;
+  $tss = 0 unless defined $tss;
+  my $tsec = ($thh * 3600) + ($tmm * 60) + $tss;
+  return $tsec;
+}
+
+# 3 Feb to 0203
+sub ddmmm($$$)
+{
+  my ($day,$mon,$linno) = @_;
+  my $cdday = $day;
+
+  if ($mon eq 'Jan') { $cdday += 100; }
+  elsif ($mon eq 'Feb') { $cdday += 200; }
+  elsif ($mon eq 'Mar') { $cdday += 300; }
+  elsif ($mon eq 'Apr') { $cdday += 400; }
+  elsif ($mon eq 'May') { $cdday += 500; }
+  elsif ($mon eq 'Jun') { $cdday += 600; }
+  elsif ($mon eq 'Jul') { $cdday += 700; }
+  elsif ($mon eq 'Aug') { $cdday += 800; }
+  elsif ($mon eq 'Sep') { $cdday += 900; }
+  elsif ($mon eq 'Oct') { $cdday += 1000; }
+  elsif ($mon eq 'Nov') { $cdday += 1100; }
+  elsif ($mon eq 'Dec') { $cdday += 1200; }
+  else { error("line $linno unrecognised month $mon"); }
+  return sprintf('%04u',$cdday);
+}
+
+sub mmm2mm($$)
+{
+  my ($mon,$linno) = @_;
+  my $mm = '';
+
+  $mm = 1 if $mon eq 'Jan';
+  $mm = 2 if $mon eq 'Feb';
+  $mm = 3 if $mon eq 'Mar';
+  $mm = 4 if $mon eq 'Apr';
+  $mm = 5 if $mon eq 'May';
+  $mm = 6 if $mon eq 'Jun';
+  $mm = 7 if $mon eq 'Jul';
+  $mm = 8 if $mon eq 'Aug';
+  $mm = 9 if $mon eq 'Sep';
+  $mm = 10 if $mon eq 'Oct';
+  $mm = 11 if $mon eq 'Nov';
+  $mm = 12 if $mon eq 'Dec';
+  return error_exit("line $linno unrecognised month $mon") unless length $mm;
+  return $mm;
+}
+
+sub dow2dw($)
+{
+  my $dow = shift;
+  my $dw = 7;
+  $dw = 0 if $dow eq 'Sun';
+  $dw = 1 if $dow eq 'Mon';
+  $dw = 2 if $dow eq 'Tue';
+  $dw = 3 if $dow eq 'Wed';
+  $dw = 4 if $dow eq 'Thu';
+  $dw = 5 if $dow eq 'Fri';
+  $dw = 6 if $dow eq 'Sat';
+  return $dw;
+}
+
+# Februari 21 2015 to 150221
+sub mkyymmdd($$$)
+{
+  my ($mmm,$dd,$yy4) = @_;
+
+  my $mmdd = ddmmm($dd,substr($mmm,0,3),0);
+  my $yy = substr($yy4,2);
+  return $yy . $mmdd;
+}
+
+# 12Nov to 1112
+sub ddmmm2mmdd($)
+{
+  my $pat = shift;
+
+  my ($d,$m) = ($pat =~ '([0-9]+)([A-Za-z]{3})');
+  error("unrecognised date $pat") unless defined $m;
+  return ddmmm($d,$m,0);
+}
+
+# 0328+6 to 0404
+sub nextdate($$$)
+{
+  my ($mmdd,$year,$plusday) = @_;
+  my $yy = int($year - 1900);
+  my $mm = int( ($mmdd / 100) - 1);
+  my $dd = int($mmdd % 100);
+  my $nixsec = POSIX::mktime(0,0,0,$dd,$mm,$yy);
+
+  $plusday++; # todo empirical
+  $nixsec += ($plusday * 3600 * 24);
+  my ($sec,$min,$hour,$mday,$mon,$yr,$wday,$yday,$isdst) = gmtime($nixsec);
+  my $mmdd6 = sprintf("%02u%02u",$mon+1,$mday);
+  return $mmdd6;
+}
+
+# Sun>=1 or lastThu at 0-11 2015
+sub specialdate($$$$)
+{
+  my ($xx,$mm,$yy,$fln) = @_;
+
+  my ($nixsec,$dw,$day1);
+  my ($sec,$min,$hour,$mday,$mon,$yr,$wday,$yday,$isdst);
+
+  my ($dow) = ($xx =~ '^last([A-Za-z]{3})$');
+  if (defined($dow) and length($dow)) {
+
+    $dw = dow2dw($dow);
+    $nixsec = POSIX::mktime(0,0,0,1,$mm,$yy - 1900);
+
+    do {
+      $nixsec += 86400;
+      ($sec,$min,$hour,$mday,$mon,$yr,$wday,$yday,$isdst) = localtime($nixsec);
+    } while ($mon == $mm);
+
+    do {
+      $nixsec -= 86400;
+      ($sec,$min,$hour,$mday,$mon,$yr,$wday,$yday,$isdst) = localtime($nixsec);
+    } while ($wday != $dw && $mon == $mm);
+
+    return $mday;
+  }
+  ($dow,$day1) = ($xx =~ '^([A-Za-z]{3})>=([0-9]+)$');
+  if (defined($dow) and length($dow)) {
+    error_exit("$fln: unsupported '$xx'") if $day1 > 31;
+    $dw = dow2dw($dow);
+    $nixsec = POSIX::mktime(0,0,0,$day1,$mm,$yy - 1900);
+
+    do {
+      ($sec,$min,$hour,$mday,$mon,$yr,$wday,$yday,$isdst) = localtime($nixsec);
+      # info("check $yr $mon $mday wk $wday  for $mm wk $dw");
+      $nixsec += 86400;
+    } while ($wday != $dw && $mon == $mm);
+    return $mday;
+  }
+
+  error_exit("$fln: unsupported '$xx'");
+  return 0;
+}
+
+# 20160128 + 6 to 20160203
+sub nextyymmdd($$)
+{
+  my ($yymmdd,$plusday) = @_;
+  my $yy = int($yymmdd / 10000);
+  error_exit("invalid year $yy from $yymmdd") if $yy < 1900;
+  $yy -= 1900;
+  my $mm = int( ($yymmdd / 100) % 100);
+  error_exit("invalid month $mm from $yymmdd") if $mm == 0 or $mm > 12;
+  $mm--;
+  my $dd = int($yymmdd % 100);
+  my $nixsec = POSIX::mktime(0,0,0,$dd,$mm,$yy);
+
+  $nixsec += ($plusday * 3600 * 24);
+  my ($sec,$min,$hour,$mday,$mon,$yr,$wday,$yday,$isdst) = gmtime($nixsec);
+  my $mmdd6 = sprintf("%04u%02u%02u",$yr + 1900,$mon+1,$mday);
+  return $mmdd6;
+}
+
+my %rulekeys;
+my %rules;
+my %zones;
+my %aliases;
+
+sub rdtz($$)
+{
+  my ($tzname,$tzid) = @_;
+  my $tzfile;
+  my $col = 0;
+  my ($line,$len,$tzstr,$tz,$ofs,$dstofs,$dston,$dstof,$a,$b,$c,$alt);
+
+                  # cmd         name           from       to           type         in              on                 at         save         letter
+  my $rulepat = qr'^Rule\t([-_A-Za-z0-9]+)\t([0-9]+)\t([0-9a-z]+)\t([-A-Za-z]+)\t([A-Za-z]+)\t([A-Za-z0-9<>= ]+)\t([su0-9: ]+)\t([0-9:]+)\t([-ABDGHMNPSTW])';
+
+                              # name              gmtoff       rules        format       until
+  my $zonepat  = qr'^Zone\s([-+A-Za-z0-9/_]+)\s+([-0-9:]+)\s+([-A-Za-z]+)\s([+A-Zz%s]+)\t([0-9A-Za-z ]+)';
+  my $zonepat1 = qr'^Zone\s([-+A-Za-z0-9/_]+)\s+([-0-9:]+)\s+([-A-Za-z]+)\s([+A-Zz%s]+)';
+
+                          # gmtoff       rules        format       until
+  my $zonecpat  = qr'^\s+([-0-9:]+)\s+([-_A-Za-z0-9:]+)\s([A-Zz%s]+)\t([0-9A-Za-z ]+)';
+  my $zonecpat1 = qr'^\s+([-0-9:]+)\s+([-_A-Za-z0-9:]+)\s([A-Zz%s]+)';
+
+  my $untilpat3 = qr'^([0-9]+) ([A-Za-z]+) ([0-9]+)';
+  my $untilpat2 = qr'^([0-9]+) ([A-Za-z]+)';
+  my $untilpat1 = qr'^([0-9]+)';
+
+  my $linkpat = qr'^Link\s([A-Za-z/_]+)\s+([-+A-Za-z0-9/_]+)';
+
+  my $atpat = qr'^([0-9]+):([0-9]+)[su]?$';
+
+  my $ofspat = qr'^([-0-9]+):([0-9]+)$';
+
+  my $tznampat  = qr'^[A-Z][a-z]+/[A-Z][-+A-Za-z0-9_/]+$';
+  my $tznampat1 = qr'^[A-Z][-+_A-Za-z0-9/]+$';
+
+  my $tzabrpat = qr'^[A-Z0-9]+$';
+
+  my ($name,$from,$to,$type,$in,$on,$xon,$at,$save,$xsave,$let);
+  my ($gmtofs,$rname,$fmt,$until,$alias,$ofshh,$ofsmm);
+  my ($yy,$mm,$dd);
+
+  my ($rulekey,$ruleval,$onof,$athh,$atmm);
+
+  # read timezone info from iana db file
+  info("read file $tzname");
+  open($tzfile,'<:encoding(UTF-8)',$tzname) or return error("cannot open $tzname:$!");
+  my @lines = readline($tzfile);
+  close($tzfile);
+  my $linno = 0;
+  my $fln = '';
+
+  for $line (@lines) {
+    $linno++;
+    next unless length($line);
+    $c = chop $line;
+    warning("$fln: unterminated line '$line'") if $c ne "\n";
+    $len = length($line);
+    next if $len == 0;
+    next if index($line,'#') == 0;
+    $fln = "$tzname:$linno: ";
+    $glinno = $linno;
+    if (index($line,'Rule') == 0) {
+      ($name,$from,$to,$type,$in,$on,$at,$save,$let) = ($line =~ $rulepat);
+      $from = '' unless defined $from;
+      $to = '' unless defined $to;
+      $to = $from if $to eq 'only';
+      $to = $curyear if $to eq 'max';
+      if (length($from) == 0 or $from =~ $nondigits) {
+        return error("$fln: unhandled 'from' '$from' in $line");
+      }
+      next if ($from < $firstyear and $to < $firstyear);
+      next if $from > $curyear;
+      info("rule $name $from-$to");
+      $from = $firstyear if $from < $firstyear;
+      return error("$fln: unexpected tab in '$name'") unless index($name,"\t") < 0;
+
+      return error("$fln: unrecognised 'on' in '$line'") unless defined $on and length $on;
+      $on = trimws($on);
+      return error("$fln: unrecognised 'on' in '$line'") unless defined $on and length $on;
+
+      return error("$fln: unrecognised 'at' in '$line'") unless defined $at and length $at;
+      $at = trimws($at);
+      return error("$fln: unrecognised 'at' in '$line'") unless defined $at and length $at;
+
+      ($athh,$atmm) = ($at =~ $atpat);
+      return error("$fln: unrecognised 'at' '$at'") unless defined $athh and length $athh;
+
+      if ($save eq '0') { $xsave = 0; }
+      elsif ($save eq '1') { $xsave = 60; }
+      else {
+        ($ofshh,$ofsmm) = ($save =~ $ofspat);
+        return error("$fln: unrecognised ofs '$save'") unless defined $ofsmm and length $ofsmm;
+        $xsave = int($ofshh * 60 + $ofsmm);
+      }
+
+      $dston = ($xsave == 0 ? '0' : '1');
+
+      $rules{$name} = $from . ' ' . $to;
+
+      $mm = mmm2mm($in,$linno);
+      return error("$fln: invalid month $mm from '$in'") if $mm < 1 or $mm > 12;
+
+      for ($yy = $from; $yy <= $to; $yy++) {
+
+        $xon = specialdate($on,$mm-1,$yy,$linno) if $on =~ $nondigits;
+
+        $onof = ddmmm($xon,$in,$linno);
+
+        $ruleval = $onof;
+        if ($athh > 12) {
+          $ruleval = nextdate($onof,$yy,1);
+        }
+
+        $rulekey = join("\t",$tzid,$name,$yy,$dston);
+
+        if (exists($rulekeys{$rulekey})) {
+          warning("skip overlapping $rulekey $rulekeys{$rulekey} with $ruleval") 
+        } else {
+          info("new rule $rulekey $ruleval $xsave");
+          $rulekeys{$rulekey} = join("\t",$ruleval,$xsave);
+        }
+      }
+
+#        if (exists($rules{$name})) {
+#        push @{ $rules{$name} },$hstr;
+#      } else {
+#        $rules{$name} = [ ($hstr) ];
+#      }
+
+    } elsif (index($line,'Zone') == 0 or index($line,"\t") == 0) {
+      $until = '';
+      if (index($line,"\t") == 0) {
+        $a = index($line,'#');
+        $line = substr($line,0,$a) if $a >= 0;
+        next if $line =~ '^\s+$';
+        ($gmtofs,$rname,$fmt,$until) = ($line =~ $zonecpat);
+        ($gmtofs,$rname,$fmt) = ($line =~ $zonecpat1) unless defined $gmtofs and length $gmtofs;
+      } else {
+        ($name,$gmtofs,$rname,$fmt,$until) = ($line =~ $zonepat);
+        ($name,$gmtofs,$rname,$fmt) = ($line =~ $zonepat1) unless defined $name and length $name;
+      }
+      $until = '' unless defined $until;
+      return error("$fln: unhandled line $line") unless defined $name and length $name;
+      return error("$fln: $name missing gmtofs in $line") unless defined $gmtofs and length $gmtofs;
+      if ($gmtofs =~ '^[-0-9]+$') {
+        $gmtofs = sprintf('%d:00',$gmtofs);
+      }
+      $gmtofs = '00:00' if $gmtofs eq '0';
+      return error("$fln: unrecognised gmtofs '$gmtofs'") unless $gmtofs =~ '[0-9]+:[0-9]+';
+      $yy = $curyear;
+      if (defined($until) and length($until)) {
+        $a = index($until,'#');
+        $until = substr($until,0,$a) if $a >= 0;
+        $until = trimws($until);
+      }
+      if (defined($until) and length($until)) {
+        $yy = $mm = $dd = '';
+        ($yy,$mm,$dd) = ($until =~ $untilpat3);
+        ($yy,$mm) = ($until =~ $untilpat2) unless defined $dd and length $dd;
+        ($yy) = ($until =~ $untilpat1) unless defined $mm and length $mm;
+        return error("$fln: unrecognised until '$until' for $name") unless defined $yy and length $yy;
+      }
+      next if $yy < $curyear;
+      info("$fln zone '$name' '$gmtofs' '$rname' '$until'");
+      return error("$fln invalid zone name $name") unless $name =~ $tznampat or $name =~ $tzabrpat;
+      $zones{$name} = join("\t",$gmtofs,$rname,$tzid,$linno);
+    } elsif (index($line,'Link') == 0) {
+      ($name,$alias) = ($line =~ $linkpat);
+      return error("$fln: unrecognised $line") unless defined $alias and length $alias;
+      return error("$fln invalid zone name $name") unless $name =~ $tznampat;
+      return error("$fln invalid zone name $alias") unless $alias =~ $tznampat1;
+      return error("$fln $alias to itself") if $alias eq $name;
+      if (exists($aliases{$name})) { $aliases{$name} .= ("\t" . $alias); }
+      else { $aliases{$name} = $alias; }
+      vrb("link $name $alias");
+    } else {
+      return error("$fln: unrecognised $line");
+    }
+  }
+
+#  foreach $name (keys %rules) {
+#    $rulekey = join("\t",$name,$firstyear,'0');
+#    $dstof = $rulekeys{$rulekey};
+#    $rulekey = join("\t",$name,$firstyear,'1');
+#   $dston = $rulekeys{$rulekey};
+#    info("$name on $dston of $dstof");
+#  }
+
+  return 1;
+}
+
+sub writetz($)
+{
+  my $outdir = shift;
+  my ($name,$rname,$gmtofs,$rulekey,$dston,$dstof,$xsave,$tzid);
+
+  my ($linno,$fln,$athh,$atmm,$dstofs,$alias);
+  my $zonecnt = 0;
+  my $aliascnt = 0;
+
+  my $ofspat = qr'^([-0-9]+):([0-9]+)$';
+
+  rename($tzfname,$tzfname . '.0') if -f $tzfname;
+
+  open(my $fh,'>',$tzfname) or return error("cannot create $tzfname: $!");
+  print($fh "# tzdb.txt - Timezone data\n# " . $credits);
+
+  foreach $name (sort keys %zones) {
+    ($gmtofs,$rname,$tzid,$linno) = split("\t",$zones{$name});
+    $fln = "$tzid.$linno: ";
+    $rulekey = join("\t",$tzid,$rname,$curyear,'0');
+    if (exists($rulekeys{$rulekey})) {
+      ($dstof) = split("\t",$rulekeys{$rulekey});
+    } else {
+      $dstof = 0; $xsave = 0;
+    }
+    $rulekey = join("\t",$tzid,$rname,$curyear,'1');
+    if (exists($rulekeys{$rulekey})) {
+      ($dston,$xsave) = split("\t",$rulekeys{$rulekey});
+      return error("$fln: undefined dstofs in $rulekeys{$rulekey} for '$rulekey'") unless defined $xsave and length $xsave;
+    } else {
+      $dston = 0; $xsave = 0;
+    }
+
+    if ($xsave != 0) {
+      ($athh,$atmm) = ($gmtofs =~ $ofspat);
+      return error("$fln: unrecognised ofs '$gmtofs'") unless defined $atmm and length $atmm;
+      $dstofs = $athh * 60 + $atmm + $xsave;
+      $dstofs = sprintf("%d:%02u",int($dstofs / 60),int($dstofs % 60));
+    } else {
+      $dstofs = $gmtofs;
+    }
+    info(sprintf("%-26s %6s %6s  dst on %04u of %04u",$name,$gmtofs,$dstofs,$dston,$dstof));
+    print($fh "$name\t$gmtofs\t$dstofs\t$dston\t$dstof\n");
+    $zonecnt++;
+  }
+  foreach $name (sort keys %aliases) {
+    foreach $alias (split("\t",$aliases{$name})) {
+      vrb("$name $alias");
+      unless (exists $zones{$name}) {
+        warning("$fln unknown zone $name for $alias");
+        next;
+      }
+      print($fh "$name\t$alias\n");
+      $aliascnt++;
+    }
+  }
+  close $fh;
+  info("wrote $zonecnt zones and $aliascnt aliases to $tzfname");
+}
+
+sub import($)
+{
+  my $indir = shift;
+
+# omit antarctica
+  for my $file ('africa','asia','australasia','europe','northamerica','southamerica','etcetera','backward') {
+    rdtz($indir . '/' . $file,$file) or return 0;
+  }
+  return 1;
+}
+
+sub patch($$)
+{
+  my ($section,$indir) = @_;
+
+  my ($c,$i,$line,$fline,$match,$nomatch,$pat,$rep,$mp);
+
+  my $modname = $indir . '/' . $section . '.patch';
+  my $srcname = $indir . '/' . $section . '.txt';
+  info("patching $srcname with $modname");
+  return 1 unless -f $modname;
+
+  info("patching $section");
+  open(my $updfh,'<:encoding(UTF-8)',$modname) or return error("cannot open $modname: $!");
+
+  my @modlines = readline($updfh);
+  close $updfh;
+  return 1 unless @modlines > 0;
+
+  open(my $srcfh,'<:encoding(UTF-8)',$srcname) or return error("cannot open $srcname: $!");
+  my @srclines = readline($srcfh);
+  close $srcfh;
+  my $linecnt = scalar(@srclines);
+  return 1 unless $linecnt > 0;
+  my $change = 0;
+
+  my %patches;
+  my $linno = 0;
+
+  foreach my $line (@modlines) {
+    next unless length($line);
+    $c = chop $line;
+    $line .= $c if $c ne "\n";
+    $linno++;
+    next unless length($line);
+    $c = substr($line,0,1);
+    next if $c eq '#';
+    if ($c eq '\\') {
+      ($pat,$rep) = split("\t",substr($line,1));
+      next unless defined $pat and length $pat;
+      next unless defined $rep and length $rep;
+      $match = $pat;
+      $rep = "$rep:$pat";
+    } else {
+      ($match,$pat,$rep,$nomatch) = split("\t",$line);
+      $rep = '' unless defined $rep;
+      next unless defined $pat;
+      $match = $rep unless defined $match and length $match;
+    }
+    $mp = "$match\t$pat";
+    return error("line $linno: pattern $match $pat defined on line $patches{$mp}") if exists $patches{$mp};
+    $patches{$mp} = $linno;
+    for $i (0 .. $linecnt-1) {
+      $fline = $srclines[$i];
+      next if index($fline,$match) < 0;
+      next if index($fline,$pat) < 0;
+      next if defined $nomatch and length $nomatch and index($fline,$nomatch) >= 0;
+      $fline =~ s/$pat/$rep/;
+      $change++ if $fline ne $srclines[$i];
+      $srclines[$i] = $fline;
+    }
+  }
+  return 1 if $change == 0;
+
+  info("$change lines patched in $section");
+  my $nsrcname = $indir . '/' . $section . '.txt.new';
+
+  open($srcfh,'>:encoding(UTF-8)',$nsrcname) or return error("cannot create $nsrcname: $!");
+  for $fline (@srclines) {
+    print($srcfh $fline);
+  }
+  close $srcfh;
+  rename($srcname,$srcname . '.0') or return error("cannot rename $nsrcname: $!");
+  rename($nsrcname,$srcname) or return error("cannot rename $nsrcname: $!");
+  return 1;
+}
+
+# main program starts here
+
+my $starttime = time();
+
+my $progdir = rindex $0,'/';
+my $cwd = '.';
+if ($progdir > 0) { $cwd = substr($0,0,$progdir); }
+
+my ($arg,$opt,$cmd,$argno,$tbox0,$tbox1,$dist);
+my $endopt = 0;
+my @args;
+
+if (@ARGV == 0) { usage(); exit 1; }
+
+foreach $arg (@ARGV) {
+  if (substr($arg,0,1) eq '-') {
+    $opt = $arg;
+    $opt =~ s/^-+//;
+    if ($opt eq 'h' or $opt eq '?' or $opt eq 'help') { showvers(0); usage(); exit 1; }
+    if ($opt eq 'V' or $opt eq 'version') { showvers(1); exit 1; }
+  }
+}
+
+showvers(0);
+
+foreach $arg (@ARGV) {
+  my ($eq,$xopt,$val,$isnum);
+  if ($endopt == 0 and substr($arg,0,1) eq '-') {
+    if ($arg eq '--') { $endopt = 1; next; }
+    $xopt = $arg;
+    $xopt =~ s/^-+//;
+    next unless length $xopt;
+    $eq = index($xopt,'=');
+    if ($eq > 0) {
+      $isnum = 0;
+      $opt = substr($xopt,0,$eq);
+      $val = substr($xopt,$eq+1);
+      $isnum = 1 if $val =~ '^[0-9]+$';
+    }
+    else { $opt = $xopt; $val = ''; }
+    vrb("opt '$opt' val '$val'");
+    if ($opt eq 'v' or $opt eq 'verbose') { info('verbose mode'); $verbose = 1; }
+    elsif ($opt eq 'n' or $opt eq 'dryrun') { info('dryrun mode'); $dryrun = 1; }
+    elsif ($opt eq 't' or $opt eq 'test') { info('test only, no output'); $testonly = 1; }
+    elsif ($opt eq 'u' or $opt eq 'unconditional') { info('unconditional'); $conditional = 0; }
+    else { info("ignoring unknown option -$opt"); }
+  } else {
+    push(@args,$arg);
+  }
+}
+if (@args > 0) {
+  $cmd = $args[0];
+  if ($cmd eq 'import') {
+    unless (@args > 1) { basemsg("missing arg 'dir' for import"); exit 1; }
+    $outdir = (@args > 1) ? $args[1] : '.';
+    $indir = (@args > 2) ? $args[2] : $outdir;
+    $indir = $outdir if $indir eq '=';
+    $indir = $outdir . substr($indir,1) if substr($indir,0,1) eq '=';
+    error_exit("dir $indir does not exist") unless -d $indir;
+    error_exit("dir $outdir does not exist") unless -d $outdir;
+    info("import from $indir to $outdir");
+    if (import($indir)) {
+      writetz($outdir);
+    }
+  } else { error_exit("unknown command '$cmd': known are import"); }
+}
+
+info(plural($warningcnt,"warning")) if $warningcnt;
+
+if ($warningcnt > 1) {
+  while (my ($line,$cnt) = each %warncnts) {
+    info("line $line $warnings{$line} * $cnt");
+  }
+}
+
+info(plural($errorcnt,"error")) if $errorcnt > 1;
+
+# POSIX::_exit($errorcnt > 0);

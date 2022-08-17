@@ -1,0 +1,144 @@
+= tripover - Broad-search journey planner for timetable-based transport
+
+A journey planner good at broad searches.
+Like "from Cairns to Perth, depart any day next week".
+Aiming at the longer distance traveller searching for good trip options.
+
+== Description
+Plan a trip using schedule-based transport such as train, plane, bus or ferry.
+Both advance-bookable and regular.
+Results are to be selected on a handful of criteria, like travel time, price, number of stops or stopover time.
+
+The planner runs on a server, accessed by local and web clients.
+
+=== Goals
+
+* flexible dates with broad date ranges
+* include nearby airports or stations
+* consider price, time, conditions or a combination
+* real-time updates, like planned changes, disruptions and fare availability
+
+=== Non-goals
+
+* booking+ticketing
++
+[small]#only up-to-date fare availability#
++
+
+* lightweigt edition
++
+[small]#aim at higher system requirements#
+
+== Status
+Operational - working on larger networks.
+
+Results are promising, search times are good and search criteria are honoured.
+Setups with 500K+ stops and 25K routes, e.g. entire US, are handled well.
+Trips that can be compared with existing planners, such as the agency's own online planner service, show comparable results.
+Trips that existing planners cannot handle often look promising.
+
+* Handle timezones including DST and localtime display
+* Combine multiple datasets automatically
+* local commandline client and CGI web interfaces
+* initial provision for handling of reserved transport
+* automtic inference of walkable distances and eligible taxi routes
+* walkable distances and taxi routes estimated over a road network
+* Up to 11 transfers, 15 in special cases.
+
+* No price/fare display or search yet
+
+== Installation
+
+Below is a short version of how to install and run : see the wiki for more complete doc.
+
+You can compile, install and run the program in any directory. The chosen dir is henceforth referred to by +project root+.
+In the examples below, this project root is shown as current dir +./+.
+
+=== Prerequisites
+Most unix-like systems like Linux, Mac OS X, Solaris and FreeBSD are suitable, as Tripover only uses C99 and Posix features. A 64-bits system is recommended given the size of typical data sets.
+
+You need a relatively modern C99 compiler, for example clang ( = Xcode ), gcc or icc. Tripover uses C11 language features conditionally.
+
+Further you need Perl 5.12 or higher with module perl-Time-HiRes
+
+=== Quick setup
+
+A setup script +setup.sh+ is provided that performs the following steps:
+
+* configure compiler
+* build
+* initialise
+
+You may want to adapt it for your needs.
+
+For reference, these steps are explained in detail in the wiki.
+
+== Usage
+
+=== GTFS feed
+
+Prepare a GTFS feed by unpacking into any directory. Below southeast Queensland is used as example:
+
+`mkdir -p au/qld/seq/in && cd au/qld/seq/in`
+
+`wget http://translink.com.au/sites/default/files/assets/resources/about-translink/reporting-and-publications/open-data/gtfs/SEQ.zip`
+
+`unzip SEQ`
+
+`cd ../../../..`
+
+Preprocess data and write as tripover format. 
+
+`gtfsprep -startdate=20160101 -enddate=20160120 au/qld/seq/in`
+
+`gtfstool import au/qld/seq au/qld/seq/in`
+
+Check for any errors or warnings in the output. The console output is duplicated in +gtfstool.log+
+Make sure you select an appropriate date range, not exceeding a month.
+
+Run tripover server with this network:
+
+`./tripover au/qld/seq`
+
+This will initialise and precompute the network. For the 12000-stops network above, precomputed to 1 transfer it takes a handful of minutes.
+When done, a commandloop is entered, processing plan queries from a client.
+If invoked with option +-b+, the server runs in the background, detached from the terminal.
+You can inspect the logfile in the same dir as the loaded network.
+
+Invoke the commandline client :
+
+`./plantrip plan nambour bunya`
+
+Currently, tripover calculates a single possible trip, preferring shorter overall travel time.
+You can use a set of search criteria to further steer your search. See the wiki for details.
+
+See the wiki page for optional steps to support localtime result display and to support road networks.
+
+No cost yet.
+
+== Configuration
+
+By default tripover reads its runtine configuration from +tripover.cfg+
+
+After tripover has been run, the configuration in effect is written to +tripover.curcfg+
+
+You can use the latter as a starting point for the former. It shows all defaults, as well as a short description.
+
+== Issues ==
+
+At the time of this writing, Tripover is in its second public beta stage of development.
+
+* Taxi links are assessed with an approximate road network. Your mileage may vary in terms of realistic speeds.
+
+== Author
+
+Joris van der Geer
+
+
+== Contributing
+
+== License
+This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+
+Last changed 20 Jan 2016

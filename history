@@ -1,0 +1,1039 @@
+Date:   Tue Apr 26 20:16:33 2016 +1000
+
+    process transfers part 1
+
+Date:   Wed Apr 20 20:30:16 2016 +1000
+
+    minor
+
+Date:   Wed Apr 13 09:35:02 2016 +1000
+
+    fixes
+
+Date:   Mon Mar 21 09:30:18 2016 +1000
+
+    html report, rework plan cmdline
+
+Date:   Sun Mar 13 12:48:37 2016 +1000
+
+    handle fares
+
+Date:   Sat Mar 12 09:02:50 2016 +1000
+
+    add static fares
+
+Date:   Fri Mar 11 12:04:29 2016 +1000
+
+    minor
+
+Date:   Tue Mar 8 08:01:52 2016 +1000
+
+    new tz db
+
+Date:   Sat Feb 27 18:59:12 2016 +1000
+
+    use via list,enable fares,top-n trips,multithreaded search,refine airline assignment,initial connected carriers
+
+Date:   Thu Jan 28 14:17:31 2016 +1000
+
+    merge duplicate routes, minor fixes
+
+Date:   Wed Jan 20 21:35:33 2016 +1000
+
+    deployment utils
+
+Date:   Sun Jan 17 19:47:00 2016 +1000
+
+    infer taxi links by profile query, improve srcinf
+
+Date:   Thu Jan 14 18:06:04 2016 +1000
+
+    code cleanup
+
+Date:   Wed Jan 13 09:28:30 2016 +1000
+
+    configurable geo grid
+
+Date:   Fri Jan 8 20:25:58 2016 +1000
+
+    support geo stops
+
+Date:   Sun Jan 3 08:58:27 2016 +1000
+
+    support dual-mode setup
+
+Date:   Sat Jan 2 21:01:51 2016 +1000
+
+    prepare geo places, fix air-ground separation
+
+Date:   Fri Jan 1 16:10:38 2016 +1000
+
+    configure min tx time plus minors
+
+Date:   Thu Dec 31 19:33:03 2015 +1000
+
+    code cleanup
+
+Date:   Thu Dec 31 17:47:53 2015 +1000
+
+    install script and feed config
+
+Date:   Thu Dec 31 11:12:16 2015 +1000
+
+    fixes for car routing
+
+Date:   Mon Dec 28 21:51:55 2015 +1000
+
+    fixes
+
+Date:   Mon Dec 28 21:38:36 2015 +1000
+
+    infer taxi links on road map, conserve memory
+
+Date:   Fri Dec 25 16:37:23 2015 +1000
+
+    prepare car routing, improve road search scalability
+
+Date:   Thu Dec 24 14:41:44 2015 +1000
+
+    base walk links on road network
+
+Date:   Tue Dec 22 19:55:36 2015 +1000
+
+    refine coarse geodist, optional groundonly net, prepare openstreetmap use
+
+Date:   Fri Dec 18 18:49:41 2015 +1000
+
+    rudimentary street network
+
+Date:   Tue Dec 15 21:43:45 2015 +1000
+
+    code cleanup
+
+Date:   Sat Dec 12 08:45:46 2015 +1000
+
+    refine clustering, optionally omit walks besides links
+
+Date:   Wed Dec 9 19:32:45 2015 +1000
+
+    initial openstreetmap import
+
+Date:   Tue Dec 8 20:59:04 2015 +1000
+
+    handle year wraps
+
+Date:   Tue Dec 8 17:17:23 2015 +1000
+
+    minor
+
+Date:   Mon Dec 7 21:14:23 2015 +1000
+
+    reuse events
+
+Date:   Mon Dec 7 12:58:28 2015 +1000
+
+    refine search stats and srcinf
+
+Date:   Sun Dec 6 06:45:27 2015 +1000
+
+    dynamic search config
+
+Date:   Sat Dec 5 16:45:18 2015 +1000
+
+    refine auto flex day, spare time handling and prepare dynamic search config
+
+Date:   Thu Dec 3 22:49:13 2015 +1000
+
+    import united air + misc
+
+Date:   Tue Dec 1 19:05:21 2015 +1000
+
+    precompute and filter on minimum transfers
+
+Date:   Sun Nov 29 21:44:10 2015 +1000
+
+    filter on min txtime
+
+Date:   Fri Nov 27 21:15:14 2015 +1000
+
+    recognise hubs
+
+Date:   Thu Nov 26 08:02:56 2015 +1000
+
+    fixes
+
+Date:   Tue Nov 24 21:16:30 2015 +1000
+
+    misc enhancements
+
+Date:   Sun Nov 22 14:05:34 2015 +1000
+
+    update 3-stop precompute
+
+Date:   Thu Nov 19 19:59:54 2015 +1000
+
+    replace altlimit with timelimit plus minors
+
+Date:   Wed Nov 18 07:14:40 2015 +1000
+
+    rework timers, refine same-route tranfers
+
+Date:   Mon Nov 16 06:42:08 2015 +1000
+
+    reorganise 2-via search
+
+Date:   Fri Nov 13 20:49:57 2015 +1000
+
+    only handle overtaking events when needed
+
+Date:   Thu Nov 12 20:49:28 2015 +1000
+
+    fixes, enhancements and cleanup
+
+Date:   Mon Nov 9 10:29:35 2015 +1000
+
+    fixes and cleanup
+
+Date:   Sun Nov 8 16:32:51 2015 +1000
+
+    refine sort and filter, detailed transfer times
+
+Date:   Fri Nov 6 22:40:35 2015 +1000
+
+    sort vias on coarse distance
+
+Date:   Wed Nov 4 10:13:14 2015 +1000
+
+    minor
+
+Date:   Tue Nov 3 21:43:02 2015 +1000
+
+    improve robustness
+
+Date:   Mon Nov 2 08:04:44 2015 +1000
+
+    various refinements
+
+Date:   Sun Nov 1 00:41:47 2015 +1000
+
+    local time display + relative events
+
+Date:   Sat Oct 31 12:58:59 2015 +1000
+
+    prepare localtime display, fix grouping
+
+Date:   Fri Oct 30 10:39:37 2015 +1000
+
+    eng provisions + fixes
+
+Date:   Thu Oct 29 19:08:49 2015 +1000
+
+    report airline names
+
+Date:   Thu Oct 29 16:29:03 2015 +1000
+
+    better handling of stations in grouping
+
+Date:   Thu Oct 29 08:59:51 2015 +1000
+
+    minor improvements
+
+Date:   Tue Oct 27 20:15:24 2015 +1000
+
+    refine walk links + various fixes
+
+Date:   Sun Oct 25 10:42:40 2015 +1000
+
+    fix estdur and search
+
+Date:   Thu Oct 22 19:53:47 2015 +1000
+
+    fixes + minors
+
+Date:   Tue Oct 20 21:05:53 2015 +1000
+
+    compact estdur and search event store
+
+Date:   Mon Oct 19 08:25:54 2015 +1000
+
+    minor
+
+Date:   Sun Oct 18 17:14:17 2015 +1000
+
+    readjust event compression
+
+Date:   Sun Oct 18 08:04:34 2015 +1000
+
+    precompute sorted search lists
+
+Date:   Thu Oct 15 20:25:24 2015 +1000
+
+    repair event compression and search filters
+
+Date:   Tue Oct 13 09:45:26 2015 +1000
+
+    fixes and refinements
+
+Date:   Sun Oct 11 11:31:21 2015 +1000
+
+    minor engineering provisions
+
+Date:   Sat Oct 10 20:47:15 2015 +1000
+
+    refine n-stop config
+
+Date:   Thu Oct 1 18:32:49 2015 +1000
+
+    minor
+
+Date:   Wed Sep 30 21:14:15 2015 +1000
+
+    fixes
+
+Date:   Tue Sep 29 20:22:58 2015 +1000
+
+    3-stop precompute
+
+Date:   Mon Sep 28 08:49:28 2015 +1000
+
+    refine estdur, fix hourmap
+
+Date:   Wed Sep 23 23:00:23 2015 +1000
+
+    fixes and improvements
+
+Date:   Sun Sep 20 21:36:21 2015 +1000
+
+    code cleanup
+
+Date:   Sun Sep 20 15:42:14 2015 +1000
+
+    precompute ground transport separately
+
+Date:   Sat Sep 19 17:37:36 2015 +1000
+
+    fix estdur, streamline event merge
+
+Date:   Wed Sep 16 09:38:35 2015 +1000
+
+    scalable sparse mem, multithreaded 1-stop pass 1
+
+Date:   Tue Sep 15 09:25:02 2015 +1000
+
+    minor
+
+Date:   Sat Sep 12 21:40:37 2015 +1000
+
+    do not group linked stops
+
+Date:   Wed Sep 9 10:57:43 2015 +1000
+
+    fixes and improvements
+
+Date:   Sun Aug 30 22:17:12 2015 +1000
+
+    configurable hash tables
+
+Date:   Sun Aug 30 16:30:30 2015 +1000
+
+    merge similar events, use hour- and daymaps for auto time window
+
+Date:   Fri Aug 28 16:23:44 2015 +1000
+
+    refine event admin, improve n-stop net filters
+
+Date:   Wed Aug 26 19:05:50 2015 +1000
+
+    filter duplicate hops for 0-stop net
+
+Date:   Wed Aug 26 09:47:28 2015 +1000
+
+    multithreaded 1-stop precompute
+
+Date:   Tue Aug 25 12:22:23 2015 +1000
+
+    compact store for n-stop net
+
+Date:   Sat Aug 22 22:06:11 2015 +1000
+
+    fixes and diags
+
+Date:   Sat Aug 22 10:26:38 2015 +1000
+
+    filter redundant links, fix depwin
+
+Date:   Sat Aug 22 07:50:18 2015 +1000
+
+    more mutithreading for 2-stop calcs
+
+Date:   Fri Aug 21 15:30:04 2015 +1000
+
+    code cleanup
+
+Date:   Fri Aug 21 14:59:21 2015 +1000
+
+    minor
+
+Date:   Fri Aug 21 14:58:20 2015 +1000
+
+    multithreaded 2-stop precompute
+
+Date:   Fri Aug 21 14:57:08 2015 +1000
+
+    handle taxi links like walk links
+
+Date:   Thu Aug 20 14:31:28 2015 +1000
+
+    64 bits net offsets
+
+Date:   Wed Aug 19 18:14:55 2015 +1000
+
+    code cleanup
+
+Date:   Wed Aug 19 18:03:36 2015 +1000
+
+    third public beta
+
+Date:   Sun Aug 16 20:59:32 2015 +1000
+
+    fixes and improvements
+
+Date:   Fri Aug 14 20:40:15 2015 +1000
+
+    fixes and improvements
+
+Date:   Thu Aug 13 09:49:02 2015 +1000
+
+    fixes and improvements
+
+Date:   Mon Aug 10 11:31:58 2015 +1000
+
+    improve timetable import
+
+Date:   Fri Aug 7 21:04:47 2015 +1000
+
+    generic timetable 2 gtfs
+
+Date:   Sun Aug 2 08:41:19 2015 +1000
+
+    various improvements
+
+Date:   Mon Jul 27 19:37:39 2015 +1000
+
+    various improvements
+
+Date:   Mon Jul 27 19:36:33 2015 +1000
+
+    add strict mode
+
+Date:   Mon Jul 27 19:35:52 2015 +1000
+
+    better estimate of typical frequency
+
+Date:   Sat Jul 25 21:16:21 2015 +1000
+
+    coverity scan
+
+Date:   Sat Jul 25 21:15:03 2015 +1000
+
+    revise max transfer time, improve transit pattern estimate
+
+Date:   Sat Jul 25 14:19:53 2015 +1000
+
+    cleanup
+
+Date:   Fri Jul 24 22:00:31 2015 +1000
+
+    rework 1-stop precompute
+
+Date:   Fri Jul 24 21:09:56 2015 +1000
+
+    new search strategy
+
+Date:   Fri Jul 24 16:09:19 2015 +1000
+
+    minor
+
+Date:   Fri Jul 24 15:47:53 2015 +1000
+
+    first 3 times 1-stop search
+
+Date:   Fri Jul 24 15:35:15 2015 +1000
+
+    rework 2-stop precomputing
+
+Date:   Wed Jul 22 08:14:24 2015 +1000
+
+    detect round trips, improve diags
+
+Date:   Mon Jul 20 22:14:20 2015 +1000
+
+    support gtfs frequency schedules
+
+Date:   Mon Jul 20 19:25:23 2015 +1000
+
+    improve auto-depart time window
+
+Date:   Fri Jul 17 20:17:27 2015 +1000
+
+    scalable walk links,connectivity test
+
+Date:   Mon Jul 13 10:05:00 2015 +1000
+
+    varous improvements
+
+Date:   Sun Jul 12 20:40:50 2015 +1000
+
+    redo clustering
+
+Date:   Sat Jul 11 20:07:28 2015 +1000
+
+    skyteam import
+
+Date:   Tue Jul 7 18:39:34 2015 +1000
+
+    manage feeds
+
+Date:   Sat Jul 4 19:17:09 2015 +1000
+
+    handle more feeds
+
+Date:   Fri Jul 3 10:47:36 2015 +1000
+
+    infer routes from trips
+
+Date:   Thu Jul 2 08:32:09 2015 +1000
+
+    check flight duration + minor
+
+Date:   Mon Jun 29 20:28:20 2015 +1000
+
+    improve skyteam import
+
+Date:   Mon Jun 29 08:20:12 2015 +1000
+
+    support DST
+
+Date:   Sun Jun 28 06:53:20 2015 +1000
+
+    fix event compression
+
+Date:   Wed Jun 24 19:21:57 2015 +1000
+
+    elementary network visualiser
+
+Date:   Wed Jun 24 19:19:27 2015 +1000
+
+    compact event store
+
+Date:   Tue Jun 23 09:00:27 2015 +1000
+
+    compact store for events
+
+Date:   Thu Jun 18 18:52:22 2015 +1000
+
+    fixes + prepare event merging
+
+Date:   Mon Jun 1 15:11:20 2015 +1000
+
+    skyteam import
+
+Date:   Thu May 28 18:39:34 2015 +1000
+
+    handle large nets, soft period limit
+
+Date:   Sat May 23 22:24:19 2015 +1000
+
+    handle xlarge feeds + gtfsprep fixes
+
+Date:   Thu May 21 17:31:30 2015 +1000
+
+    sped up geocode
+
+Date:   Tue May 19 12:48:49 2015 +1000
+
+    use sparse arrays, prepare improved geocode
+
+Date:   Mon May 18 09:41:11 2015 +1000
+
+    sparse array for net counts
+
+Date:   Fri May 15 20:40:18 2015 +1000
+
+    prepare indirect addressing
+
+Date:   Tue May 12 21:30:53 2015 +1000
+
+    remove unused header
+
+Date:   Tue May 12 09:38:57 2015 +1000
+
+    code cleanup
+
+Date:   Fri May 8 22:22:00 2015 +1000
+
+    first public beta at timeandwheel.com
+
+Date:   Sat May 2 20:13:11 2015 +1000
+
+    improvements
+
+Date:   Sun Apr 26 08:13:28 2015 +1000
+
+    improvements and fixes
+
+Date:   Thu Apr 23 19:13:38 2015 +1000
+
+    filter on transport modes
+
+Date:   Wed Apr 22 09:30:33 2015 +1000
+
+    fixes for compound events, join eligible trips
+
+Date:   Mon Apr 20 20:34:03 2015 +1000
+
+    sort trips in gtfsprep, join eligible trips
+
+Date:   Sat Apr 18 18:38:16 2015 +1000
+
+    compound events for transit patterns and search
+
+Date:   Mon Apr 13 06:54:41 2015 +1000
+
+    improve search, skip one-time services
+
+Date:   Sun Apr 12 08:11:54 2015 +1000
+
+    improve and speedup 2-stop precompute
+
+Date:   Fri Apr 10 16:32:08 2015 +1000
+
+    improve air mode, fix deptime window
+
+Date:   Tue Apr 7 14:43:18 2015 +1000
+
+    geocode in C, prepare air mode, robustness
+
+Date:   Thu Apr 2 15:25:42 2015 +1000
+
+    fixes and improvements
+
+Date:   Thu Apr 2 15:24:33 2015 +1000
+
+    fixes and improvements
+
+Date:   Tue Mar 31 00:52:44 2015 +1000
+
+    improvements and fixes
+
+Date:   Sat Mar 28 22:14:03 2015 +1000
+
+    improve air travel
+
+Date:   Fri Mar 27 08:12:18 2015 +1000
+
+    last-minute update
+
+Date:   Thu Mar 26 17:41:13 2015 +1000
+
+    add background option, tune search
+
+Date:   Wed Mar 25 16:41:53 2015 +1000
+
+    minor
+
+Date:   Tue Mar 24 13:46:25 2015 +1000
+
+    fixes
+
+Date:   Tue Mar 24 13:39:54 2015 +1000
+
+    improvements + fixes
+
+Date:   Mon Mar 16 16:17:18 2015 +1000
+
+    various improvements
+
+Date:   Fri Mar 13 16:59:00 2015 +1000
+
+    run query in child process, report next departure
+
+Date:   Thu Mar 12 09:51:45 2015 +1000
+
+    add cgi mode + fixes
+
+Date:   Thu Mar 12 09:48:38 2015 +1000
+
+    add cgi mode + fixes
+
+Date:   Thu Mar 12 09:46:03 2015 +1000
+
+    add cgi mode + fixes
+
+Date:   Tue Mar 10 06:55:05 2015 +1000
+
+    fixes
+
+Date:   Sun Mar 8 12:44:27 2015 +1000
+
+    move grouping and filtering to gtfsprep, fix events
+
+Date:   Fri Mar 6 20:45:39 2015 +1000
+
+    fixes
+
+Date:   Fri Mar 6 07:37:48 2015 +1000
+
+    improved handling of parent stations
+
+Date:   Tue Mar 3 12:26:33 2015 +1000
+
+    minor fixes, enhance search strategy
+
+Date:   Sat Feb 28 21:29:49 2015 +1000
+
+    add web proxy, rework result formatting
+
+Date:   Sun Feb 22 19:50:36 2015 +1000
+
+    more fixes and memory savings
+
+Date:   Fri Feb 20 21:36:14 2015 +1000
+
+    fixes + memory save
+
+Date:   Thu Feb 19 13:25:23 2015 +1000
+
+    prepare reserved transport
+
+Date:   Tue Feb 17 14:55:20 2015 +1000
+
+    fix service ID references
+
+Date:   Mon Feb 16 22:05:49 2015 +1000
+
+    fixes
+
+Date:   Mon Feb 16 18:34:42 2015 +1000
+
+    improve 2-stop precompute and 2-stop search
+
+Date:   Mon Feb 16 18:33:59 2015 +1000
+
+    improve 2-stop precompute and 2-stop search
+
+Date:   Thu Feb 12 14:47:27 2015 +1000
+
+    2-stop transfer time avg, configurable walk limit
+
+Date:   Wed Feb 11 18:22:45 2015 +1000
+
+    rework transfer time averager
+
+Date:   Sun Feb 8 19:44:13 2015 +1000
+
+    search one leg above precomputed, improve avg duratiuons
+
+Date:   Sat Feb 7 12:07:16 2015 +1000
+
+    Improve distance calcs
+
+Date:   Thu Feb 5 15:27:49 2015 +1000
+
+    fixes to search and compound
+
+Date:   Wed Feb 4 18:16:50 2015 +1000
+
+    Change title
+
+Date:   Wed Feb 4 16:08:18 2015 +1000
+
+    fixes for MacOSx
+
+Date:   Wed Feb 4 15:53:12 2015 +1000
+
+    cleanup
+
+Date:   Tue Feb 3 19:20:52 2015 +1000
+
+    use gtfsprep, fix duration
+
+Date:   Mon Feb 2 17:08:29 2015 +1000
+
+    lookup by coords
+
+Date:   Mon Feb 2 14:24:32 2015 +1000
+
+    add display tz, fixes, enhancements
+
+Date:   Sun Feb 1 19:06:14 2015 +1000
+
+    initial trip time based precompute
+
+Date:   Sun Feb 1 07:28:54 2015 +1000
+
+    minor
+
+Date:   Thu Jan 29 22:16:03 2015 +1000
+
+    compound before partition
+
+Date:   Wed Jan 28 23:01:18 2015 +1000
+
+    fixes to calendar, support multiple results
+
+Date:   Fri Jan 23 11:51:30 2015 +1000
+
+    fix events
+
+Date:   Thu Jan 22 14:17:15 2015 +1000
+
+    add route info
+
+Date:   Wed Jan 21 15:19:42 2015 +1000
+
+    support 1-stop at topnet search, fix compound time
+
+Date:   Tue Jan 20 15:38:22 2015 +1000
+
+    use chains for compound time
+
+Date:   Sat Jan 17 20:48:16 2015 +1000
+
+    simple merge + various improvements
+
+Date:   Fri Jan 16 06:59:49 2015 +1000
+
+    gtfstool overhaul, walk link fixes
+
+Date:   Fri Jan 9 20:05:45 2015 +1000
+
+    fixes + improved client interface
+
+Date:   Wed Jan 7 16:06:06 2015 +1000
+
+    infer walk links
+
+Date:   Tue Jan 6 12:09:55 2015 +1000
+
+    compound on chains instead of routes
+
+Date:   Sun Jan 4 14:33:46 2015 +1000
+
+    fix time search + improve net coverage
+
+Date:   Fri Jan 2 13:30:49 2015 +1000
+
+    initial time search
+
+Date:   Tue Dec 30 06:26:08 2014 +1000
+
+    rework initial search + fixes
+
+Date:   Mon Dec 22 18:05:31 2014 +1000
+
+    initial route-only search
+
+Date:   Tue Dec 16 06:25:46 2014 +1000
+
+    redo partitioning
+
+Date:   Sun Nov 30 19:45:27 2014 +1000
+
+    overhaul
+
+Date:   Mon Nov 24 07:30:37 2014 +1000
+
+    redo consense, refactor
+
+Date:   Thu Nov 20 08:19:49 2014 +1000
+
+    redo compound
+
+Date:   Thu Nov 20 08:16:48 2014 +1000
+
+    minor
+
+Date:   Fri Nov 14 05:43:04 2014 +1000
+
+    prepare time step 3: store timetables
+
+Date:   Tue Nov 11 07:38:39 2014 +1000
+
+    prepate time step 3 : find repeat patterns
+
+Date:   Sat Nov 8 07:16:39 2014 +1000
+
+    prepare time step 2
+
+Date:   Sat Nov 8 07:15:17 2014 +1000
+
+    minor
+
+Date:   Tue Nov 4 13:00:30 2014 +1000
+
+    prepare timetables
+
+Date:   Mon Nov 3 14:49:11 2014 +1000
+
+    fixes
+
+Date:   Sun Nov 2 20:29:46 2014 +1000
+
+    skip vias on same route
+
+Date:   Sat Nov 1 20:31:22 2014 +1000
+
+    fix route reconstruction
+
+Date:   Thu Oct 30 09:48:21 2014 +1000
+
+    handle parent stations
+
+Date:   Mon Oct 27 07:21:32 2014 +1000
+
+    improve net init performance
+
+Date:   Sun Oct 26 18:41:57 2014 +1000
+
+    work on partitions
+
+Date:   Sun Oct 26 18:30:29 2014 +1000
+
+    minor
+
+Date:   Fri Oct 24 12:22:26 2014 +1000
+
+    prepare partitioning
+
+Date:   Fri Oct 24 12:20:58 2014 +1000
+
+    minor
+
+Date:   Sun Oct 19 10:30:46 2014 +1000
+
+    improve condense, refactor
+
+Date:   Fri Oct 17 19:38:13 2014 +1000
+
+    first part of compound hops from routes
+
+Date:   Fri Oct 17 18:47:44 2014 +1000
+
+    separate routes into dir and variant
+
+Date:   Wed Oct 15 13:24:41 2014 +1000
+
+    minor
+
+Date:   Wed Oct 15 10:52:31 2014 +1000
+
+    run stages conditionally
+
+Date:   Wed Oct 15 10:34:50 2014 +1000
+
+    run stages conditionally
+
+Date:   Sun Oct 5 17:42:43 2014 +1000
+
+    handle gtfs stations
+
+Date:   Sat Oct 4 21:11:34 2014 +1000
+
+    first part of condense: miniports
+
+Date:   Sat Oct 4 21:10:31 2014 +1000
+
+    first part of condense: miniports
+
+Date:   Sat Oct 4 21:08:57 2014 +1000
+
+    fixes and enhancements
+
+Date:   Sat Oct 4 21:07:49 2014 +1000
+
+    minor enhancements
+
+Date:   Sun Sep 28 21:04:34 2014 +1000
+
+    fixes
+
+Date:   Sun Sep 28 20:36:26 2014 +1000
+
+    rudimentary gtfs import
+
+Date:   Sun Sep 28 20:35:48 2014 +1000
+
+    fixes
+
+Date:   Sun Sep 28 20:34:59 2014 +1000
+
+    minor
+
+Date:   Sat Sep 27 13:58:07 2014 +1000
+
+    initial external net reader
+
+Date:   Fri Sep 26 13:50:11 2014 +1000
+
+    initial route-only search
+
+Date:   Fri Sep 26 13:48:30 2014 +1000
+
+    minor
+
+Date:   Thu Sep 25 20:00:19 2014 +1000
+
+    initial client-server interface
+
+Date:   Sun Sep 21 10:04:38 2014 +1000
+
+    minor
+
+Date:   Sat Sep 20 20:22:53 2014 +1000
+
+    add simple config logic
+
+Date:   Sat Sep 20 17:45:44 2014 +1000
+
+    fixes
+
+Date:   Sat Sep 20 16:30:26 2014 +1000
+
+    static network init
+
+Date:   Sat Sep 20 16:29:32 2014 +1000
+
+    add and rearrange utilities
+
+Date:   Sat Sep 20 16:24:17 2014 +1000
+
+    add and rearrange utilities
+
+Date:   Tue Sep 16 12:26:01 2014 +1000
+
+    initial artificial network
+
+Date:   Tue Sep 16 12:24:18 2014 +1000
+
+    minor
+
+Date:   Tue Sep 16 12:18:40 2014 +1000
+
+    add static option
+
+Date:   Sun Sep 7 21:41:49 2014 +1000
+
+    initial network defines
+
+Date:   Sun Sep 7 21:26:50 2014 +1000
+
+    fixes
+
+Date:   Tue Sep 2 22:01:03 2014 +1000
+
+    Initial framework
+
+Date:   Mon Aug 11 14:02:12 2014 +1000
+
+    initial empty repos

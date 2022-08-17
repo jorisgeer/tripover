@@ -1,0 +1,2156 @@
+#!/usr/bin/perl -W
+
+# plantrip - local commandline client for tripover
+
+# This file is part of Tripover, a broad-search journey planner.
+
+#  Copyright (C) 2014-2017 Joris van der Geer.
+
+# Post trip requests to a local queue, and watch that queue for answers
+# the queue location is configured in the server, yet created here if nonexistent
+
+use 5.012;
+use strict;
+use utf8;
+
+use POSIX ();
+use POSIX qw(strftime);
+use Fcntl ':mode';
+use Time::HiRes qw(gettimeofday);
+
+my $version_maj = 1;
+my $version_min = 0;
+my $lastchanged = " 3 May 2017";
+
+my $copyright = "Copyright (C) 2014-2017 Joris van der Geer";
+
+my $verbose = 0;
+my $dryrun = 0;
+
+my $currentconfig = 'tripover.cfg-*.cur';
+my $querydirvar = 'querydir';
+my $querydir = 'queries';
+
+my $iscgi = 0;
+
+my $repdir = 'rep';
+my $repfile = $repdir . '/plantrip.rep';
+my $reqid = 0;
+
+my $portrefname = 'portrefs.txt';
+my $pportrefname = 'pportrefs.txt';
+my $haveportrefs = 0;
+my @portrefs;
+my %stopids;
+
+my $timeoutbase = 3; # seconds per timelimit
+my $timeout = 4; # seconds
+
+my $agelimit = 60; # seconds
+my $repagelimit = 7200; # seconds
+
+my $foreground = 1;
+
+my $do_lcname = 0;
+
+# defaults, modifyable with 'set' cmd or args
+my $maxstop = 15;
+my $minstop = 0;
+my $maxnetstop = 3;
+
+my $plushour = 0;  # implies auto
+my $minhour = 0;
+
+my $startdatetime = 0; # implies start of service
+my $transfercost = 1;
+my $srcmode = 2; # xtime
+my $walklimit = 1500;
+my $walkspeed = 5000;
+my $sumwalklimit = 4000;
+my $timelimit = 2;
+
+my $repopt_stopid = 1;
+my $repopt_coords = 2;
+my $repopt_html = 4;
+my $repopt_int = 8;
+
+my $repoptions = 0;
+
+my $txmodes = 11111111;  # foot,taxi,ferry,bus,train,dom.plane,int.plane
+
+my $tzdef = 'Australia/Brisbane';
+my $tz;
+my $utcofs = '+10:00';
+
+my $utcofs12 = 2200;  # biased coded decimal
+my $dsputcofs12 = 2600;  # implies localtime
+my $utcofs12_def = 2200;
+my $utcofsmin = 10 * 60;
+my $sysutcofs;  # utc offset for current system
+
+my $ntop = 2;
+
+my $geoscale = 1000000; # match with .js
+
+my $nondigits = qr'[^0-9]';
+
+sub tohex($) {
+  my $x = shift;
+  if ($x =~ $nondigits) { warning("ignoring non-numerical $x"); $x = 0; }
+  return sprintf("%02x",$x);
+}
+
+my $mintt_Ax = tohex(60);
+my $mintt_AA = tohex(60);
+my $mintt_Aa = tohex(90);
+my $mintt_ax = tohex(45);
+my $mintt_aA = tohex(90);
+my $mintt_aa = tohex(30);
+my $mintt_xA = tohex(120);
+my $mintt_xa = tohex(60);
+
+my $mintt_tt = tohex(4);
+my $mintt_bx = tohex(5);
+my $mintt_xb = tohex(5);
+my $mintt_xf = tohex(10);
+my $mintt_fx = tohex(10);
+
+my $prvdep = 0;
+my $prvarr = 0;
+
+# engineering test provisions
+my $testiter = 0;
+
+my $testiters = 1000;
+
+my $stats_trip = 0;
+my $stats_notrip = 0;
+my $stats_error = 0;
+
+# stop at most compile-time warnings
+local $SIG{__WARN__} = sub { print "$_[0]\n"; exit 1 unless index($_[0],'utf8') == 0; };
+
+my $logname = 'plantrip.log';
+my $logfd;
+
+# rotate log
+#if (-t STDOUT) {
+sub initlog()
+{
+  for (my $bck = 2; $bck >= 0; $bck--) {
+    rename($logname . '.' . $bck,$logname . '.' . ($bck+1)) if (-f $logname . '.' . $bck);
+  }
+  rename($logname,$logname . '.0') if -f $logname;
+  open($logfd,'>:encoding(utf8)',$logname) or print("cannot create $logname:$!");
+}
+#}
+
+# unbuffered i/o
+my $orgfh = select STDOUT; $| = 1; select STDERR; $| = 1; select $orgfh;
+
+binmode(STDOUT,':utf8');
+
+my %portnames;
+my %portids;
+my %idbysub;
+my (%portlats,%portlons,%portrlats,%portrlons,%portmodes);
+my $portcnt = 0;
+
+my ($latscale,$lonscale,$minlat,$maxlat,$minlon,$maxlon,$minrlat,$maxrlat,$minrlon,$maxrlon);
+
+sub msg($) {
+  my ($m) = @_;
+
+  print("$m\n");
+  print($logfd "$m\n") if defined $logfd;
+  return 1;
+}
+
+sub vrb($)     { msg("$_[0]") if $verbose; return 1; }
+sub info($)    { return msg("$_[0]"); }
+sub warning($) { return msg("warning: $_[0]"); }
+
+sub error($)
+{
+  my ($package,$filename,$line,$sub) = caller(0);
+  ($package,$filename,$line,$sub) = caller(1) if $sub eq 'main::error';
+  msg("error at line $line: $_[0]"); return 0;
+}
+
+sub error_exit($) { error($_[0]); exit 1; }
+
+sub max($$) {
+  my ($a,$b) = @_;
+  return ($a > $b ? $a : $b);
+}
+sub min($$) {
+  my ($a,$b) = @_;
+  return ($a < $b ? $a : $b);
+}
+
+sub trimws($) {
+  my ($s) = @_;
+  $s =~ s/[ \t\n]+/ /g;
+  $s =~ s/^ //;
+  $s =~ s/ $//;
+  return $s;
+}
+
+# ref: http://airodyssey.net/reference/airlines/
+my %airlines = (
+'3K','Jetstar Asia',
+'4M','LAN Argentina',
+'9W','Jet Airways',
+'AA','American Airlines',
+'AB','Air Berlin',
+'AC','Air Canada',
+'AF','Air France',
+'AM','Aeromexico',
+'AR','Aerolineas Argentinas',
+'AS','Alaska Airlines',
+'AT','Air Maroc',
+'AX','Amtrak',
+'AY','Finnair',
+'AZ','Alitalia',
+'BA','British Airways',
+'BR','EVA',
+'CA','Air China',
+'CI','China  Airlines',
+'CM','COPA',
+'CX','Cathay Pacific',
+'CZ','China Southern Airlines',
+'DL','Delta Air Lines',
+'EI','Air Lingus',
+'EK','Emirates',
+'FJ','Fiji Airways',
+'GA','Garuda Indonesia',
+'GK','JetStar Japan',
+'HG','Niki',
+'IB','Iberia',
+'IE','Solomon Airlines',
+'IS','island',
+'JJ','Aviogenex',
+'JL','Japan Airlines',
+'JQ','Jetstar',
+'KA','Dragonair',
+'KE','Korean Air',
+'KL','KLM',
+'KQ','Kenya Airways',
+'LA','LAN Airlines',
+'LH','Lufthansa',
+'LO','LOT',
+'LX','Swiss Airlines',
+'ME','MEA Airliban',
+'MF','Xiamen Airlines',
+'MH','Malaysia Airlines',
+'MS','Egypt Airlines',
+'MU','China Eastern Airlines',
+'NF','Air Vanuatu',
+'NH','Nippon Airlines',
+'NZ','Air NZ',
+'OK','Czech Airlines',
+'OS','Austrian Airlines',
+'OU','Croatia Airlines',
+'OZ','Asiana Airlines',
+'PG','Bangkok Airways',
+'PX','Air Niugini',
+'QF','Qantas',
+'QR','Qatar Airways',
+'RJ','Royal Jordanian',
+'RO','Tarom Romanian',
+'S7','Siberia Airlines',
+'SA','South African Airlines',
+'SB','Aircalin',
+'SK','SAS',
+'SN','Brussels Airlines',
+'SU','Aeroflot',
+'SV','Saudi Arabian Airlines',
+'TK','Turkish Airlines',
+'TL','Airnorth Regional',
+'TN','Air Tahiti Nui',
+'TP','TAP',
+'UA','United Airlines',
+'UL','SriLankan Airlines',
+'UX','Air Europa',
+'VN','Vietnam Airlines',
+'VW','Aeromar',
+'WP','Hawaii Airlines',
+'WS','WestJet',
+'XL','LAN Ecuador',
+);
+
+sub filepatindir($$$$)
+{
+  my ($pat,$stamp,$clientid,$dir) = @_;
+
+  my ($dh,$serverid,$tid,$hstamp,$hid,$name);
+  my @names;
+
+  opendir($dh,$dir) or error_exit("cannot open $dir:$!");
+  @names = readdir($dh);
+  closedir($dh);
+  foreach $name (@names) {
+    ($hstamp,$hid,$serverid) = ($name =~ $pat);
+    next unless (defined $hstamp and defined $hid and defined $serverid);
+    $tid = hex($hid);
+    if ($hstamp eq $stamp and $tid == $clientid)  {
+      vrb("reply handled by server $serverid");
+      return $serverid;
+    } else { vrb("reply from $hstamp $tid, expect $stamp $clientid $serverid"); }
+  }
+  return '';
+}
+
+# catchall for any leftover file in query queue.
+sub agedir($$)
+{
+  my ($dir,$limit) = @_;
+
+  my ($dh,$serverid,$tstamp,$tid,$name,$path);
+  my @names;
+
+  my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks);
+
+  opendir($dh,$dir) or error_exit("cannot open $dir:$!");
+  @names = readdir($dh);
+  closedir($dh);
+  foreach $name (@names) {
+    next if $name eq '.' or $name eq '..';
+
+    $path = $dir . '/' . $name;
+
+    stat($path) or return error("cannot access $path: $!");
+    ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks) = stat _;
+    return error("$path is not a regular file") unless S_ISREG($mode);
+
+    if ($mtime < $limit)  {
+      vrb("removing $path on timestamp $mtime below $limit");
+      return 1 if $dryrun;
+      unlink $path or return error("cannot remove $path: $!");
+    }
+  }
+  return 1;
+}
+
+my $pi = 3.141592655;
+my $pi180 = 0.017453293;
+my $geolow = $pi * 2.0e-5; # ~500 m
+my $geolimit = $pi * 1.0e-7;
+my $mean_earth_radius = 6371.0;
+my $approx_surface = sqrt($mean_earth_radius * $mean_earth_radius + $mean_earth_radius * $mean_earth_radius);
+
+sub acos { atan2( sqrt(1 - $_[0] * $_[0]), $_[0] ) }
+
+# Adapted from Tripover:math.c which in turn is adapted from Wikipedia article
+sub geodist($$$$)
+{
+  my ($slat,$slon,$lat,$lon) = @_;
+
+  my ($dist,$dlat,$dlon);
+
+  my $phi1 = $slat * $pi180;
+  my $lam1 = $slon * $pi180;
+  my $phi2 = $lat * $pi180;
+  my $lam2 = $lon * $pi180;
+
+  my $dlam = $lam2 - $lam1;
+  my $dphi = $phi2 - $phi1;
+
+  if (abs($dlam) < $geolow and abs($dphi) < $geolow) { # trivial case: assume flat
+    if (abs($dlam) < $geolimit and abs($dphi) < $geolimit) { # flush to zero
+      return 0;
+    }
+    $dlat = $dlam * $approx_surface * 2 / $pi;
+    $dlon = ($dphi * $approx_surface * 2) / $pi;
+    $dist = sqrt( ($dlat * $dlat) + ($dlon * $dlon));
+    return $dist;
+  }
+
+  my ($d,$dsig);
+
+  $d = sin($phi1) * sin($phi2) + cos($phi1) * cos($phi2) * cos($dlam);
+
+  $dsig = acos($d);
+
+  return $dsig * $mean_earth_radius;
+}
+
+my $repfilefh;
+
+sub addtorep($$$)
+{
+  my ($txt,$append,$html) = @_;
+
+  $append = 0 unless -f $repfile;
+  if ($append == 0) {
+    unless (-d $repdir) {
+      mkdir($repdir) or error_exit("cannot create $repdir: $!");
+    }
+    open($repfilefh,'>:encoding(utf8)',$repfile) or error_exit("cannot open $repfile: $!");
+  }
+  print($repfilefh "$txt\n");
+  return 1 unless $iscgi;
+  if ($repoptions & $repopt_html) {
+    print("$html\n");
+  } else {
+    print("$txt\n");
+  }
+}
+
+# read port to id mappings
+sub readportrefs($)
+{
+  my $pports = shift;
+
+  my ($id,$subid,$name,$lcname,$nlen,$lat,$lon,$modes,$rlat,$rlon,$stopid);
+  my ($fh,$line,$c,$var,$val);
+
+  my $fname = $pports ? $pportrefname : $portrefname;
+  open($fh,'<:encoding(utf8)',$fname) or error_exit("cannot open $fname: $!");
+
+  my @lines = readline($fh);
+  unless (scalar @lines) { error_exit("$fname is empty"); }
+  close $fh;
+
+  foreach $line (@lines) {
+    next unless length($line);
+    $c = chop $line;
+    $line .= $c if $c ne "\n";
+    next unless length($line);
+    $c = substr($line,0,1);
+    next if $c eq '#';
+
+    if ($c eq '.') {
+      ($var,$val) = split("\t",substr($line,1));
+      $tzdef = $val if $var eq 'tz';
+      $latscale = $val if $var eq 'latscale';
+      $lonscale = $val if $var eq 'lonscale';
+      $minlat = $val if $var eq 'minlat';
+      $maxlat = $val if $var eq 'maxlat';
+      $minlon = $val if $var eq 'minlon';
+      $maxlon = $val if $var eq 'maxlon';
+      next;
+    }
+    ($id,$subid,$name,$lat,$lon,$modes,$stopid) = split("\t",$line);
+    next unless defined $id and defined $name;
+    $stopid = 0 unless defined $stopid;
+
+    $portnames{$name} = $subid;
+    if ($do_lcname) {
+      $lcname = lc($name);
+      $portnames{$lcname} = $subid;
+    }
+    $portids{$subid} = $name unless defined $portids{$subid};
+    $idbysub{$subid} = $id;
+    $rlat = ($lat / $latscale) - 90;
+    $rlon = ($lon / $lonscale) - 180;
+    $portrlats{$subid} = $rlat;
+    $portrlons{$subid} = $rlon;
+    $portmodes{$subid} = $modes;
+    $stopids{$subid} = $stopid;
+  }
+  $portcnt = scalar(keys %portids);
+
+  $minrlat = ($minlat / $latscale) - 90 unless defined $minrlat;
+  $maxrlat = ($maxlat / $latscale) - 90 unless defined $maxrlat;
+  $minrlon = ($minlon / $lonscale) - 180 unless defined $minrlon;
+  $maxrlon = ($maxlon / $lonscale) - 180 unless defined $maxrlon;
+
+  info("$portcnt ports from $fname [name] bbox $minrlat - $maxrlat , $minrlon - $maxrlon");
+
+  $haveportrefs = 1;
+}
+
+# as above, geocode version
+sub readportrefs_geo()
+{
+  return if (@portrefs > 0);
+
+  my ($fh,$line,$c,$var,$val);
+
+  my $fname = $portrefname;
+
+  open($fh,'<:encoding(utf8)',$fname) or error_exit("cannot open $fname: $!");
+
+  my @lines = readline($fh);
+  unless (scalar @lines) { error_exit("$fname is empty"); }
+  close $fh;
+
+  foreach $line (@lines) {
+    next unless length($line);
+    $c = chop $line;
+    $line .= $c if $c ne "\n";
+    next unless length($line);
+    $c = substr($line,0,1);
+    next if $c eq '#';
+
+    if ($c eq '.') {
+      ($var,$val) = split("\t",substr($line,1));
+      $tzdef = $val if $var eq 'tz';
+      $latscale = $val if $var eq 'latscale';
+      $lonscale = $val if $var eq 'lonscale';
+      next;
+    }
+    push @portrefs,$line;
+  }
+  $portcnt = scalar @portrefs;
+  info("$portcnt ports [geo]");
+}
+
+# returns sub-id by name
+sub portbyname($)
+{
+  my ($name) = @_;
+
+  my ($port,$id,$subid,$seq,$lcname,$cname,$plen,$line);
+  my @plist;
+
+  readportrefs(0) unless $haveportrefs;
+
+  $lcname = lc($name);
+  if (exists($portnames{$name})) { return $portnames{$name}; }
+  if (exists($portnames{$lcname})) { return $portnames{$lcname}; }
+
+  while (($cname,$subid) = each %portnames) {
+    next unless index($cname,$name) == 0;
+    push @plist,$subid;
+  }
+  return $plist[0] if @plist == 1 and length($name) > 3;
+
+  if (@plist == 0) {
+    while (($cname,$subid) = each %portnames) {
+      next unless index($cname,$name) > 0;
+      push @plist,$subid;
+    }
+  }
+  $plen = scalar(@plist);
+  return $plist[0] if $plen == 1 and length($name) > 3;
+  if ($plen == 0) {
+    info("no matches for '$name'");
+    return '';
+  }
+
+  return $plist[0] if $plen == 1;
+  info("$plen matches for $name");
+  @plist = splice @plist,0,30;
+
+  $seq = 1;
+  foreach $subid (@plist) {
+    printf("%2u %s\n",$seq++,$portids{$subid});
+  }
+  unless ($iscgi == 0 and -t STDIN) {
+    print("noninteractive mode: first match chosen\n");
+    return $plist[0];
+  }
+
+  do {
+    print("\nChoose port by number or q to quit: ");
+    $line = <STDIN>;
+    next unless defined $line and length($line);
+    $line = trimws($line);
+    next unless length($line);
+    return '' if $line eq 'q' or $line eq 'x';
+    if ($line =~ qr'^[0-9]+$') {
+      $seq = $line;
+      if ($seq <= $plen and $seq != 0) {
+        return $plist[$seq - 1];
+      } else {
+        print("port number not in above list\n");
+      }
+    } else {
+      print("expected port number or command\n");
+    }
+  } while 1;
+
+  return '';
+}
+
+sub portbygeo($$)
+{
+  my ($lat,$lon) = @_;
+  my ($clat,$clon,$dist,$lodist,$loid,$pid,$pname,$fmtdist,$mdist);
+  my ($line,$loline);
+  my ($id,$subid,$name,$ilat,$ilon,$rlat,$rlon,$modes);
+
+  $lodist = 999999999; $loid = -1;
+
+  for $line (@portrefs) {
+    ($id,$subid,$name,$ilat,$ilon,$modes) = split("\t",$line);
+
+    $clat = ($ilat / $latscale) - 90;
+    $clon = ($ilon / $lonscale) - 180;
+
+    $dist = geodist($lat,$lon,$clat,$clon);
+    if ($dist < $lodist) { $lodist = $dist; $loid = $subid; $loline = $line; }
+  }
+  if ($loid == -1) {
+    warning("$lat,$lon not found");
+    return -1;
+  }
+  ($id,$subid,$name,$ilat,$ilon,$modes) = split("\t",$loline);
+  $clat = ($ilat / $latscale) - 90;
+  $clon = ($ilon / $lonscale) - 180;
+
+  $pid = $id;
+
+  $mdist = int($lodist * 1000);
+  if ($lodist < 1.500) { $fmtdist = $mdist . ' m'; }
+  else { $fmtdist = sprintf("%.1f",$lodist) . ' Km'; }
+
+  if ($loid == $pid or $loid == $subid) {
+    info("$lat,$lon $fmtdist from $clat,$clon ID $id $subid $name");
+    $pname = $name;
+  } else {
+    $pname = '(unavailable)';
+    info("$lat,$lon $fmtdist from $clat,$clon ID $loid > $pid $name > $pname");
+  }
+  # if id >= portcnt, id - portcnt = subid; subid->parent
+  addtorep("# reqid\tdist\tlat\tlon\tid\tpid\tmodes\tname\tpname",0,'');
+  addtorep(".geo\t$reqid\t$mdist\t$clat\t$clon\t$loid\t$pid\t$modes\t$name\t$pname",1,'');
+
+  return $loid;
+}
+
+my $isgeo = qr'^\s*([+-]?[0-9]+\.[0-9]+)\s*,\s*([+-]?[0-9]+\.[0-9]+)\s*$';
+
+sub geocode($$)
+{
+  my ($lat,$lon) = @_;
+
+  readportrefs_geo();
+  portbygeo($lat,$lon);
+}
+
+sub comopts()
+{
+  my $s = "plushour i $plushour minhour i $minhour\n";
+  $s .= "costperstop i $transfercost\n";
+  $s .= "srcmode i $srcmode\n";
+  $s .= "walkspeed i $walkspeed\n walklimit i $walklimit\nsumwalklimit i $sumwalklimit\n";
+  $s .= "lostop i $minstop\nhistop i $maxstop\n";
+  $s .= "nethistop i $maxnetstop\n" if $maxnetstop < 3;
+  $s .= "dsputcofs i $dsputcofs12\n";
+  $s .= "txmask b $txmodes\n";
+  $s .= "tlimit i $timelimit\n";
+  $s .= "ntop i $ntop\n";
+  $s .= "repoptions i $repoptions\n";
+
+  $s .= "minttAA x $mintt_AA\n";
+  $s .= "minttAa x $mintt_Aa\n";
+  $s .= "minttaa x $mintt_aa\n";
+  $s .= "minttaA x $mintt_aA\n";
+  $s .= "minttAx x $mintt_Ax\n";
+  $s .= "minttxA x $mintt_xA\n";
+  $s .= "minttax x $mintt_ax\n";
+  $s .= "minttxa x $mintt_xa\n";
+
+  $s .= "minttbx x $mintt_bx\n";
+  $s .= "minttxb x $mintt_xb\n";
+  $s .= "mintttt x $mintt_tt\n";
+  $s .= "minttxf x $mintt_xf\n";
+  $s .= "minttfx x $mintt_fx\n";
+
+  $s .= "testiter i $testiter\n" if $testiter;
+
+  # info($s);
+
+  return $s;
+}
+
+# no dep and arr codes, plan directly on lat/lon
+sub docplan($$$$$$$$)
+{
+  my ($deplat,$deplon,$arrlat,$arrlon,$scale,$startdate,$starttime,$utcofs12) = @_;
+
+  my $qstr = "deplat i $deplat\ndeplon i $deplon\nscale i $scale\n";
+  $qstr .= "arrlat i $arrlat\narrlon i $arrlon\n";
+  $qstr .= "deptmin i $startdate\ndepttmin i $starttime\n";
+  $qstr .= "utcofs i $utcofs12\n";
+
+  $qstr .= comopts();
+
+  vrb("\n$qstr\n");
+
+  my $cmd = ($foreground ? 'P' : 'p');
+  query($cmd,'glob',$qstr);
+}
+
+# plan on dep and arr codes previously looked up by geocode
+sub doplan($$$$$)
+{
+  my ($dep,$arr,$startdate,$starttime,$utcofs12) = @_;
+  my ($qstr);
+
+  $qstr = "dep i $dep\narr i $arr\n";
+  $qstr .= "deptmin i $startdate\ndepttmin i $starttime\n";
+  $qstr .= "utcofs i $utcofs12\n";
+
+  $qstr .= comopts();
+
+  vrb("\n$qstr\n");
+
+  my $cmd = ($foreground ? 'P' : 'p');
+  query($cmd,'glob',$qstr);
+}
+
+sub geocode2($$$)
+{
+  my ($lat,$lon,$scale) = @_;
+
+  my $qstr = "lat i $lat\nlon i $lon\nscale i $scale\ntxmask b $txmodes\n";
+
+  my $cmd = 'g';
+  info("$qstr");
+  query($cmd,'glob',$qstr);
+}
+
+sub randport()
+{
+  my $id;
+  my $iter = 0;
+  readportrefs(0) unless $haveportrefs;
+
+  while ($iter++ < 10) {
+    $id = int(rand($portcnt));
+    last if exists $idbysub{$id};
+  }
+  return $id;
+}
+
+sub randgeoport()
+{
+  readportrefs_geo();
+  readportrefs(1) unless $haveportrefs;
+
+  my ($latrng,$lonrng);
+  $latrng = $maxrlat < 0 ? -$minrlat + $maxrlat : $maxrlat - $minrlat;
+  $lonrng = $maxrlon < 0 ? -$minrlon + $maxrlon : $maxrlon - $minrlon;
+
+  my $lat = rand($latrng) + $minrlat;
+  my $lon = rand($lonrng) + $minrlon;
+
+  my $id = portbygeo($lat,$lon);
+
+  return $id;
+}
+
+sub randgeocport()
+{
+  readportrefs_geo();
+  readportrefs(1) unless $haveportrefs;
+
+  my ($latrng,$lonrng);
+  $latrng = $maxrlat < 0 ? -$minrlat + $maxrlat : $maxrlat - $minrlat;
+  $lonrng = $maxrlon < 0 ? -$minrlon + $maxrlon : $maxrlon - $minrlon;
+
+  my $lat = rand($latrng) + $minrlat;
+  my $lon = rand($lonrng) + $minrlon;
+
+  return ($lat,$lon);
+}
+
+sub iplan($$)
+{
+  my ($dep,$arr) = @_;
+
+  my ($rdep,$rarr,$hh,$mm,$dot,$startdate,$starttime,$depgeo,$arrgeo);
+  my $depname = "unknown";
+  my $arrname = "unknown";
+
+  if ($dep ne '*' and $dep ne 'x' and $dep ne 'X' and $dep eq $arr) {
+    info("departure $dep and arrival identical");
+    addtorep("departure stop ID $dep identical to arrival",0,'');
+    return 1;
+  }
+
+  unless (defined $tz) {
+    $utcofs12 = $utcofs12_def;
+    $hh = ($utcofs12 / 100) - 12;
+    $mm = $utcofs12 % 100;
+    $utcofsmin = $hh * 60 + $mm;
+    $utcofs = sprintf("%+02d:%02d",$hh,$mm);
+    $tz = ofs2tz($utcofs);
+    info("using default display tz $tz utc$utcofs from portrefs");
+  }
+
+  $dot = index($startdatetime,'.');
+  $starttime = 0;
+  if ($dot == 0) {
+    $starttime = substr($startdatetime,1);
+    $startdate = 0;
+  } elsif ($dot > 0) {
+    $starttime = substr($startdatetime,$dot+1);
+    $startdate = substr($startdatetime,0,$dot);
+    $starttime = 0 unless defined $starttime and length $starttime;
+  } else {
+    $startdate = $startdatetime;
+  }
+
+  if ($dep eq 'x') { $dep = randport(); }
+  elsif ($dep eq 'X') { $dep = randgeoport(); }
+  if ($arr eq 'x') { do { $arr = randport(); } while ($arr == $dep); }
+  elsif ($arr eq 'X') { do { $arr = randgeoport(); } while ($arr == $dep); }
+
+  return error("expected integer departure arg, found '$dep'") unless $dep eq '*' or $dep =~ qr'^[0-9]+$';
+  return error("expected integer arrival arg, found '$arr'") unless $arr =~ qr'^[0-9]+$';
+
+  $prvdep = $dep;
+  $prvarr = $arr;
+
+  if ($haveportrefs) {
+    if (exists($portids{$dep})) { $depname = $portids{$dep}; }
+    if (exists($portids{$arr})) { $arrname = $portids{$arr}; }
+  }
+
+  my $rndcnt = 0;
+
+  if ($dep eq '*') {
+    readportrefs(0) unless $haveportrefs;
+
+    foreach $rdep (keys %portids) {
+      $rdep = $idbysub{$rdep};
+      if (exists($portids{$rdep})) { $depname = $portids{$rdep}; }
+      else { $depname = "unknown"; }
+
+      if ($arr eq '*') {
+        foreach $rarr (keys %portids) {
+          $rarr = $idbysub{$rarr};
+          next if $rdep == $rarr;
+          if (exists($portids{$rarr})) { $arrname = $portids{$rarr}; }
+          else { $arrname = "unknown"; }
+          info("from $depname to $arrname  v    $rdep-$rarr");
+          doplan($rdep,$rarr,$startdate,$starttime,$utcofs12);
+          last unless $rndcnt++ < $testiters;
+        }
+      } else {
+        next if $rdep == $arr;
+        doplan($rdep,$arr,$startdate,$starttime,$utcofs12);
+        last unless $rndcnt++ < $testiters;
+      }
+      last unless $rndcnt++ < $testiters;
+    }
+    info("$stats_trip found, $stats_notrip no route $stats_error no time");
+    return;
+  }
+  if (defined $portrlats{$dep}) {
+    $depgeo = sprintf("%.4f,%.4f",$portrlats{$dep},$portrlons{$dep});
+  } else { $depgeo = ''; }
+  if (defined $portrlats{$arr}) {
+    $arrgeo = sprintf("%.4f,%.4f",$portrlats{$arr},$portrlons{$arr});
+  } else { $arrgeo = ''; }
+
+  my $dirdist = 'n/a';
+  if (defined $portrlats{$dep}) {
+    $dirdist = geodist($portrlats{$dep},$portrlons{$dep},$portrlats{$arr},$portrlons{$arr});
+    $dirdist = sprintf("%.1f",$dirdist);
+  }
+  info("$depname to $arrname") unless $depname eq 'unknown' and $arrname eq 'unknown';
+  info("iplan $dep $arr");
+  info("plan $depgeo $arrgeo") if length($depgeo) and length($arrgeo);
+  info("  dist $dirdist start $startdate.$starttime +$plushour -$minhour in $maxstop stops utc $utcofs");
+  doplan($dep,$arr,$startdate,$starttime,$utcofs12);
+}
+
+sub lat2ilat($)
+{
+  my $lat = shift;
+  return int(($lat + 90) * $geoscale);
+}
+sub lon2ilon($)
+{
+  my $lon = shift;
+  return int(($lon + 180) * $geoscale);
+}
+
+sub ilat2lat($)
+{
+  my $ilat = shift;
+  return ($ilat / $geoscale) - 90;
+}
+sub ilon2lon($)
+{
+  my $ilon = shift;
+  return ($ilon / $geoscale) - 180;
+}
+
+sub cplan($$$$)
+{
+  my ($deplat,$deplon,$arrlat,$arrlon) = @_;
+
+  my ($depilat,$depilon,$arrilat,$arrilon);
+
+  my ($hh,$mm,$dot,$startdate,$starttime);
+
+  unless (defined $tz) {
+    $utcofs12 = $utcofs12_def;
+    $hh = ($utcofs12 / 100) - 12;
+    $mm = $utcofs12 % 100;
+    $utcofsmin = $hh * 60 + $mm;
+    $utcofs = sprintf("%+02d:%02d",$hh,$mm);
+    $tz = ofs2tz($utcofs);
+    info("using default display tz $tz utc$utcofs from portrefs");
+  }
+
+  $dot = index($startdatetime,'.');
+  $starttime = 0;
+  if ($dot == 0) {
+    $starttime = substr($startdatetime,1);
+    $startdate = 0;
+  } elsif ($dot > 0) {
+    $starttime = substr($startdatetime,$dot+1);
+    $startdate = substr($startdatetime,0,$dot);
+    $starttime = 0 unless defined $starttime and length $starttime;
+  } else {
+    $startdate = $startdatetime;
+  }
+
+  ($deplat,$deplon) = randgeocport() if $deplat eq 'x';
+  ($arrlat,$arrlon) = randgeocport() if $arrlat eq 'x';
+  info("$deplat,$deplon $arrlat,$arrlon");
+
+  $depilat = lat2ilat($deplat);
+  $depilon = lon2ilon($deplon);
+  $arrilat = lat2ilat($arrlat);
+  $arrilon = lon2ilon($arrlon);
+
+  docplan($depilat,$depilon,$arrilat,$arrilon,$geoscale,$startdate,$starttime,$utcofs12);
+}
+
+sub plan($$)
+{
+  my ($depname,$arrname) = @_;
+
+  my ($dep,$arr);
+  my ($dlat,$dlon,$alat,$alon);
+
+  $do_lcname = 1;
+
+  unless (defined $depname and length($depname)) {
+    return 0 if $iscgi;
+    print('depart from: ');
+    $depname=<STDIN>;
+  }
+  return unless defined $depname and length($depname);
+  unless (defined $arrname and length($arrname)) {
+    return 0 if $iscgi;
+    print('arrive at: ');
+    $arrname=<STDIN>;
+  }
+  return unless defined $arrname and length($arrname);
+
+  ($dlat,$dlon) = ($depname =~ $isgeo);
+  if (defined $dlat and defined $dlon) {
+    readportrefs_geo();
+    readportrefs(0) unless $haveportrefs;
+    $dep = portbygeo($dlat,$dlon);
+  } else {
+    $dep = portbyname($depname);
+  }
+  return error("unknown stop $depname") unless length($dep);
+  return error("unknown id $dep") unless length($dep) and exists $portids{$dep};
+  info("$depname resolved into $portids{$dep} - $stopids{$dep}");
+
+  ($alat,$alon) = ($arrname =~ $isgeo);
+  if (defined $alat and defined $alon) {
+    readportrefs_geo();
+    readportrefs(0) unless $haveportrefs;
+    $arr = portbygeo($alat,$alon)
+  } else {
+    $arr = portbyname($arrname);
+  }
+  return error("unknown stop $arrname") unless length($arr);
+  return error("unknown id $arr") unless length($arr) and exists $portids{$arr};
+  info("$arrname resolved into $portids{$arr} - $stopids{$arr}");
+
+  my $pdep = $idbysub{$dep};
+  my $parr = $idbysub{$arr};
+
+  iplan($dep,$arr);
+}
+
+sub getvar($)
+{
+  my ($var) = @_;
+
+  unless (defined $var and length($var)) {
+    print('variable (? for list): ');
+    $var=<STDIN>;
+  }
+  return unless defined $var and length($var);
+  if (substr($var,0,1) eq '?') {
+    info('startdate - search for departure from this day onward');
+    info('daterange - number of days to search');
+    info('transferlimit - maximum number of transfers allowed');
+    info('timezone - specify timezone to show results in');
+    info('utcoffset- idem, in hh:mm offset from UTC');
+    return;
+  }
+  info("startdate: $startdatetime") if index($var,'startdate') >= 0;
+  info("plushour: $plushour") if index($var,'plushour') >= 0;
+  info("minhour: $minhour") if index($var,'minhour') >= 0;
+  info("transferlimit: $maxstop") if index($var,'transerlimit') >= 0;
+  info("timezone: $tz") if index($var,'timezone') >= 0;
+  info("utcoffset: $utcofs") if index($var,'utcoffset') >= 0;
+}
+
+sub setvar($$)
+{
+  my ($var,$val) = @_;
+
+  my ($hh,$mm,$col);
+
+  unless (defined $var and length($var)) {
+    return 0 if $iscgi;
+    print('variable: ');
+    $var=<STDIN>;
+  }
+  return 0 unless defined $var and length($var);
+  unless (defined $var and length($var)) {
+    return 0 if $iscgi;
+    print('value: ');
+    $var=<STDIN>;
+  }
+  return 0 unless defined $var and length($var);
+
+  $val = '' unless defined $val and length $val;
+
+  vrb("set $var to '$val'");
+  if ($var eq 'date' or $var eq 'startdate') {
+    $startdatetime = $val;
+  } elsif ($var eq 'plushour') {
+    $val = 0 if $val eq 'auto';
+    $plushour = $val;
+  } elsif ($var eq 'minhour') {
+    $minhour = $val;
+  } elsif ($var eq 'maxstops') {
+    $maxstop = $val;
+  } elsif ($var eq 'minstops') {
+    $minstop = $val;
+  } elsif ($var eq 'maxnetstop') {
+    $maxnetstop = $val;
+  } elsif ($var eq 'mintxtime') { # todo
+    my ($mode1,$mode2,$mval) = ($val =~ '([a-z]+)-([a-z]+):([0-9]+)');
+    if (defined $mode1 and defined $mode2 and defined $mval and $mval =~ '[0-9]+') {
+      $mintt_Ax = tohex($mval) if $mode1 eq 'intair' and $mode2 eq 'any';
+      $mintt_AA = tohex($mval) if $mode1 eq 'intair' and $mode2 eq 'intair';
+      $mintt_Aa = tohex($mval) if $mode1 eq 'intair' and $mode2 eq 'domair';
+      $mintt_ax = tohex($mval) if $mode1 eq 'domair' and $mode2 eq 'any';
+      $mintt_aA = tohex($mval) if $mode1 eq 'domair' and $mode2 eq 'intair';
+      $mintt_aa = tohex($mval) if $mode1 eq 'domair' and $mode2 eq 'domair';
+      $mintt_xA = tohex($mval) if $mode1 eq 'any' and $mode2 eq 'intair';
+      $mintt_xa = tohex($mval) if $mode1 eq 'any' and $mode2 eq 'domair';
+
+      $mintt_tt = tohex($mval) if $mode1 eq 'train' and $mode2 eq 'train';
+      $mintt_bx = tohex($mval) if $mode1 eq 'bus' and $mode2 eq 'any';
+      $mintt_xb = tohex($mval) if $mode1 eq 'any' and $mode2 eq 'bus';
+      $mintt_xf = tohex($mval) if $mode1 eq 'any' and $mode2 eq 'ferry';
+      $mintt_fx = tohex($mval) if $mode1 eq 'ferry' and $mode2 eq 'any';
+    } else { warning("expected mode-mode:value, found $val"); }
+
+    info("intair-any    " . hex($mintt_Ax));
+    info("intair-intair " . hex($mintt_AA));
+    info("intair-domair " . hex($mintt_Aa));
+    info("domair-any    " . hex($mintt_ax));
+    info("domair-intair " . hex($mintt_aA));
+    info("domair-domair " . hex($mintt_aa));
+    info("any-intair    " . hex($mintt_xA));
+    info("any-domair    " . hex($mintt_xa));
+
+    info("train-train   " . hex($mintt_tt));
+    info("bus-any       " . hex($mintt_bx));
+    info("any-bus       " . hex($mintt_xb));
+    info("any-ferry     " . hex($mintt_xf));
+    info("ferry-any     " . hex($mintt_fx));
+
+  } elsif ($var eq 'transfercost') {
+    $transfercost = $val;
+  } elsif ($var eq 'srcmode') {
+    $srcmode = 0 if $val eq 'lotime';
+    $srcmode = 1 if $val eq 'hitime';
+    $srcmode = 2 if $val eq 'xtime';
+    $srcmode = 3 if $val eq 'lofare';
+    $srcmode = 4 if $val eq 'hifare';
+    $srcmode = 5 if $val eq 'xfare';
+    $srcmode = $val if $val =~ '^[0-9]+$';
+  } elsif ($var eq 'walklimit') {
+    $walklimit = $val;
+  } elsif ($var eq 'timelimit') {
+    $timelimit = $val;
+    $timeout = $timeoutbase * max($timelimit,1);
+  } elsif ($var eq 'sumwalklimit') {
+    $sumwalklimit = $val;
+  } elsif (index($var,'timezone') >= 0) {
+    ($hh,$mm) = tz2ofs($val);
+    return 0 unless defined $hh;
+    $tz = $val;
+    $utcofs12 = ($hh + 12) * 100 + $mm;
+    $utcofsmin = $hh * 60 + $mm;
+    $utcofs = sprintf("%+02d:%02d",$hh,$mm);
+    info("new utcofs $hh:$mm");
+  } elsif (index($var,'utcoffset') >= 0) {
+    $col = index($val,':');
+    return 0 unless $col > 0;
+    $utcofs = $val;
+    $hh = substr($val,0,$col);
+    $mm = substr($val,$col+1);
+    $utcofsmin = $hh * 60 + $mm;
+    $utcofs12 = int(($hh + 12) * 100 + $mm);
+    info("new utcofs $hh:$mm");
+    $tz = ofs2tz($val);
+    info("new tz $tz");
+  } elsif (index($var,'dsputcofs12') >= 0) {  # cgi uses this
+    $dsputcofs12 = $val;
+  } elsif (index($var,'utcofs12') >= 0) {  # cgi uses this
+    $utcofs12 = $val;
+    $hh = int( ($val / 100) - 12);
+    $mm = int($val % 100);
+    $utcofsmin = $hh * 60 + $mm;
+    $utcofs = sprintf("%+02d:%02d",$hh,$mm);
+    $tz = ofs2tz($utcofs);
+  } elsif (index($var,'geobounds') >= 0) {
+    if ($val eq 'us') { ($minrlat,$maxrlat,$minrlon,$maxrlon) = (24.7433195,49.3457868,-124.7844079,-66.9513812); }
+    else { ($minrlat,$maxrlat,$minrlon,$maxrlon) = ($val =~ qr'([-.0-9]+),([-.0-9]+) ([-.0-9]+),([-.0-9]+)'); }
+  } elsif (index($var,'minlat') >= 0) {
+    $minrlat = $val;
+  } elsif (index($var,'maxlat') >= 0) {
+    $maxrlat = $val;
+  } elsif (index($var,'minlon') >= 0) {
+    $minrlon = $val;
+  } elsif (index($var,'maxlon') >= 0) {
+    $maxrlon = $val;
+  } elsif (index($var,'ntop') >= 0) {
+    $ntop = $val;
+  } elsif (index($var,'modes') >= 0) {
+    $txmodes = 0;
+    $txmodes += 11 if index($val,'+air') >= 0;
+    $txmodes += 11 if index($val,'+plane') >= 0;
+    $txmodes += 100 if index($val,'+train') >= 0;
+    $txmodes += 100 if index($val,'+rail') >= 0;
+    $txmodes += 1000 if index($val,'+bus') >= 0;
+    $txmodes += 10000 if index($val,'+ferry') >= 0;
+    $txmodes += 100000 if index($val,'+taxi') >= 0;
+    $txmodes += 1000000 if index($val,'+walk') >= 0;
+    $txmodes += 1000000 if index($val,'+foot') >= 0;
+  } elsif (index($var,'testiter') >= 0) {
+    $testiter = int $val;
+  } else {
+    return error("unknown variable $var: check online help");
+  }
+  return 1;
+}
+
+sub set_var($)
+{
+  my ($arg) = @_;
+  my ($eq,$var,$val);
+
+  vrb("arg '$arg'");
+  $eq = index($arg,'=');
+  if ($eq > 0) {
+    $var = substr($arg,0,$eq);
+    $val = substr($arg,$eq + 1);
+    setvar($var,$val);
+    return '';
+  } else { return $arg . ' '; }
+}
+
+sub stop($)
+{
+  my ($cmd) = @_;
+
+  query('s','glob','');
+}
+
+my $clientid = "$$";
+
+sub ret_close_err($$)
+{
+  my ($fh,$msg) = @_;
+
+  error("$msg");
+  close($fh);
+  return 0;
+}
+
+sub getairline($)
+{
+  my $flno = shift;
+  my $alcode;
+
+  return '' if length($flno) < 2;
+  $alcode = substr($flno,0,2);
+  return "(unknown airline for '$flno')" unless exists $airlines{$alcode};
+  return $airlines{$alcode};
+}
+
+sub fmtdate($$)
+{
+  my ($dt,$prvymd) = @_;
+
+  my ($ymd,$hm,$fmt);
+  my $d = index($dt,'.');
+  if ($d < 0) { $ymd = $dt; $hm = 0; }
+  else {
+    $ymd = substr($dt,0,$d);
+    $hm = substr($dt,$d+1);
+  }
+  if (length($ymd) == 0) { error("empty '$dt' for date"); return ('20100101','20100101'); }
+  if ($ymd =~ $nondigits) { error("unrecognisable '$dt' for date"); return ('20100101','20100101'); }
+  my $yy = int($ymd / 10000); $ymd = int($ymd % 10000);
+  my $mm = int($ymd / 100);
+  my $dd = int($ymd % 100);
+
+  my $h = int($hm / 100);
+  my $m = int($hm % 100);
+
+  $fmt = "";
+  $fmt = "$dd-$mm " if ($prvymd != $ymd);
+  $fmt .= sprintf("%u:%02u",$h,$m);
+  return ($fmt,$ymd);
+}
+
+# submit the query and wait for corresponding reply
+sub query($$$)
+{
+  my ($cmd,$region,$str) = @_;
+  my ($qfile,$qname,$qname_new,$qname_sub,$qname_rep,$qname_rcv,$serverid);
+
+# prepare the query. use atomic file renames, server does the same
+# query filename:
+#  [a-z]_     command
+#  [a-z]_     (format todo) region
+#  [0-9a-f]_  hex timestamp in msec
+#  [0-9a-f]   hex client id
+#  .sub
+
+# file content:
+# list of (var type value) each on 1 line
+# var:  [a-z] dep arr
+# type [is] i = int s = string
+
+  my ($sec, $usec) = gettimeofday();
+  my $now = time();
+
+  my $stamp = int ($sec * 1000 + ($usec / 1000));
+
+  my $stampstr = sprintf("%011x",$stamp);
+  $qname = sprintf("%s/%s_%s_%s_%04x",$querydir,$cmd,$region,$stampstr,$clientid);
+
+  $qname_new = $qname . '.new';
+  $qname_sub = $qname . '.sub';
+  vrb("create $qname_new");
+
+  if ($dryrun) {
+    info("dryrun $cmd $str");
+    addtorep("dryrun test",0,'');
+    return 1;
+  }
+
+  open($qfile,'>',$qname_new) or error_exit("cannot create $qname_new: $!");
+  print($qfile $str . "\n");
+  close($qfile);
+
+#  info("submit '$cmd' '$str'") if $iscgi;
+
+# rename to submit: server will pick up from here. reply has serverid appended
+  vrb("rename to $qname_sub");
+  rename($qname_new,$qname_sub);
+
+  # cmd,region,stamp,clientid,serverid
+  my $pat = qr'^[a-zA-Z]_[a-z]+_([0-9a-f]+)_([0-9a-f]+)_([0-9a-f]+)\.rep';
+
+  select(undef,undef,undef,0.05);  # = sleep 50 millisec
+
+  while (time() - $now < $timeout) {
+    $serverid = filepatindir($pat,$stampstr,$clientid,$querydir);
+    last if length($serverid);
+    select(undef,undef,undef,0.01);  # = sleep 10 millisec
+  }
+  my $prefix = '.planres';
+  $prefix = '.geo' if $cmd eq 'g';
+  unless (length($serverid)) {
+    info("$prefix\terror\tno reply from tripover server\t$timeout");
+    addtorep("$prefix\tno reply from tripover server in $timeout sec",0,'no reply');
+    return 0;
+  }
+
+  # reply present: read and delete
+  $qname_rep = $qname . '_' . $serverid . '.rep';
+  $qname_rcv = $qname . '_' . $serverid . '.rcv';
+
+  my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks);
+
+  my $reply;
+  open($reply,'<:encoding(utf8)',$qname_rep) or return error("cannot open $qname_rep:$!");
+
+  stat $reply or return ret_close_err($reply,"cannot access $qname_rep: $!");
+  ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks) = stat _;
+  return ret_close_err($reply,"$qname_rep is not a regular file") unless S_ISREG($mode);
+  return ret_close_err($reply,"$qname_rep is empty") unless $size > 0;
+  return ret_close_err($reply,"$qname_rep is empty") unless -r $qname_rep;
+
+  my @lines = readline($reply);
+  close($reply);
+  unlink $qname_rep or return error("cannot remove $qname_rep:$!");
+
+  return error("$qname_rep is empty") unless (scalar @lines);
+
+  addtorep("",0,'');
+
+  my $result = $lines[0];
+  my $zero = index($result,"\x00");
+  if ($zero >= 0) { addtorep("nil for $result",1,''); }
+  if ($cmd eq 'p' or $cmd eq 'P') {
+    if (index($result,'no trip') >= 0) { $stats_notrip++; }
+    elsif (index($result,'error code') >= 0) {
+      info("$prefix\terror\t$result");
+      addtorep("$prefix\t$result",0,'no reply');
+    } else { $stats_trip++; }
+  }
+  addtorep(".planres\tresult\t$result",1,'');
+
+  my $qstr_rep = $str;
+  $qstr_rep =~ tr/\n/ /;
+  addtorep("# " . $qstr_rep,1,'');
+
+  my ($item,$time,$nxtime,$dist,$fare,$stops,$ref,$optstr,$fmtdate,$prvymd,$html);
+  my ($tdep,$tarr,$sdist,$txtime,$xtra,$lat,$lon,$latlon,$dist0,$name,$rname,$flno);
+  my ($line,$rline,$thop,$c,$col,$enginfpos,$airline);
+  my $nxtstr = '';
+  my $aname = '';
+  my $linno = 0;
+  my $legno = 0;
+  my $tripno = 0;
+  my $prvfare = 0;
+  my $prvhmd = 0;
+  my @cols;
+  for $line (@lines) {
+    $c = chop $line;
+    $line .= $c if $c ne "\n";
+    if (substr($line,0,1) eq '#') { addtorep($line,1,''); next; }
+    if (index($line,"\t") < 0) { $item = $line; }
+    else { ($item,$time,$dist,$stops,$fare,$nxtime,$ref) = split("\t",$line); }  # summary
+    $ref = '' unless defined $ref;
+    $optstr = '';
+    if ($item eq 'sum') {
+      $tripno++;
+      printf("\n\n") if $legno;
+      $legno = 0;
+      $prvfare = 0;
+      addtorep(".planres\t$line",1,'');
+      $nxtstr = sprintf("next in %s",$nxtime) if $nxtime ne '-';
+      $optstr = sprintf(" option %u\n",$tripno) if $ntop > 1;
+      printf("%s%s %s %u stops %s%s  ref %s",$optstr,$time,$dist,$stops,$nxtstr,$fare == 0 ? '' : ' $' . $fare,$ref);
+    } elsif ($item eq 'trip-dep') {
+
+        $prvhmd = 0 if $legno == 0;
+
+# tdep,name,txtime;
+        $legno++;
+        print "\n" unless $iscgi;
+        ($item,$tdep,$name,$sdist,$txtime,$lat,$lon) = split("\t",$line);
+        $sdist = '' unless defined $sdist;
+        $txtime = '' unless defined $txtime;
+        $name = '' unless defined $name;
+        $lat = '' unless defined $lat;
+        $lon = '' unless defined $lon;
+        ($fmtdate,$prvhmd) = fmtdate($tdep,$prvhmd);
+        $rline = join("\t",'.planres',$item,$tdep,$name,$sdist,$txtime,$lat,$lon);
+        $html = "$fmtdate &emsp;$name<br>";
+        addtorep($rline,1,$html);
+        unless ($iscgi) {
+          $latlon = $lat . ',' . $lon;
+          if ($legno > 1) {
+            if ($name ne $aname) {
+              print "                $name within $sdist $latlon\n";
+            }
+            print "$legno. ";
+            print join(' ',$tdep,'continue with',$txtime,'transfer time');
+          } else {
+            print "$legno. ";
+            print join(' ',$tdep,$name,$latlon);
+          }
+        }
+
+# mode,route,dist
+      } elsif ($item eq 'trip-rou') {
+        ($item,$mode,$flno,$rname,$thop,$fare,$dist,$xtra) = split("\t",$line);
+        $flno = '' unless defined $flno;
+        $thop = '' unless defined $thop;
+        $dist = '' unless defined $dist;
+        $rname = '' unless defined $rname;
+        $xtra = '' unless defined $xtra;
+        $airline = getairline($flno);
+        print join(' ','                 ',$mode,$flno . ' ' . $rname . ' ' . $airline,$thop,$fare - $prvfare,$dist,$xtra) unless $iscgi;
+
+        $enginfpos = index($rname,'|');
+        $rname = substr($rname,0,$enginfpos) if $enginfpos > 0;
+        $rname = $flno . ' ' . $rname . ' ' . $airline if length $flno;
+        $rline = join("\t",'.planres',$item,$mode,$rname,$thop,$fare,$dist);
+        $html = "&thinsp; &vbar; &thinsp; $mode &emsp; $rname";
+        addtorep($rline,1,$html);
+        $prvfare = $fare;
+
+# tarr,name
+      } elsif ($item eq 'trip-arr') {
+        ($item,$tarr,$aname,$lat,$lon) = split("\t",$line);
+        $tarr = 0 unless defined $tarr;
+        $aname = '' unless defined $aname;
+        $lat = '' unless defined $lat;
+        $lon = '' unless defined $lon;
+        ($fmtdate,$prvhmd) = fmtdate($tarr,$prvhmd);
+        $rline = join("\t",'.planres',$item,$tarr,$aname,$lat,$lon);
+        $html = "$fmtdate &emsp;$name<br>";
+        addtorep($rline,1,$html);
+        $latlon = $lat . ',' . $lon;
+        print join(' ','  ',$tarr,$aname,$latlon) unless $iscgi;
+
+# name,dist
+      } elsif ($item eq 'trip-xar') {
+        ($item,$tarr,$aname,$dist,$lat,$lon) = split("\t",$line);
+        $dist = 0 unless defined $dist;
+        $lat = '' unless defined $lat;
+        $lon = '' unless defined $lon;
+        $rline = join("\t",'.planres',$item,$tarr,$aname,$dist,$lat,$lon);
+        $html = " &emsp;$name<br>";
+        addtorep($rline,1,$html);
+        $latlon = $lat . ',' . $lon;
+        print join(' ','                 ',$aname,'at',$dist,$latlon) unless $iscgi;
+
+    } elsif ($item eq 'stat') {
+      print "\n";
+      addtorep(".planres\t$line",1,'');
+      @cols = split("\t",$line);
+      splice(@cols,0,1);
+      print join("\t",@cols);
+    } else { print "\n" . $line . "\n"; }
+    print "\n";
+  }
+
+  if (defined $logfd) {
+    print($logfd @lines);
+    print $logfd "\n";
+  }
+  unlink $qname_rcv or return error("cannot remove $qname_rcv:$!");
+  return 1;
+}
+
+# issue an update ( = realtime) command : similar to query, yet no response
+sub updcmd($)
+{
+  my ($str) = @_;
+  my ($stamp,$qfile,$qname,$qname_new,$qname_sub,$qname_rep,$qname_rcv,$serverid);
+  my $cmd = 'u';
+
+# prepare the query. use atomic file renames, server does the same
+# query filename:
+#  [a-z]_     command
+#  [a-z]_     (format todo) region
+#  [0-9a-f]_  hex timestamp in sec
+#  [0-9a-f]   hex client id
+#  .sub
+
+# file content is lines with list of hex integers only:
+# first number is command : 0=fares 1=trips 2=routes 3=stops
+# fares : rrid,t0,(dt mask fare[n])+
+
+  $stamp = time();
+  $qname = sprintf("%s/%s_glob_%010x_%04x",$querydir,$cmd,$stamp,$clientid);
+  $qname_new = $qname . '.new';
+  $qname_sub = $qname . '.sub';
+  vrb("create $qname_new");
+
+  if ($dryrun) {
+    info("$qname");
+    info("  $str");
+    return 1;
+  }
+
+  open($qfile,'>',$qname_new) or error_exit("cannot create $qname_new: $!");
+  print($qfile $str);
+  close($qfile);
+
+  vrb("submit '$cmd' '$str'");
+
+# rename to submit: server will pick up from here.
+  vrb("rename to $qname_sub");
+  rename($qname_new,$qname_sub);
+}
+
+sub cntbits($)
+{
+  my $x = shift;
+  my $n = 0;
+
+  $x = hex($x) & 0xf;
+  while ($x) { $n++ if ($x & 1); $x >>= 1; }
+  return $n
+}
+
+my $nix2to = 946684800; # seconds Epoch 2000 since 1970
+
+# from yyyymmdd to minutes since Epoch
+sub cd2day($)
+{
+  my $cd = shift;
+
+  my $dd = int($cd % 100); $cd /= 100;
+  my $mm = int($cd % 100);
+  my $yy = int($cd / 100);
+  my $nixsec = int POSIX::mktime(0,0,0,$dd,$mm-1,$yy-1900,0,0,0);
+  my $tomin = ($nixsec - $nix2to) / 60;
+  return int($tomin + $sysutcofs);
+}
+
+# hhmm to minutes
+sub cd2time($)
+{
+  my $cd = shift;
+
+  my $hh = int($cd / 100);
+  my $mm = int($cd % 100);
+  return int($hh * 60 + $mm);
+}
+
+sub update($$$$$$)
+{
+  my ($rid,$dep,$arr,$cd_day0,$cd_time0,$xargs) = @_;
+  my ($cd_day,$cd_time,$t,$dt,$mask,$farecnt);
+
+  $xargs = trimws($xargs);
+
+  info("rid $rid t0 $cd_day0 xargs '$xargs'");
+  my $d = cd2day($cd_day0);
+  my $tt = cd2time($cd_time0);
+  my $t0 = int($d + $tt - $utcofsmin);
+
+  my @args = split(' ',$xargs);
+  my $argcnt = scalar(@args);
+  my $argno = 0;
+  my $str = sprintf("0 %x %x %x %x ",$rid,$dep,$arr,$t0);
+  while ($argno + 3 < $argcnt) {
+    $cd_day = $args[$argno];
+    $cd_time = $args[$argno+1];
+    $d = cd2day($cd_day);
+    $tt = cd2time($cd_time);
+    $t = int($d + $tt - $utcofsmin);
+    return info("t $t t0 $t0") if ($t < $t0);
+    $dt = $t - $t0;
+    $mask = $args[$argno+2];
+    $argno += 3;
+    $farecnt = cntbits($mask);
+    return info("farecnt $farecnt argno $argno") if ($argno + $farecnt >= $argcnt);
+    $str .= sprintf("%x %x ",$dt,hex $mask);
+    while ($farecnt--) { $str .= sprintf("%x ",$args[$argno++]); }
+  }
+  $str .= "\n";
+  updcmd($str);
+}
+
+# obtain query dir from current config
+sub readcfg()
+{
+  my ($cfg,$var,$val);
+
+  my @cfgfiles = glob($currentconfig);
+  return warning("no $currentconfig\n\nCheck if the tripover server is running in this dir") if @cfgfiles == 0;
+  open($cfg,'<',$cfgfiles[0])  or error_exit("cannot open $cfgfiles[0]: $!\n\nCheck if the tripover server is running in this dir");
+
+  my @cfglines = readline($cfg);
+  unless (scalar @cfglines) { error_exit("$cfgfiles[0] is empty\n\nCheck if the tripover server is running in this dir"); }
+
+  my $varisval = qr'^([-a-zA-Z0-9_.]+)\s*=?\s*([-a-zA-Z0-9_.]+)';
+
+  foreach my $line (@cfglines) {
+    ($var,$val) = ($line =~ $varisval);
+    next unless defined $var;
+    if ($var eq 'net.walkspeed') { $walkspeed = $val; }
+    elsif ($var eq 'net.walklimit') { $walklimit = $val; }
+    elsif ($var eq 'net.sumwalklimit') { $sumwalklimit = $val; }
+    elsif ($var eq $querydirvar) { $querydir = $val; }
+  }
+  error_exit("empty query config") unless length($querydir);
+  vrb("query dir $querydir/");
+}
+
+sub usage()
+{
+  info("usage: plantrip [options] [cmd]\n");
+  info("options:");
+  info('-v -verbose        verbose mode');
+  info('-n -dryrun         dryrun mode');
+  info('-h -help           show help and quit');
+  info('-refs              load port references');
+  info('-V -version        show version and quit');
+  info("commands:");
+  info("plan <from> <to>   plan a trip");
+  info("stop               stop server");
+  info("set <var> <value>  set variable");
+  info("get [var]          get variable (? for list)\n");
+  info("without command, interactive mode is entered\n");
+
+  info("variables: specify as var=value on plan commands");
+  info("startdate          start date / time for depart : yyyymmdd[.hhmm]");
+  info("plushour           number of hours to consider (search horizon) [auto]");
+  info("maxstops           max number of transfers to consider [11]");
+  info("maxnetstop         max number of transfers to base on precomputed info [3]");
+  info("mintxtime          min tranfer time in minutes");
+  info("transfercost       extra cost per tranfser in minutes [10]");
+  info("walklimit          max walk distance in meters for a single go [1000]");
+  info("sumwalklimit       max summed up walk distance in meters [3000]");
+  info("timezone           timezone to use : country/city");
+  info("utcoffset          UTC offset to use [+-]hh:mm\n");
+  info("example:  plan beerwah elimbah date=20150218.0800 transfercost=0 walklimit=300");
+}
+
+sub showvers($)
+{
+  my ($full) = @_;
+
+  info("Tripover commandline client version $version_maj.$version_min");
+  info("last changed $lastchanged") if $full;
+  info("$copyright\n");
+}
+
+my (%tzofs,%tzdstofs);
+
+sub readtzinfo()
+{
+  my $tzname = 'tzdb.txt';
+  my $tzfile;
+  my $col = 0;
+  my ($line,$len,$tzstr,$tz,$ofs,$dstofs,$dston,$dstof,$a,$b,$c,$alt,$alias);
+  my @tzs;
+
+  my $tznampat  = qr'^[A-Z][a-z]+/[A-Z][-A-Za-z_/]+$';
+  my $tznampat1 = qr'^[A-Z0-9]+$';
+
+                #      Africa/Windhoek 1:00 0904 0403
+  my $zonepat = qr'^([-+A-Z0-9a-z/_]+)\t([-0-9:]+)\t([-0-9:]+)\t([0-9]+)\t([0-9]+)$';
+
+  my $linkpat = qr'^([A-Za-z/_]+)\t([-+A-Za-z0-9/_]+)$';
+
+  my $fln = '';
+
+  open($tzfile,'<',$tzname) or return warning("cannot open $tzname:$!");
+
+  my %tzlines;
+
+  my @lines = readline($tzfile);
+  close($tzfile);
+  my $linno = 0;
+  for $line (@lines) {
+    $linno++;
+    next unless length($line);
+    next if index($line,'#') == 0;
+    $c = chop $line;
+    $fln = "$tzname.$linno: ";
+    warning("$fln: unterminated line '$line'") if $c ne "\n";
+    $len = length($line);
+    next unless $len;
+
+    ($tzstr,$ofs,$dstofs,$dston,$dstof) = ($line =~ $zonepat);
+    if (defined $tzstr and length($tzstr)) {
+      return error("$fln unrecognised line '$line'") unless defined $dstof and length $dstof;
+
+      return error("$fln $tzstr already defined at line $tzlines{$tzstr}") if exists $tzofs{$tzstr};
+
+      $tzofs{$tzstr} = join(' ',$ofs,$dstofs,$dston,$dstof);
+      $tzlines{$tzstr} = $linno;
+      # info("new tz $tzstr $ofs $dstofs");
+      next;
+    }
+
+    ($tzstr,$alias) = ($line =~ $linkpat);
+    if (defined($alias) and length($alias)) {
+      return error("$fln $alias to itself") if $alias eq $tzstr;
+      return error("$fln $alias already defined") if exists $tzofs{$alias};
+      return error("$fln unknown zone $tzstr for $alias") unless exists $tzofs{$tzstr};
+      $tz = $tzofs{$tzstr};
+      # info("new alias $alias for $tzstr $tz");
+      $tzofs{$alias} = $tz;
+      next;
+    }
+    return error("$fln unrecognised line $line");
+  }
+  return 1;
+}
+
+sub tz2ofs($)
+{
+  my ($str) = @_;
+  my ($hh,$mm,$hhmm);
+
+  unless (exists($tzofs{$str})) { warning("no timezone info for $str"); return (0,0); }
+
+  $hhmm = $tzofs{$str};
+  $a = index($hhmm,':');
+  $hh = substr($hhmm,0,$a);
+  $mm = substr($hhmm,$a+1);
+  vrb("utc offset hh $hh mm $mm");
+  return ($hh,$mm);
+}
+
+sub ofs2tz($)
+{
+  my ($hhmm) = @_;
+  my ($hm,$str) = @_;
+
+  while (($str,$hm) = each %tzofs) {
+    return $str if $hm eq $hhmm;
+  }
+  return $hhmm;
+}
+
+sub init()
+{
+  readcfg();
+  unless (-d $querydir) {
+    info("creating configured query dir $querydir");
+    mkdir($querydir) || error_exit("cannot create query dir:$!");
+  }
+  readtzinfo();
+  my $sec70 = time;
+  my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime $sec70;
+  my $ltsec = strftime('%s',$sec,$min,$hour,$mday,$mon,$year,$wday,$yday,0);
+  ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = gmtime $sec70;
+  my $utcsec = strftime('%s',$sec,$min,$hour,$mday,$mon,$year,$wday,$yday,0);
+  $sysutcofs = int(($ltsec - $utcsec) / 60);
+  info("localtime $ltsec utc $utcsec ofs $sysutcofs");
+}
+
+# my ($Aver,$Ver,$Id,$Cmd,$Deplat,$Deplon,$Arrlat,$Arrlon,$Dep,$Arr,$Date,$Time,$PMday,$Utcofs,$Dsputcofs,$Delay,$Walklim,$Srcmode,$Modes,$Txtimes,$Effort);
+
+sub initcgi()
+{
+  return 0 unless exists $ENV{'GATEWAY_INTERFACE'};
+  return 0 if index($ENV{'GATEWAY_INTERFACE'},'CGI/') < 0;
+  return 1;
+}
+
+sub runcgi()
+{
+  my $clntip = $ENV{'REMOTE_ADDR'};
+
+  my ($sec, $usec) = gettimeofday;
+  my $msec = int ($usec / 1000);
+
+  print "Access-Control-Allow-Origin: *\r\n";
+
+  my ($dev,$ino,$mode) = lstat($0);
+  my $progpath = $0;
+  if (S_ISLNK($mode)) {
+    $progpath = readlink($0);
+  }
+
+  my $progdir = rindex $progpath,'/';
+  my $cwd;
+  if ($progdir > 0) {
+    $cwd = substr($progpath,0,$progdir);
+    chdir $cwd;
+  }
+
+  initlog();
+
+  my $aver_def = 1;
+  my $ver_def = 0;
+  my $time_def = 600;
+  my $utcofs_def = 2200;
+  my $dsputcofs_def = 2600;
+  my $walklim_def = 1500;
+  my $srcmode_def = 1;
+  my $modes_def = 1111111;
+  my $txtimes_def = '3c5a2d5a2d781e3c0505030a0a';
+  my $effort_def = 2;
+  my $ntop_def = 1;
+  my $opts_def = 0;
+
+  my $url = $ENV{'PATH_INFO'};
+  return 0 unless defined $url and length $url;
+
+  $url = substr($url,1) if index($url,'/') == 0;
+
+  my ($Aver,$Ver,$Id,$Cmd,$Deplat,$Deplon,$Arrlat,$Arrlon,$Dep,$Arr,$Date,$Time,$PMday,$Utcofs,$Dsputcofs,$Walklim,$Srcmode,$Modes,$Txtimes,$Effort,$Ntop,$Opts) = split('/',$url,32);
+
+  $Aver = $aver_def unless defined $Aver and length $Aver and $Aver ne 'x';
+  $Ver = $ver_def unless defined $Ver and length $Ver and $Ver ne 'x';
+  $Id = 0 unless defined $Id and length $Id and $Id ne 'x';
+  return 0 unless defined $Cmd and length $Cmd and $Cmd ne 'x';
+  $Deplat = 1 unless defined $Deplat and length $Deplat and $Deplat ne 'x';
+  $Deplon = 1 unless defined $Deplon and length $Deplon and $Deplon ne 'x';
+  $Arrlat = 1 unless defined $Arrlat and length $Arrlat and $Arrlat ne 'x';
+  $Arrlon = 1 unless defined $Arrlon and length $Arrlon and $Arrlon ne 'x';
+  $Dep = 0 unless defined $Dep and length $Dep and $Dep ne 'x';
+  $Arr = 0 unless defined $Arr and length $Arr and $Arr ne 'x';
+
+  my ($dsec,$min,$hour,$dmday,$mon,$year,$wday,$yday,$isdst) = gmtime time;
+  my $date_def = sprintf('%04u%02u%02u',$year + 1900,$mon + 1,$dmday);
+
+  $Date = $date_def unless defined $Date and length $Date and $Date ne 'x';
+  $Time = $time_def unless defined $Time and length $Time and $Time ne 'x';
+  $PMday = 0 unless defined $PMday and length $PMday and $PMday ne 'x';
+
+  $Utcofs = $utcofs_def unless defined $Utcofs and length $Utcofs and $Utcofs ne 'x';
+  $Dsputcofs = $dsputcofs_def unless defined $Dsputcofs and length $Dsputcofs and $Dsputcofs ne 'x';
+
+  $Walklim = $walklim_def unless defined $Walklim and length $Walklim and $Walklim ne 'x';
+  $Srcmode = $srcmode_def unless defined $Srcmode and length $Srcmode and $Srcmode ne 'x';
+
+  $Modes = $modes_def unless defined $Modes and length $Modes and $Modes ne 'x';
+
+  $Txtimes = $txtimes_def unless defined $Txtimes and length $Txtimes and $Txtimes ne 'x';
+
+  $Effort = $effort_def unless defined $Effort and length $Effort and $Effort ne 'x';
+
+  $Ntop = $ntop_def unless defined $Ntop and length $Ntop and $Ntop ne 'x';
+
+  $Opts = $opts_def unless defined $Opts and length $Opts and $Opts ne 'x';
+
+  $repoptions = $Opts & 0xf;
+#  $repoptions |= $repopt_int;
+
+  if ($repoptions & $repopt_html) {
+    print "Content-type: text/html; charset=utf8\r\n\r\n";
+    print "<html><head><title>title</title></head>\n<body>\n";
+  } else {
+    print "Content-type: text/plain\r\n\r\n";
+  }
+
+  print("$url\n");
+
+  print("aver $Aver\n");
+  print("ver $Ver\n");
+
+  print("dep $Dep\n");
+  print("arr $Arr\n");
+
+  print("walklim $Walklim $walklim_def\n");
+
+  if ($Cmd == 0 or $Cmd == 1) {
+    print("date $Date\n");
+    print("time $Time\n");
+    print("modes $Modes\n");
+  }
+
+  $PMday = 0 if $PMday =~ $nondigits;
+  my $pday = int($PMday / 1000);
+  my $mday = int($PMday % 1000);
+
+  $Date = $date_def if $Date =~ $nondigits;
+  $Time = 0 if $Time =~ $nondigits;
+
+  $Dep = 0 if $Dep =~ $nondigits;
+  $Arr = 0 if $Arr =~ $nondigits;
+
+  $Deplat = 1 if $Deplat =~ $nondigits;
+  $Deplon = 1 if $Deplon =~ $nondigits;
+  $Arrlat = 1 if $Arrlat =~ $nondigits;
+  $Arrlon = 1 if $Arrlon =~ $nondigits;
+
+  $repfile = "$repdir/plantrip-$Cmd-$clntip-$$-$Deplat-$Deplon-$Dep-$Arr-$sec.$msec";
+  $reqid = $Id;
+
+  $querydir = 'queries';
+
+#  init();
+
+  my ($rlat,$rlon);
+
+  $Modes = $modes_def if $Modes =~ $nondigits;
+  $txmodes = $Modes;
+
+  if ($Cmd == 0 or $Cmd == 1) { # plan
+
+    $Srcmode = $srcmode_def if $Srcmode =~ $nondigits;
+    $Walklim = $walklim_def if $Walklim =~ $nondigits;
+    $Effort = $effort_def if $Effort =~ $nondigits;
+    $Utcofs = $utcofs_def if $Utcofs =~ $nondigits;
+    $Dsputcofs = $dsputcofs_def if $Dsputcofs =~ $nondigits;
+    $Ntop = $ntop_def if $Ntop =~ $nondigits;
+
+    my $sumwalk = int($Walklim * 2);
+
+# int air to (train,bus,taxi,walk) Ax
+# int air to int air AA
+# int air to dom air Aa
+# dom air to (train,bus,taxi,walk) ax
+# dom air to int air aA
+# dom air to dom air aa
+# train to train tt
+# train to bus tb
+# (bus,train,taxi,walk) to int air xA
+# (bus,train,taxi,walk) to dom air xa
+# bus to bus bb
+# bus to train bt
+# (bus,train,taxi,walk) to ferry xf
+# ferry to (bus,train,taxi,walk) fx
+
+    if (length($Txtimes) > 25 and $Txtimes =~ qr'^[0-9a-f]+$') {
+      $mintt_AA = substr($Txtimes,0,2);
+      $mintt_Aa = substr($Txtimes,2,2);
+      $mintt_aa = substr($Txtimes,4,2);
+      $mintt_aA = substr($Txtimes,6,2);
+      $mintt_Ax = substr($Txtimes,8,2);
+      $mintt_xA = substr($Txtimes,10,2);
+      $mintt_ax = substr($Txtimes,12,2);
+      $mintt_xa = substr($Txtimes,14,2);
+
+      $mintt_bx = substr($Txtimes,16,2);
+      $mintt_xb = substr($Txtimes,18,2);
+      $mintt_tt = substr($Txtimes,20,2);
+      $mintt_xf = substr($Txtimes,22,2);
+      $mintt_fx = substr($Txtimes,24,2);
+    }
+
+    set_var("date=$Date.$Time");
+    set_var("plushour=$pday");
+    set_var("minhour=$mday");
+    set_var("utcofs12=$Utcofs");
+    set_var("dsputcofs12=$Dsputcofs");
+    set_var("walklimit=$Walklim");
+    set_var("sumwalklimit=$sumwalk");
+    set_var("timelimit=$Effort");
+    set_var("ntop=$Ntop");
+
+    if ($Srcmode == 0) { set_var("transfercost=2"); }  # fewest transfers
+    elsif ($Srcmode == 1) { set_var("transfercost=1"); }  # balanced
+    else { set_var("transfercost=0"); }  # fastest
+
+#    $repoptions |= $repopt_coords if $clntip eq '192.168.1.4' or $clntip eq '115.187.229.149';
+
+    if ($Cmd == 0) { iplan($Dep,$Arr); }
+    else {
+      cplan(ilat2lat($Deplat),ilon2lon($Deplon),ilat2lat($Arrlat),ilon2lon($Arrlon));
+    }
+    # agedir($querydir,time() - $agelimit);
+  } elsif ($Cmd == 2) { # tripover geocode
+    # info("geocode $Deplat $Deplon");
+    geocode2($Deplat,$Deplon,$geoscale);
+  }
+
+  if ($repoptions & $repopt_html) {
+    print "\n</body></html>";
+  }
+
+  return 1;
+}
+
+if (initcgi()) {
+  $iscgi = 1;
+  runcgi();
+  exit 0;
+}
+
+initlog();
+
+my ($arg,$xargs,$opt,$optarg,$eqpos,$inopt,$cmd,$line,$prvline);
+my ($dep,$arr,$deplat,$deplon,$arrlat,$arrlon,$rid,$d0,$t0);
+my @args;
+
+my ($sec,$min,$hour,$mday,$mon,$year) = localtime(time);
+$startdatetime = sprintf("%04u%02u%02u.%02u%02u",$year+1900,$mon+1,$mday,$hour,$min);
+vrb("$startdatetime");
+
+if (@ARGV > 0) {
+  foreach $arg (@ARGV) {
+    if (substr($arg,0,1) eq '-') {
+      $opt = $arg;
+      $opt =~ s/^-+//;
+      if ($opt eq 'h' or $opt eq '?' or $opt eq 'help') { showvers(0); usage(); exit 1; }
+      if ($opt eq 'V' or $opt eq 'version') { showvers(1); exit 1; }
+    }
+  }
+
+  $inopt = 1;
+  foreach $arg (@ARGV) {
+    if ($inopt and substr($arg,0,1) eq '-') {
+
+      $opt = $arg;
+      $opt =~ s/^-+//;
+      $eqpos = index($opt,'=');
+      if ($eqpos > 0) {
+        $optarg = substr($opt,$eqpos+1);
+        $opt = substr($opt,0,$eqpos);
+      }
+      if ($opt eq 'v' or $opt eq 'verbose') { info('verbose mode'); $verbose = 1; }
+      elsif ($opt eq 'n' or $opt eq 'dryrun') { info('dryrun mode'); $dryrun = 1; }
+      elsif ($opt eq 'h' or $opt eq 'help') { usage(); exit 1; }
+      elsif ($opt eq 'c') { $iscgi = 1; }
+      elsif ($opt eq 'x') {} # dummy
+      elsif ($opt eq 'f') { $foreground = 1; }
+      elsif ($opt eq 'refs') { readportrefs(0) unless $haveportrefs; }
+
+      elsif ($opt eq 'V' or $opt eq 'version') { showvers(1); exit 1; }
+      elsif ($opt eq 'o' and length($optarg)) {
+        $repfile = $repdir . '/' . $optarg;
+        ($reqid) = ($repfile =~ qr'[-a-z_]+([0-9]+)\.[-a-z]');
+        $reqid = 0 unless defined $reqid;
+        info("repfile $repfile id $reqid");
+      }
+      else { info("ignoring unknown option -$opt"); }
+    } else {
+      $inopt = 0;
+      push(@args,$arg);
+    }
+  }
+
+  if (@args > 0) {
+    init();
+    $cmd = $args[0];
+    $xargs = '';
+    info("cmd $cmd");
+    if ($cmd eq 'stop') {
+      stop($cmd);
+    } elsif ($cmd eq 'plan') {
+      exit info("plan needs 'from' and 'to' arg") unless (@args > 2);
+      $dep = $args[1]; $arr = $args[2];
+      splice(@args,0,3);
+      foreach $arg (@args) { set_var($arg); }
+      $repoptions |= $repopt_stopid;
+      $repoptions |= $repopt_coords;
+      plan($dep,$arr) or exit 1;
+      agedir($querydir,time() - $agelimit);
+    } elsif ($cmd eq 'iplan') {
+      exit info("iplan needs 'from' and 'to' arg") unless (@args > 2);
+      $dep = $args[1]; $arr = $args[2];
+      if ($arr eq 'to') { $arr = $args[3]; splice(@args,0,4); }
+      else {splice(@args,0,3); }
+      foreach $arg (@args) { set_var($arg); }
+      $repoptions |= $repopt_stopid;
+   #   $repoptions |= $repopt_int;
+      info("repopt $repoptions");
+#      $repoptions |= $repopt_coords;
+      iplan($dep,$arr) or exit 1;
+      agedir($querydir,time() - $agelimit);
+    } elsif ($cmd eq 'cplan') {
+      exit info("cplan needs 'from' and 'to' lat/lon/args") unless (@args > 4);
+      $deplat = $args[1]; $deplon = $args[2];
+      $arrlat = $args[3]; $arrlon = $args[4];
+      splice(@args,0,5);
+      foreach $arg (@args) { set_var($arg); }
+      info("repopt $repoptions");
+      $repoptions |= $repopt_stopid;
+      info("repopt $repoptions");
+      $repoptions |= $repopt_coords;
+      info("repopt $repoptions");
+      cplan($deplat,$deplon,$arrlat,$arrlon) or exit 1;
+      agedir($querydir,time() - $agelimit);
+    } elsif ($cmd eq 'geocode') {
+      exit info("geocode needs lat and lon arg") unless (@args > 2);
+      geocode($args[1],$args[2]);
+    } elsif ($cmd eq 'update') {  # dev provision
+      exit info("update needs: 'rid,dep,arr,date,time'") unless (@args > 5);
+      $rid = $args[1]; $dep = $args[2]; $arr = $args[3]; $d0 = $args[4]; $t0 = $args[5];
+      splice(@args,0,6);
+      foreach $arg (@args) { $xargs .= set_var($arg); }
+      update($rid,$dep,$arr,$d0,$t0,$xargs);
+    } elsif ($cmd eq 'geo2') {
+      exit info("geo2 needs: 'lat,lon,scale'") unless (@args > 3);
+      $deplat = lat2ilat($args[1]); $deplon = lon2ilon($args[2]);
+      geocode2($deplat,$deplon,$args[3]);
+    } else { info("unknown command"); }
+#    agedir($repdir,time() - $repagelimit);
+    exit 0;
+  }
+}
+
+init();
+
+if ($iscgi) { usage(); exit 0; }
+
+if (-t STDIN) {
+  info("entering command loop. commands:\n");
+  info("  plan <from> <to> name or coords");
+  info("  quit, exit");
+}
+
+# loop
+$cmd = ''; $prvline = '';
+while ($cmd ne 'quit') {
+  print("plantrip % ") if -t STDIN;
+  $line = <STDIN>;
+  last unless defined $line;
+  next unless length($line);
+  next if index($line,'#') == 0;
+
+  $line = trimws($line);
+  next unless length($line);
+  $line = $prvline if $line eq '!!';
+  @args = split(' ',$line);
+  $cmd = '';
+  $cmd = 'quit' if index($line,'quit') == 0;
+  $cmd = 'quit' if index($line,'exit') == 0;
+  $cmd = 'plan' if index($line,'plan') == 0;
+  $cmd = 'iplan' if index($line,'iplan') == 0;
+  $cmd = 'rplan' if index($line,'rplan') == 0;
+  $cmd = 'cplan' if index($line,'cplan') == 0;
+  $cmd = 'update' if index($line,'update') == 0;
+  $cmd = 'stop' if index($line,'stop') == 0;
+  $cmd = 'set' if index($line,'set') == 0;
+  $cmd = 'get' if index($line,'get') == 0;
+  info("unrecognised command '$line'") if length($line) and not length($cmd);
+  if ($cmd eq 'plan') {
+    exit info("plan needs 'from' and 'to' arg") unless (@args > 2);
+    $dep = $args[1]; $arr = $args[2];
+    splice(@args,0,3);
+    foreach $arg (@args) { set_var($arg); }
+    $repoptions |= $repopt_stopid;
+    $repoptions |= $repopt_coords;
+    plan($dep,$arr) or exit 1;
+    agedir($querydir,time() - $agelimit);
+    $prvline = $line;
+
+  } elsif ($cmd eq 'cplan') {
+    exit info("cplan needs 'from' and 'to' lat,lon args") unless (@args > 2);
+    $eqpos = index($args[1],',');
+    exit info("expected lat,lon found $args[1]") if $eqpos < 0;
+    $deplat = substr($args[1],0,$eqpos);
+    $deplon = substr($args[1],$eqpos+1);
+
+    $eqpos = index($args[2],',');
+    exit info("expected lat,lon found $args[2]") if $eqpos < 0;
+    $arrlat = substr($args[2],0,$eqpos);
+    $arrlon = substr($args[2],$eqpos+1);
+
+    splice(@args,0,3);
+    foreach $arg (@args) { set_var($arg); }
+    $repoptions |= $repopt_stopid;
+    $repoptions |= $repopt_coords;
+    cplan($deplat,$deplon,$arrlat,$arrlon) or exit 1;
+    agedir($querydir,time() - $agelimit);
+
+  } elsif ($cmd eq 'iplan' or $cmd eq 'rplan') {
+    if ($cmd eq 'iplan') {
+      exit info("iplan needs 'from' and 'to' arg") unless (@args > 2);
+      $dep = $args[1]; $arr = $args[2];
+      splice(@args,0,3);
+    } else {
+      $dep = $prvdep; $arr = $prvarr;
+      splice(@args,0,1);
+    }
+    foreach $arg (@args) { set_var($arg); }
+    $repoptions |= $repopt_stopid;
+    $repoptions |= $repopt_coords;
+    iplan($dep,$arr) or exit 1;
+    agedir($querydir,time() - $agelimit);
+    $prvline = $line;
+  } elsif ($cmd eq 'update') {  # dev provision
+    unless (@args > 5) {
+      info("update needs: 'rid,dep,arr,date,time'");
+      exit;
+    }
+    $rid = $args[1]; $dep = $args[2]; $arr = $args[3]; $d0 = $args[4]; $t0 = $args[5];
+    splice(@args,0,6);
+    foreach $arg (@args) { $xargs .= set_var($arg); }
+    update($rid,$dep,$arr,$d0,$t0,$xargs);
+    $prvline = $line;
+  } elsif ($cmd eq 'stop') {
+    stop($line);
+  } elsif ($cmd eq 'set') {
+    setvar($args[1],$args[2]);
+    $prvline = $line;
+  } elsif ($cmd eq 'get') {
+    getvar($args[1]);
+    $prvline = $line;
+  }
+}

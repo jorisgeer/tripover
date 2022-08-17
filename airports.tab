@@ -1,0 +1,1915 @@
+# airports.tab	main airports list
+
+# This file is part of Tripover, a broad-search journey planner.
+
+#  Copyright (C) 2014-2016 Joris van der Geer.
+
+# This file is used by gtfstool when creating gtfs feeds from air timetables
+# derived partially from openflights.org and ourairports.com  res.taca.com/zed/app/codes.html
+
+# name	code	cc	lat	lon	utcofs	citydst	lat	lon
+
+Aalborg	AAL	dk	57.086479	9.872927	Europe/Copenhagen	aal_lindholm	57.066592	9.904876
+Aalesund	AES	no	62.558435	6.116147	Europe/Oslo	aes_skaterflukaia	62.474284	6.155245
+Aarhus	AAR	dk	56.308192	10.626745	Europe/Copenhagen	aar_kolind	56.362528	10.589929
+Abakan	ABA	ru	53.7400016784668	91.38500213623	Asia/Krasnoyarsk
+Abbotsford	YXX	ca	49.023059	-122.380165	America/Vancouver
+Aberdeen	ABR	us-sd	45.452928	-98.417790	America/Chicago
+Aberdeen	ABZ	gb	57.200167	-2.204338	Europe/London	abz_central	57.141114	-2.099453
+Abha	AHB	sa	18.24037	42.65662	Asia/Riyadh
+Abidjan	ABJ	ci	5.255279	-3.932808	Africa/Abidjan	abj_port	5.299978	-4.015119
+Abilene	ABI	us-tx	32.411260	-99.680060	America/Chicago
+Abilene	DYS	us-tx	32.424648	-99.847053	America/Chicago
+Abu Dhabi	AUH	ae	4.5189	54.980	Asia/Yekaterinburg
+Abuja	ABV	ng	9.004927	7.270490	Africa/Lagos
+Acapulco	ACA	mx	16.763044	-99.754121	America/Mexico_City
+Accra	ACC	gh	5.6051898	-0.166786	Africa/Accra
+Adana	ADA	tr	36.983219	35.296405	Europe/Istanbul
+Addis Ababa	ADD	et	8.983888	38.795666	Africa/Addis_Ababa
+Adelaide	ADL	au-sa	-34.938749	138.536399	Australia/Adelaide	adl_Railway	-34.920930	138.595569
+Aden	ADE	ye	12.824824	45.038102	300
+Aershan Yiershi	YIE	cn	47.310963	119.922587	Asia/Shanghai
+Agadir	AGA	ma	30.329259	-9.414147	Africa/Casablanca
+Agen	AGF	fr	44.176692	0.593802	Europe/Paris	agf_sncf	44.208447	0.620538
+Aguadilla, Pr	BQN	pr	18.496268	-67.135651	America/Puerto_Rico
+Aguascalientes	AGU	mx	21.701786	-102.313813	America/Mexico_City
+Ahmedabad	AMD	in	23.075213	72.623782	Asia/Kolkata
+Ahwaz	AWZ	ir	31.3374004364	48.7620010376	Asia/Tehran
+Aix En Provence	QXB	fr	43.503997	5.365874	Europe/Paris	qxb_centre	43.522764	5.444795
+Ajaccio	AJA	fr	41.920170	8.794107	Europe/Paris
+Akita	AXT	jp	39.61556	140.21861	Asia/Tokyo
+Akron	CAK	us-oh	40.914713	-81.435762	America/New_York
+=Akron/canton CAK
+Aksu	AKU	cn	41.254749	80.297308	Asia/Shanghai
+Al Ain	AAN	ae	24.26167	55.60917	Asia/Dubai
+Alamosa, Co	ALS	us-co	37.443647	-105.865464	America/Denver
+Albacete	EEM	es	38.952782	-1.860969	Europe/Madrid	eem_centro	38.999022	-1.847687
+AlBaha	ABT	sa	20.294692	41.640083	Asia/Riyadh
+Albany	ABY	us	31.532432	-84.188855	America/New_York	aby_civic	31.573760	-84.151571	10
+Albany_int	ALB	us	42.745484	-73.810028	America/New_York
+Albuquerque	ABQ	us-nm	35.049620	-106.617151	America/Denver	abq_bernalillo	35.029311	-106.657363
+Albury	ABX	au-nsw	-36.069966	146.954301	Australia/Sydney	abx_railway	-36.083071	146.925447
+=Ålesund  AES
+Aleppo	ALP	sy	36.185175	37.216568	Asia/Damascus
+Alexandria	AEX	us-la	31.323074	-92.541627	America/Chicago
+Alexandria	HBE	eg	30.932711	29.696781	Africa/Cairo	hbe_alexandria	31.192283	29.906680
+Alghero	AHO	it	40.629983	8.295654	Europe/Rome	aho_alghero	40.575208	8.322341
+Algiers	ALG	dz	36.696323	3.206956	Africa/Algiers
+Alicante	ALC	es	38.286405	-0.559040	Europe/Madrid	alc_torrelano	38.289773	-0.582171
+Alice Springs	ASP	au-nt	-23.801316	133.903099	Australia/Darwin	asp-railway	-23.697064	133.873305
+Allentown	ABE	us	40.651632	-75.433985	America/New_York
+Almaty	ALA	kz	43.347666	77.009412	Asia/Almaty
+Almeria	LEI	es	36.847935	-2.372084	Europe/Madrid	lei_centro	36.834935	-2.454975
+Al Najaf	NJF	iq	31.997187	44.391626	Asia/Baghdad
+=Al Najaf AlAshraf Intl NJF
+Alor Setar	AOR	my	6.18967	100.39813	Asia/Kuala_Lumpur
+Alpena	APN	us	45.080358	-83.564872	America/Detroit
+Altay	AAT	cn	47.755298	88.092409	Asia/Urumqi	aat_rail	47.843675	88.137859
+Al Ula	ULH	sa	26.63672	37.90802	Asia/Riyadh
+Amami O shima	ASJ	jp	28.43063	129.71254	Asia/Tokyo
+Amarillo	AMA	us	35.218982	-101.705835	America/Chicago
+Ambon	AMQ	id	-3.705630	128.089601	Asia/Jayapura
+Amman	ADJ	jo	31.975960	35.983266	Asia/Amman	adj_city	31.955110	35.950519
+Amman	AMM	jo	31.7226009	35.9931984	Asia/Amman	amm_city	31.955110	35.950519
+Amritsar	ATQ	in	31.706902	74.807389	Asia/Kolkata
+Amsterdam	AMS	nl	52.308046	4.760133	Europe/Amsterdam
+Anapa	AAQ	ru	45.003840	37.339997	Europe/Moscow
+Anchorage	ANC	us-ak	61.1744003	-149.9960022	America/Anchorage
+Ancona	AOI	it	43.607066	13.356009	Europe/Rome	aoi_falconara	43.630957	13.396393
+Angers	ANE	fr	47.562809	-0.312495	Europe/Paris	ane_sncf	47.463831	-0.556220
+Angers	QXG	fr	47.464528	-0.556443	Europe/Paris
+Ankara	ESB	tr	40.114934	32.993204	Europe/Istanbul	esb_centre	39.935338	32.843172
+Annaba	AAE	dz	36.8222007751465	7.8091697692	Africa/Algiers
+Anqing	AQG	cn	30.584459	117.051554	Asia/Shanghai	aqg_rail	30.549568	117.066663
+Anshan	AOG	cn	41.103248	122.861018	Asia/Shanghai	aog_rail	41.108695	122.983441
+Anshun Huangguoshu	AVA	cn	26.254780	105.873116	Asia/Shanghai	ava_rail	26.229569	105.944853
+Antalya	AYT	tr	36.909011	30.802447	Europe/Istanbul
+Antananarivo	TNR	mg	-18.799733	47.475202	Indian/Antananarivo
+Antigua	ANU	ag	17.140432	-61.792518	America/Antigua
+Antofagasta	ANF	cl	-23.451403	-70.440837	America/Santiago
+Antwerp	ANR	be	51.188424	4.451237	Europe/Brussels	anr_berchem	51.199858	4.432108
+=Antwerp ZWE
+Aomori	AOJ	jp	40.739118	140.689964	Asia/Tokyo
+Apia	APW	ws	-13.832063	-172.010766	Pacific/Apia
+Appleton	ATW	us	44.260304	-88.511124	America/Chicago
+Aqaba	AQJ	jo	29.609473	35.020702	Asia/Amman
+Aracaju	AJU	br	-10.984	-37.07033	America/Noronha
+Arar	RAE	sa	30.903464	41.136114	Asia/Riyadh
+Arequipa	AQP	pe	-16.344867	-71.566947	America/Lima
+Arica	ARI	cl	-18.510291	-70.286854	America/Santiago
+Arkhangelsk	ARH	ru	64.595944	40.715009	Europe/Moscow	arh_central	64.550361	40.575168
+Armenia	AXM	co	4.453181	-75.767992	America/Bogota
+Armidale	ARM	au-nsw	-30.532346	151.614756	Australia/Sydney	arm_railway	-30.515350	151.652137
+Arnhem All airports	QAR-bus	nl	51.984297	5.900286	Europe/Amsterdam
+=Arnhem Bus Station QAR
+Aruba	AUA	aw	12.503143	-70.007735	America/Aruba
+Asahikawa	AKJ	jp	43.67083	142.4475	Asia/Tokyo
+Asheville	AVL	us	35.434997	-82.538191	America/New_York
+Ashgabad	ASB	tm	37.984433	58.366820	Asia/Ashgabat
+=Ashgabat ASB
+Asmara	ASM	er	15.296519	38.904892	Africa/Asmara
+Aspen	ASE	us	39.219840	-106.864041	America/Denver
+Astana	TSE	kz	51.027873	71.463031	Asia/Almaty	tse_station	51.195482	71.410674
+Astrakhan	ASF	ru	46.287684	47.999655	Europe/Volgograd	asf_astrakhan	46.360838	48.059521
+Asturias	OVD	es	43.559476	-6.034424	Europe/Madrid
+Asuncion	ASU	py	-25.241684	-57.514711	America/Asuncion
+Athens	ATH	gr	37.937469	23.945609	Europe/Athens
+Atlanta	ATL	us-ga	33.641157	-84.419716	America/New_York
+Auckland	AKL	nz	-37.004670	174.783192	Pacific/Auckland	akl_Britomart	-36.844556	174.768837	40
+Augusta	AGS	us	33.373308	-81.976127	America/New_York
+Aurillac	AUR	fr	44.897903	2.420806	Europe/Paris
+Austin	AUS	us-tx	30.202614	-97.666212	America/Chicago	aus_amtrak	30.269204	-97.756120
+=Austin ASQ
+Avalon	AVV	au-vic	-38.026442	144.473848	Australia/Melbourne	avv_lara	-38.021657	144.415075
+Avignon	AVN	fr	43.904049	4.899188	Europe/Paris	avn_garesud	43.935672	4.839149
+Avignon	XZN	fr	43.999702	4.756580	Europe/Paris	avn_garesud	43.935672	4.839149
+Ayacucho	AYP	pe	-13.147502	-74.202526	America/Lima
+Ayers Rock	AYQ	au-nt	-25.190855	130.976669	Australia/Darwin
+Bijie	BFJ	cn	27.253	105.426	Asia/Shanghai
+Badajoz	BJZ	es	38.883021	-6.815117	Europe/Madrid	bjz_centro	38.890204	-6.980813
+Baghdad	BGW	iq	33.268529	44.230228	Asia/Baghdad	bgw_railway	33.336108	44.366071
+Bahia Blanca	BHI	ar	-38.716781	-62.164432	America/Argentina/Buenos_Aires
+Bahrain	BAH	bh	26.2707996	50.6335983	Asia/Bahrain
+Baia Mare	BAY	ro	47.661027	23.466567	Europe/Bucharest
+Baise	AEB	cn	23.716490	106.971447	Asia/Shanghai	aeb_tianyang	23.765855	106.937196
+Baishan	NBS	cn	42.067370	127.611395	Asia/Shanghai	nbs_rail	41.927585	126.411886
+Bakersfield	BFL	us	35.437897	-119.054131	America/Los_Angeles	bfl_amtrak	35.371838	-119.007266
+Baku	GYD	az	40.464436	50.052364	Asia/Baku
+Balikpapan	BPN	id	-1.261636	116.901303	Asia/Makassar
+Ballina	BNK	au-nsw	-28.837697	153.556052	Australia/Sydney	
+Balmaceda	BBA	cl	-45.913241	-71.694396	America/Santiago
+Baltra Island	GPS	ec	-0.445252	-90.269940	Pacific/Galapagos
+Bamako	BKO	ml	12.540983	-7.947709	Africa/Bamako
+Banda Aceh	BTJ	id	5.52352	95.42037	Asia/Jakarta
+Bandar Lampung	TKG	id	-5.24234	105.17894	Asia/Jakarta
+Bandar Seri Begawan	BWN	bn	4.945926	114.932765	Asia/Brunei
+=Bandar Seri begawan BWN
+Bandung	BDO	id	-6.903660	107.578475	Asia/Jakarta
+Bangalore	BLR	in	13.199446	77.709405	Asia/Kolkata
+=Bengaluru BLR
+Bangkok	BKK	th	13.693317	100.750891	Asia/Bangkok	bkk_ktm	13.740299	100.517467
+Bangkok	DMK	th	13.9125996	100.6070023	Asia/Bangkok
+Bangor	BGR	us	44.808343	-68.816193	America/New_York
+Bangui	BGF	cf	4.399052	18.525296	Africa/Bangui
+Banjarmasin	BDJ	id	-3.44236	114.76255	Asia/Makassar
+Banjul	BJL	gm	13.33796	-16.65221	Africa/Banjul
+Ban Me Thuot	BMV	vn	12.66831	108.12027	Asia/Ho_Chi_Minh
+Banyuwangi Blimbingsari	BWX	id	-8.311805	114.340450	Asia/Jakarta
+Baoshan	BSD	cn	25.051960	99.165372	Asia/Shanghai
+Baotou	BAV	cn	40.564369	110.004849	Asia/Shanghai	bav_raildong	40.569634	110.024723
+Barbados ¿ Bridgetown	BGI	bb	13.0746002197	-59.49250030	America/Barbados
+=Bridgetown BGI
+=Barbados Bridgetown BGI
+Barcaldine	BCI	au-qld	-23.561001	145.300579	Australia/Brisbane	bci_station	-23.557110	145.291097
+Barcelona	BCN	es	41.303296	2.076487	Europe/Madrid	bcn_sants	41.379076	2.139834
+Bari	BRI	it	41.132991	16.766911	Europe/Rome	bri_quintino	41.117832	16.862913
+Barnaul	BAX	ru	53.362134	83.547267	Asia/Omsk	bax_barnaul	53.351274	83.755707
+Barranquilla	BAQ	co	10.886576	-74.776234	America/Bogota
+Basel	BSL	fr	47.600014	7.532230	Europe/Paris	bsl_hbf	47.568217	7.607547
+=Basel/mulhouse BSL
+=Basel/Mulhouse BSL
+=Basel/Mulhouse MLH
+Basra	BSR	iq	30.552717	47.669151	Asia/Baghdad
+=Basrah BSR
+Bastia	BIA	fr	42.546906	9.480823	Europe/Paris	bia_bastia	42.701929	9.447433
+Batam Batu Besar	BTH	id	1.12103	104.11875	Asia/Jakarta
+Baton Rouge	BTR	us	30.533016	-91.156862	America/Chicago
+Batticaloa	BTC	lk	7.70576	81.67880	Asia/Colombo
+Batumi	BUS	ge	41.61028	41.59969	Asia/Tbilisi
+Baubau	BUW	id	-5.48688	122.56900	Asia/Makassar
+Bauru	JTC	br	-22.15778	-49.06833	America/Sao_Paulo
+Beaumont	BPT	us	29.955676	-94.021562	America/Chicago
+Beef Island	EIS	vg	18.444282	-64.539877	America/Tortola
+Beihai	BHY	cn	21.540722	109.292545	Asia/Shanghai	bhy_beihai	21.452259	109.129581
+Beijing	NAY	cn	39.791873	116.395792	Asia/Shanghai	nay_nanrail	39.863826	116.380133
+Beijing	PEK	cn	40.080101	116.5849991	Asia/Shanghai	nay_nanrail	39.863826	116.380133
+Beirut	BEY	lb	33.8209	35.4883995	Asia/Beirut
+Belem	BEL	br-pa	-1.389764	-48.479884	America/Belem
+Belfast	BFS	gb	54.662593	-6.217396	Europe/London	bfs_antrim	54.717610	-6.211035
+Belfast	BHD	gb	54.614518	-5.870086	Europe/London	bhd_central	54.594439	-5.917368
+Belgrade	BEG	rs	44.820677	20.291662	Europe/Belgrade	beg_centre	44.807952	20.454226
+Belize	BZE	bz	17.535786	-88.310042	America/Belize
+=Belize City BZE
+Bellingham	BLI	us	48.795108	-122.533473	America/Vancouver
+Belo Horizonte	CNF	br	-19.632416	-43.963183	America/Sao_Paulo
+Bemidji	BJI	us	47.506453	-94.933491	America/Chicago
+Bengkulu	BKS	id	-3.8637	102.33904	Asia/Jakarta
+Bentota River	BJT	lk	6.41667	79.983333	Asia/Colombo
+Berau	BEJ	id	2.1555	117.43226	Asia/Makassar
+Bergen	BGO	no	60.289185	5.228376	Europe/Oslo	bgo_center	60.389425	5.336022
+Bergerac	EGC	fr	44.822018	0.514335	Europe/Paris	egc_sncf	44.857641	0.488115
+Berlin	SXF	de	52.364492	13.509443	Europe/Berlin	sxf_schonefeld	52.391082	13.514850
+Berlin	TXL	de	52.553965	13.292513	Europe/Berlin	txl_hbf	52.521568	13.411008
+Bermuda	BDA	bm	32.365340	-64.675756	Atlantic/Bermuda
+Biak	BIK	id	-1.19002	136.108	Asia/Jayapura
+Biarritz	BIQ	fr	43.471721	-1.530456	Europe/Paris	biq_estacion	43.459321	-1.545538
+Bilbao	BIO	es	43.305424	-2.905668	Europe/Madrid	bio_derio	43.290682	-2.886463
+Billings	BIL	us-mt	45.803427	-108.537345	America/Denver
+Billund	BLL	dk	55.745782	9.147496	Europe/Copenhagen
+Biloela	THG	au-qld	-24.490717	150.573504	Australia/Brisbane	thg_gladstone	-23.847227	151.262980
+=Biloela ZBL
+Bima	BMU	id	-8.53965	118.68732	Asia/Makassar
+Bimini International, bahamas	BIM	bs	25.700905	-79.272479	America/Nassau
+Binghamton	BGM	us	42.208218	-75.982217	America/New_York
+Bintulu	BTU	my	3.12385	113.02047	Asia/Kuching
+Birmingham	BHM	us-al	33.562494	-86.753276	America/Chicago	bhm_amtrak	33.512118	-86.806765
+Birmingham	BHX	gb	52.451613	-1.732535	Europe/London
+Bisha	BHH	sa	19.993923	42.618143	Asia/Riyadh
+Bishkek	FRU	kg	43.054578	74.469200	Asia/Bishkek	fru_rail	42.863392	74.607630
+Bismarck	BIS	us-nd	46.774821	-100.757100	America/Chicago
+Blackall	BKQ	au-qld	-24.428038	145.433769	Australia/Brisbane	bkq_barcaldine	-23.557110	145.291097
+Blagoveschensk	BQS	ru	50.422761	127.407700	Asia/Yakutsk	bqs_rail	50.287350	127.548131
+Blantyre	BLZ	mw	-15.681646	34.974161	Africa/Blantyre
+Bloomington-normal	BMI	us	40.483747	-88.913951	America/Chicago	bmi_amtrak	40.508727	-88.983749
+=BloomingtonNormal BMI
+Boa Vista	BVB	br	2.84631	-60.69007	America/Boa_Vista
+Bodø	BOO	no	67.272814	14.367551	Europe/Oslo
+Bodrum	BJV	tr	37.243812	27.673047	Europe/Istanbul
+Bogota	BOG	co	4.698521	-74.142882	America/Bogota
+Boise	BOI	us	43.567964	-116.222125	America/Boise
+Bologna	BLQ	it	44.529265	11.294328	Europe/Rome	blq_centrale	44.506560	11.340548
+Bolzano	BZO	it	46.461297	11.330452	Europe/Rome	bzo_sud	46.473490	11.326858
+Bonaire	BON	bq	12.133422	-68.276650	America/Kralendijk
+Bordeaux	BOD	fr	44.830127	-0.700693	Europe/Paris	bod_x	44.842087	-0.627222
+=Bordeaux ZFQ
+Boston	BOS	us-ma	42.364871	-71.019209	America/New_York
+Bournemouth	BOH	gb	50.778012	-1.831814	Europe/London	boh_bournemounth	50.726938	-1.863490
+Bozeman	BZN	us-mt	45.777452	-111.160109	America/Denver
+Brainerd	BRD	us	46.392969	-94.140879	America/Chicago
+Brandon	YBR	ca-mb	49.904539	-99.945779	America/Winnipeg
+Brasilia	BSB	br	-15.869915	-47.920447	America/Sao_Paulo
+Bratislava	BTS	sk	48.170043	17.199800	Europe/Bratislava	bts_petrzalka	48.121134	17.098519
+Bratsk	BTK	ru	56.364398	101.704252	Asia/Irkutsk	btk_Падунские_Пороги	56.307850	101.727175
+Brazzaville	BZV	cg	-4.259069	15.252154	Africa/Brazzaville
+Bremen	BRE	de	53.049683	8.790669	Europe/Berlin	bre_hbf	53.083233	8.814100
+Brest	BES	fr	48.445324	-4.417344	Europe/Paris	bes_releq	48.409283	-4.388962
+#Bridgetown	BGI	bb	13.080620	-59.487383	America/Barbados
+Brindisi	BDS	it	40.657684	17.938102	Europe/Rome	bds_centro	40.634193	17.939547
+Brisbane	BNE	au-qld	-27.385210	153.119890	Australia/Brisbane	bne_Roma Street	-27.465623	153.019976
+Brisbane_int	BNE	au-qld	-27.403109	153.109068	Australia/Brisbane	bne_Roma Street	-27.465623	153.019976
+Bristol	BRS	gb	51.385134	-2.704316	Europe/London	brs_templemeads	51.449297	-2.580459
+Bristol	TRI	us-tn	36.480831	-82.408077	America/New_York
+=TriCity TRI
+Brive la Gaillarde	BVE	fr	45.041549	1.490673	Europe/Paris	bve_sncf	45.152456	1.527319
+Brize Norton	BZZ	gb	51.750292	-1.563726	Europe/London
+Broome	BME	au-wa-	-17.952832	122.234534	Australia/Perth
+Brownsville	BRO	us-tx	25.907073	-97.431498	America/Chicago
+Brunswick	BQK	us-ga	31.254705	-81.466837	America/New_York
+Brussels	BRU	be	50.897378	4.484241	Europe/Brussels	bru_midi	50.835316	4.335213
+=Brussels ZYR
+Bucaramanga	BGA	co	7.128534	-73.182093	America/Bogota
+Bucharest	OTP	ro	44.570916	26.078368	Europe/Bucharest	otp_nord	44.446810	26.073197
+Budapest	BUD	hu	47.432473	19.261153	Europe/Budapest	bud_keleti	47.500445	19.086559
+Buenos Aires	AEP	ar	-34.556905	-58.417674	America/Argentina/Buenos_Aires	aep_retiro	-34.589835	-58.375317
+Buenos Aires	EZE	ar	-34.813383	-58.541610	America/Argentina/Buenos_Aires	eze_retiro	-34.589835	-58.375317
+Buerjin City Kanasi	KJI	cn	48.223578	87.002687	Asia/Chongqing
+Buffalo	BUF	us-ny	42.933712	-78.732109	America/New_York	buf_depew	42.933712	-78.732109
+Bujumbura	BJM	bi	-3.32402	29.31852	Africa/Bujumbura
+Bukhara	BHK	uz	39.766229	64.475829	Asia/Samarkand
+Bundaberg	BDB	au-qld	-24.898431	152.321521	Australia/Brisbane	bdb_railway	-24.869331	152.345587
+Burbank	BUR	us-ca	34.200149	-118.360084	America/Los_Angeles
+Burgas	BOJ	bg	42.566597	27.517378	Europe/Sofia
+=Bourgas BOJ
+Burlington	BTV	us-vt	44.469110	-73.154944	America/New_York
+Busan	PUS	kr	35.189382	128.944167	Asia/Seoul
+Butte	BTM	us-mt	45.955266	-112.503198	America/Denver
+Caceres Railway Station	QUQ-rail	es	39.460527	-6.386113	Europe/Madrid
+Caen	CFR	fr	49.181979	-0.456268	Europe/Paris	cfr_centre	49.176676	-0.346748
+Cagliari	CAG	it	39.253851	9.061196	Europe/Rome	cag_montserrano	39.219913	9.111000
+Cairns	CNS	au-qld	-16.876766	145.754134	Australia/Brisbane	cns_Cairns central	-16.925727	145.771317
+Cairo	CAI	eg	30.115332	31.408466	Africa/Cairo
+Cajamarca	CJA	pe	-7.142810	-78.490089	America/Lima
+Calama	CJC	cl	-22.494918	-68.907712	America/Santiago
+Calgary	YYC	ca-ab	51.132148	-114.010979	America/Edmonton	yyc_mcknight	51.108503	-113.975616
+Cali	CLO	co	3.536307	-76.387682	America/Bogota
+Calvi	CLY	fr	42.524834	8.789570	Europe/Paris	cly_sncf	42.564314	8.755930
+Ca Mau	CAH	vn	9.18805	105.17472	Asia/Ho_Chi_Minh
+Cambridge	CBG	gb	52.210643	0.174008	Europe/London	cbg_central	52.193993	0.138015
+Campeche	CPE	mx	19.813973	-90.504063	America/Merida
+Camp Springs	ADW	us-va	38.810165	-76.857333	America/New_York
+Campo Grande	CGR	br	-20.46867	-54.6725	America/Campo_Grande
+Canberra	CBR	au-act	-35.307687	149.189861	Australia/Sydney	cbr_Kingston	-35.319287	149.149187
+Cancun	CUN	mx	21.038569	-86.873413	America/Cancun
+Can Tho	VCA	vn	10.08512	105.71192	Asia/Ho_Chi_Minh
+Cape Town	CPT	za	-33.968686	18.597322	Africa/Johannesburg
+Cap-haitien	CAP	ht	19.73299	-72.19474	America/Port-au-Prince
+Caracas	CCS	ve	10.596964	-67.005134	America/Caracas
+Carcassonne	CCF	fr	43.213842	2.308788	Europe/Paris
+Cardiff	CWL	gb	51.398442	-3.339435	Europe/London	cwl_rhoose	51.386915	-3.347696
+Cartagena	CTG	co	10.445573	-75.516810	America/Bogota
+Cartago	CRC	co	4.75818	-75.955	America/Bogota
+Casablanca	CMN	ma	33.373559	-7.579821	Africa/Casablanca
+Casper	CPR	us-wy	42.900555	-106.463213	America/Denver
+Castres	DCM	fr	43.553751	2.288772	Europe/Paris	dcm_sncf	43.598243	2.229874
+Castro	MHC	cl	-42.348436	-73.721620	America/Santiago
+Catamarca	CTC	ar	-28.592435	-65.755145	America/Argentina/Catamarca
+Catania	CTA	it	37.470414	15.067664	Europe/Rome	cta_centrale	37.492011	15.074564
+Cayenne	CAY	gf	4.821841	-52.363930	America/Cayenne
+Cebu	CEB	ph	10.316171	123.978461	Asia/Manila
+=Lapu-Lapu City CEB
+Cedar City	CDC	us-ut	37.699459	-113.092556	America/Denver
+Cedar Rapids	CID	us-ia	41.888549	-91.700483	America/Chicago
+Chambery	CMF	fr	45.637927	5.884200	Europe/Paris	cmf_sncf	45.570812	5.919692
+Champaign	CMI	us-il	40.040042	-88.270380	America/Chicago
+Changchun	CGQ	cn	43.994856	125.697356	Asia/Shanghai
+Changde	CGD	cn	28.921367	111.643520	Asia/Shanghai	cgd_changde	29.072102	111.697630
+Changsha	CSX	cn	28.187091	113.219095	Asia/Shanghai
+Changsha	DDV	cn
+Changzhi	CIH	cn	36.245562	113.127507	Asia/Shanghai	cih_rail	36.240575	113.100043
+Changzhou	CZX	cn	31.913049	119.782620	Asia/Shanghai	czx_changzhou	31.789459	119.969603
+Chania	CHQ	gr	35.540343	24.140335	Europe/Athens
+Chaoyang	CHG	cn	41.539713	120.436008	Asia/Shanghai	chg_chaoyang	41.578309	120.440745
+Charleston	CHS	us-sc	32.884948	-80.036928	America/New_York	chs_amtrak	32.874208	-79.997982
+Charleston	CRW	us-wv	38.370404	-81.596312	America/New_York	crw_amtrak	38.345754	-81.637897
+Charleville	CTL	au-qld	-26.413299	146.261993	Australia/Brisbane	ctl_railway	-26.406867	146.243196
+Charlotte	CLT	us-nc	35.220873	-80.943889	America/New_York	clt_amtrak	35.241011	-80.822674
+Charlottesville	CHO	us-va	38.139532	-78.449057	America/New_York	cho_amtrak	38.031205	-78.492528
+Charlottetown	YYG	ca-pe	46.286296	-63.130936	America/Halifax
+Chattanooga	CHA	us-tn	35.036448	-85.196903	America/New_York
+Chelyabinsk	CEK	ru	55.297516	61.512639	Asia/Yekaterinburg	cek_rail	55.140052	61.417486
+Chengdu	CTU	cn	30.578806	103.959052	Asia/Shanghai	ctu_成都_chengdu	30.697397	104.074179
+Chennai	MAA	in	12.982102	80.164527	Asia/Kolkata
+Chenzhou Railway Station	LQP-rail	cn	25.806906	113.033925	Asia/Shanghai
+Cheongju	CJJ	kr	36.722834	127.496614	Asia/Seoul
+Cheyenne, Wy	CYS	us-wy	41.152889	-104.819382	America/Denver
+Chiang Mai	CNX	th	18.76685	98.96264	Asia/Bangkok
+Chiang Rai	CEI	th	19.95234	99.88293	Asia/Bangkok
+Chicago	MDW	us-il	41.787939	-87.741718	America/Chicago	mdw_amtrak	41.877312	-87.638381
+Chicago	ORD	us-il	41.976674	-87.903684	America/Chicago	ord_amtrak	41.877312	-87.638381
+Chicago/Rockford	RFD	us-il	42.201975	-89.095779	America/Chicago
+Chiclayo	CIX	pe	-6.777365	-79.829602	America/Lima
+Chifeng	CIF	cn	42.232012	118.945901	Asia/Shanghai	cif_rail	42.256385	118.961940
+Chihuahua	CUU	mx	28.70287	-105.96457	America/Chihuahua
+Chisinau	KIV	md	46.92774	28.93098	Europe/Chisinau
+Chita	HTA	ru	52.019991	113.308337	Asia/Yakutsk	hta_Чита 2	52.026879	113.495910
+Chizhou Jiuhuashan	JUH	cn	30.738816	117.682722	Asia/Shanghai	juh_chizhou	30.618253	117.524233
+Chongqing	CKG	cn	29.716591	106.637637	Asia/Shanghai
+=Chonqing CKG
+Christchurch	CHC	nz	-43.488457	172.539787	Pacific/Auckland	chc_station	-43.539908	172.610060	20
+Christmas Island	XCH	cx	-10.450599	105.690002	Indian/Christmas
+Cincinnati	CVG	us-ky	39.054942	-84.656305	America/New_York
+Cincinnati	LUK	us-oh	39.098509	-84.426819	America/New_York
+Ciudad del Carmen	CME	mx	18.651047	-91.802748	America/Merida
+Ciudad Juarez	CJS	mx	31.63613	-106.42867	America/Ojinaga
+Ciudad Obregon	CEN	mx	27.39264	-109.83311	America/Hermosillo
+Ciudad Victoria	CVM	mx	23.711405	-98.955139	America/Monterrey
+Clarksburg, Wv	CKB	us-wv	39.299869	-80.230928	America/New_York
+ClermontFerrand	CFE	fr	45.790403	3.159151	Europe/Paris
+Cleveland	CLE	us-oh	41.411272	-81.837685	America/New_York
+Cloncurry	CNJ	au-qld	-20.668841	140.508299	Australia/Brisbane	cnj_railway	-20.714028	140.517795
+Clovis	CVS	us-nm	34.394205	-103.320823	America/Denver
+Cluj	CLJ	ro	46.782043	23.687676	Europe/Bucharest
+Cody/Yellowstone	COD	us-wy	44.517645	-109.022103	America/Denver
+Coffs Harbour	CFS	au-nsw	-30.322786	153.115546	Australia/Sydney	cfs_railway	-30.305568	153.138060
+Colima	CLQ	mx	19.281194	-103.577043	America/Mexico_City
+College Station	CLL	us-tx	30.590369	-96.358677	America/Chicago
+Cologne	CGN	de	50.878228	7.122202	Europe/Berlin	cgn_deutz	50.940038	6.979125
+=Cologne/bonn CGN
+Colombo	CMB	lk	7.174682	79.886017	Asia/Colombo
+Colorado Springs	COS	us-co	38.798023	-104.700936	America/Denver
+Columbia	CAE	us-sc	33.946059	-81.125079	America/New_York
+Columbia	COU	us-mo	38.818271	-92.220858	America/Chicago
+Columbus	CMH	us-oh	39.997689	-82.883461	America/New_York
+Columbus	CSG	us-ga	32.518132	-84.939349	America/New_York
+Columbus	GTR	us-ms	33.451422	-88.587554	America/Chicago
+Columbus	CBM	us-ms	33.631670	-88.440744	America/Chicago
+Comiso	CIY	it	36.998261	14.606688	Europe/Rome
+Comodoro Rivadavia	CRD	ar	-45.78535	-67.46551	America/Argentina/Catamarca
+Comox	YQQ	ca-bc	49.705985	-124.906323	America/Vancouver
+Conakry	CKY	gn	9.572397	-13.621946	Africa/Conakry
+Concepcion	CCP	cl	-36.777149	-73.059777	America/Santiago
+Con Dao	VCS	vn	8.730154	106.628354	Asia/Ho_Chi_Minh
+Cuneo	CUF	it	44.547661	7.618490	Europe/Rome
+Constantine	CZL	dz	36.286700	6.618866	Africa/Algiers
+Copenhagen	CPH	dk	55.628337	12.654379	Europe/Copenhagen
+Copiapo	CPO	cl	-27.299016	-70.414153	America/Santiago
+Cordoba	COR	ar	-31.313743	-64.212667	America/Argentina/Cordoba
+Cordoba	XOJ	es	37.888100	-4.789214	Europe/Madrid
+Cork	ORK	ie	51.846804	-8.489283	Europe/Dublin	ork_kent	51.901508	-8.458013
+Corpus Christi	CRP	us-tx	27.774747	-97.502242	America/Chicago
+Cortez, Co	CEZ	us-co	37.303743	-108.628699	America/Denver
+Corrientes	CNQ	ar	-27.44550	-58.76186	America/Argentina/Cordoba
+Cotonou	COO	bj	6.35723	2.38435	Africa/Porto-Novo
+Cozumel	CZM	mx	20.511073	-86.929970	America/Cancun
+Cucuta	CUC	co	7.926652	-72.508729	America/Bogota
+Cuenca	CUE	ec	-2.888945	-78.985610	America/Guayaquil
+Cuiaba	CGB	br-mt	-15.650875	-56.120723	America/Cuiaba
+Culebra	CPX	pr	18.312281	-65.301296	America/Puerto_Rico
+Culiacan	CUL	mx	24.76455	-107.47472	America/Mazatlan
+Curacao	CUR	cw	12.184477	-68.955927	America/Curacao
+Curitiba	CWB	br-pr	-25.535460	-49.173000	America/Sao_Paulo
+Cut Nyak Dien Nagan Raya	MEQ	id	4.25	96.21700	Asia/Jakarta
+Cuzco	CUZ	pe	-13.538350	-71.943403	America/Lima
+Daegu	TAE	kr	35.89411	128.65886	Asia/Seoul
+Dakar	DKR	sn	14.746925	-17.490227	Africa/Dakar
+Dalaman	DLM	tr	36.723121	28.789304	Asia/Istanbul
+Dalat	DLI	vn	11.75	108.367	Asia/Ho_Chi_Minh
+Dalian	DLC	cn	38.961953	121.543824	Asia/Shanghai
+Dali City	DLU	cn	25.647520	100.323673	Asia/Shanghai	dlu_dali	25.588593	100.250829
+Dallas/Fort Worth	DFW	us-tx	32.897783	-97.035441	America/Chicago	dfw_union	32.774679	-96.806960
+=Dallas Fort Worth DFW
+Dallas	DAL	us-tx	32.843824	-96.850261	America/Chicago	dal_burbank	32.774679	-96.806960
+=Dallas/Fort Worth DAL
+=Dallas DFW
+Damascus	DAM	sy	33.410636	36.514267	Asia/Damascus
+Dammam	DMM	sa	26.467970	49.798194	Asia/Riyadh	dmm_rail	26.409742	50.127229
+Dammam	DMS-bus	sa	26.451491	50.107211	Asia/Riyadh	dmm_rail	26.409742	50.127229
+Da Nang	DAD	vn	16.04392	108.1994	Asia/Ho_Chi_Minh
+Dandong	DDG	cn	40.031181	124.282431	Asia/Shanghai	ddg_rail	40.128284	124.378907
+Daocheng Yading	DCY	cn	29.3231	100.0533	Asia/Shanghai
+Dar es Salaam	DAR	tz	-6.874073	39.202668	Africa/Dar_es_Salaam
+=Dar Es salaam DAR
+Darwin	DRW	au-nt	-12.407942	130.877894	Australia/Darwin	drw_railway	-12.4726450	130.9044639
+Datong	DAT	cn	40.056747	113.489829	Asia/Shanghai	dat_datong	40.118592	113.304836
+Davao City	DVO	ph	7.130621	125.644775	Asia/Manila
+David, Panama	DAV	pa	8.391520	-82.431382	America/Panama
+Dawadmi	DWD	sa	24.5	44.4	Asia/Riyadh
+Daxian	DAX	cn	31.130140	107.431340	Asia/Shanghai	dax_dazhou	31.194944	107.452226
+Dayong	DYG	cn	29.108189	110.444936	Asia/Shanghai	dyg_zhangjijajie	29.103420	110.487103
+Daytona Beach	DAB	us-fl	29.178283	-81.057341	America/New_York
+Dayton	DAY	us-oh	39.899006	-84.220369	America/New_York
+Deauville	DOL	fr	49.360534	0.158644	Europe/Paris	dol_sncf	49.359592	0.084360
+Deer Lake	YDF	ca-nl	49.209951	-57.399505	America/St_Johns
+Delhi	DEL	in	28.555531	77.097895	Asia/Kolkata
+Delingha	HXD	cn	37.130199	97.265780	Asia/Shanghai
+Denpasar Bali	DPS	id	-8.744538	115.163955	Asia/Makassar
+=Bali DPS
+Denver	DEN	us-co	39.851741	-104.674182	America/Denver	den_union	39.753128	-104.999437
+Des Moines	DSM	us-ia	41.532671	-93.647936	America/Chicago
+Detroit	DTW	us-mi	42.221449	-83.348900	America/Detroit	dtw_wolverine	42.306753	-83.234478
+Devils Lake, nd	DVL	us-nd	48.111271	-98.908783	America/Chicago
+Devonport	DPO	au-tas	-41.172010	146.427803	Australia/Hobart	dpo_harbour	-41.179057	146.365523
+Dhaka	DAC	bd	23.848106	90.405577	Asia/Dhaka
+Dickinson	DIK	us-nd	46.802485	-102.800620	America/Denver
+Dien Bien Phu	DIN	vn	21.39748	103.00783	Asia/Ho_Chi_Minh
+Dikwella	DIW	lk	5.96667	80.68333	Asia/Colombo
+Dili	DIL	tl	-8.546400	125.526000	Asia/Dili
+Diqing	DIG	cn	27.792671	99.683444	Asia/Shanghai
+Djerba	DJE	tn	33.870883	10.774831	100
+Djibouti	JIB	dj	11.552565	43.150023	Africa/Djibouti
+Dnepropetrovsk	DNK	ua	48.365776	35.093402	Europe/Moscow
+Dodge City, ks	DDC	us-ks	37.760037	-99.968147	America/Chicago
+Doha	DOH	qa	25.267973	51.559473	Asia/Qatar
+Dole Tavaux	DLE	fr	47.043630	5.424742	Europe/Paris
+Donetsk	DOK	ua	48.068018	37.741650	Europe/Kiev
+Dong Hoi	VDH	vn	17.511647	106.589763	Asia/Ho_Chi_Minh
+Dongsheng	DSN	cn	39.494065	109.872590	Asia/Shanghai	dsn_dongsheng	39.814672	109.976412
+Dongying	DOY	cn	37.505614	118.788454	Asia/Shanghai
+Dortmund	DTM	de	51.514889	7.613208	Europe/Berlin
+Dothan	DHN	us-al	31.316342	-85.449252	America/Chicago
+Douala	DLA	cm	4.013588	9.716744	Africa/Douala
+Dresden	DRS	de	51.124320	13.763054	Europe/Berlin	drs_hbf	51.039605	13.732337
+Du Bois, pa	DUJ	us-pa	41.183512	-78.893785	America/New_York
+Dubai	DWC	ae	24.899589	55.163260	Asia/Dubai	dwc_wtc	25.225702	55.285652
+Dubai	DXB	ae	25.245855	55.358321	Asia/Dubai	dxb_wtc	25.225702	55.285652
+Dubai	XNB	ae	25.245855	55.358321	Asia/Dubai
+Dubbo	DBO	au-nsw	-32.218716	148.569707	Australia/Sydney	dbo_railway	-32.244974	148.609488
+Dublin	DUB	ie	53.427999	-6.244595	Europe/Dublin	dub_conolly	53.351552	-6.250903
+Dubrovnik	DBV	hr	42.560105	18.262218	Europe/Zagreb	dbv_centre	42.640564	18.109954
+Dubuque	DBQ	us-ia	42.405173	-90.704402	America/Chicago
+Duesseldorf	DUS	de	51.278429	6.765750	Europe/Berlin	dus_hbf	51.219064	6.794752
+=Dusseldorf DUS
+Duluth	DLH	us-mn	46.838660	-92.179865	America/Chicago
+Dunedin	DUD	nz	-45.928100	170.197998	Pacific/Auckland
+Dunhuang	DNH	cn	40.166406	94.804315	Asia/Urumqi	dnh_rail	40.168363	94.784455
+Durango	DGO	mx	24.12419	-104.52801	America/Monterrey
+Durango	DRO	us-co	37.159551	-107.750945	America/Denver
+Durban	DUR	za	-29.617530	31.105551	Africa/Johannesburg
+Dushanbe	DYU	tj	38.548923	68.815539	Asia/Dushanbe
+Dzaoudzi	DZA	yt	-12.80472	45.28111	Indian/Mayotte
+Easter Island	IPC	cl	-27.162569	-109.430610	Pacific/Easter
+East London	ELS	za	-33.03557	27.82594	Africa/Johannesburg
+Eau Claire, wi	EAU	us-wi	44.862625	-91.482188	America/Chicago
+Edinburgh	EDI	gb	55.948456	-3.363001	Europe/London	edi_centre	55.951124	-3.191211
+Edmonton	YEG	ca-ab	53.308286	-113.583744	America/Edmonton
+El Calafate	FTE	ar	-50.284252	-72.053805	America/Argentina/Rio_Gallegos
+Eldoret	EDL	ke	0.404634	35.223888	Africa/Nairobi
+Elko	EKO	us-nv	40.827487	-115.786255	America/Los_Angeles
+Elmira	ELM	us-ny	42.162968	-76.895039	America/New_York
+El Paso	ELP	us-tx	31.798350	-106.393471	America/Denver
+El Yopal	EYP	co	5.31911	-72.38397	America/Bogota
+Emerald	EMD	au-qld	-23.568640	148.174612	Australia/Brisbane	emd_railway	-23.525570	148.154721
+Ende	ENE	id	-8.84929	121.66064	Asia/Makassar
+Enfidha	NBE	tn	36.084019	10.438953	Africa/Tunis
+Enid	END	us-ok	36.341465	-97.906183	America/Chicago
+Enshi	ENH	cn	30.318891	109.486647	Asia/Shanghai	enh_rail	30.348776	109.485956
+Entebbe	EBB	ug	0.044907	32.443104	Africa/Kampala
+Erbil	EBL	iq	36.225479	43.973654	Asia/Baghdad
+=Erbil Intl EBL
+Erie	ERI	us-pa	42.082766	-80.181512	America/New_York
+Erzurum	ERZ	tr	39.961622	41.178712	Europe/Istanbul
+Escanaba	ESC	us-mi	45.717912	-87.092932	America/Detroit
+Espiritu Santo	SON	vut	-15.506131	167.219160	Pacific/Efate
+Esquel	EQS	ar	-42.9079	-71.13947	America/Argentina/Catamarca
+Eugene	EUG	us-or	44.121091	-123.210051	America/Los_Angeles	eug_amtrak	44.055065	-123.091785
+Eureka, Ca	ACV	us-ca	40.971324	-124.107106	America/Los_Angeles
+Evansville	EVV	us-in	38.046162	-87.527891	America/Chicago
+Exeter	EXT	gb	50.730850	-3.416111	Europe/London	ext_pinhoe	50.737535	-3.469273
+Fairbanks	FAI	us-ak	64.818043	-147.867938	America/Anchorage
+Fairford	FFD	gb	51.689062	-1.774938	Europe/London
+Faisalabad	LYP	pk	31.36501	72.99484	Asia/Karachi
+Fargo	FAR	us-nd	46.919443	-96.825223	America/Chicago	far_amtrak	46.880913	-96.784454
+Farmington, Nm	FMN	us-nm	36.739040	-108.228631	America/Denver
+Faro	FAO	pt	37.019876	-7.972939	Europe/Lisbon	fao_faro	37.019328	-7.940452
+Fayetteville	FAY	us-nc	34.990571	-78.887072	America/New_York	fay_amtrak	35.054183	-78.885173
+Fayetteville	XNA	us-ar	36.275330	-94.297001	America/Chicago
+=Nw Arkansas/fayetteville, ar ALL
+Fergana	FEG	uz	40.3588	71.745	Asia/Tashkent
+Fez	FEZ	ma	33.930531	-4.980353	Africa/Casablanca
+Figari	FSC	fr	41.498992	9.098767	Europe/Paris
+Flint	FNT	us-mi	42.971290	-83.748364	America/Detroit	fnt_amtrak	43.015810	-83.650750
+Florence	FLO	us-sc	34.193021	-79.727955	America/New_York	flo_amtrak	34.199231	-79.756234
+Florence	FLR	it	43.802159	11.201493	Europe/Rome	flr_marte	43.777427	11.276495
+Flores, Guatemala	FRS	gt	16.916355	-89.864825	America/Guatemala
+Florianopolis	FLN	br	-27.67049	-48.54718	America/Sao_Paulo
+Formosa	FMA	ar	-26.213768	-58.230444	America/Argentina/Cordoba
+Fortaleza	FOR	br	-3.778859	-38.540768	America/Fortaleza
+Fort De France	FDF	mq	14.595782	-61.000293	America/Martinique
+=Fort De france FDF
+Fort Lauderdale	FLL	us-fl	26.071428	-80.144843	America/New_York	fll_boward	26.120759	-80.169741
+Fort McMurray	YMM	ca-ab	56.649431	-111.230464	America/Edmonton
+=Fort Mcmurray YMM
+Fort Myers	RSW	us-fl	26.536653	-81.757969	America/New_York
+Fort Smith	FSM	us-ar	35.341726	-94.360916	America/Chicago
+Fort St John	YXJ	ca-bc	56.245753	-120.734794	America/Dawson_Creek
+Fort Wayne	FWA	us-in	40.986828	-85.188255	America/Indiana/Indianapolis
+Frankfurt	FRA	de	50.049896	8.571920	Europe/Berlin	fra_hbf	50.106828	8.663680
+Fredericton	YFC	ca-nb	45.872586	-66.529526	America/Moncton
+Freeport	FPO	bs	26.547388	-78.704939	America/Nassau
+Freetown	FNA	sl	8.614798	-13.200567	Africa/Freetown
+Fresno	FAT	us-ca	36.769412	-119.720008	America/Los_Angeles
+Friedrichshafen	FDH	de	47.668004	9.513153	Europe/Berlin
+Fuerteventura	FUE	es	28.453698	-13.868606	Atlantic/Canary	fue_rosario	28.499306	-13.855946
+Fukuoka	FUK	jp	33.584491	130.443736	Asia/Tokyo
+Fukushima	FKS	jp	37.226727	140.433194	Asia/Tokyo
+Funchal	FNC	pt	32.693114	-16.775648	Atlantic/Madeira
+=Madeira FNC
+Fuoshan	FUO	cn-gd	23.084635	113.067106	Asia/Shanghai	fuo_rail	23.046320	113.105204
+Fussa	OKO	jp	35.74849	139.34848	Asia/Tokyo
+Fuyang	FUG	cn	32.877138	115.744230	Asia/Shanghai	fug_rail	32.917697	115.869415
+Fuyuan	FYJ	cn	48.200683	134.368205	Asia/Shanghai
+Fuzhou	FOC	cn	25.928254	119.673705	Asia/Shanghai	foc_rail	26.113034	119.320722
+Gaborone	GBE	bw	-24.557801	25.924401	Africa/Gaborone
+Gainesville	GNV	us-fl	29.687119	-82.277386	America/New_York
+Ganzhou	KOW	cn	25.825570	114.906632	Asia/Shanghai	kdw_赣州	25.818927	114.965206
+Garden City	GCK	us-ks	37.927020	-100.719595	America/Chicago
+Gassim	ELQ	sa	26.304720	43.768349	Asia/Riyadh
+Gaziantep	GZT	tr	36.944936	37.473499	Europe/Istanbul
+Gazipasa	GZP	tr	36.2993	32.3014	Europe/Istanbul
+Gdansk	GDN	pl	54.381191	18.468721	Europe/Warsaw	gdn_wrzeszcz	54.381129	18.606179
+Gelendzik	GDZ	ru	44.593528	38.025170	Europe/Moscow	gdz_Новороссийск	44.735219	37.774815
+Geneva	GVA	ch	46.236115	6.114029	Europe/Zurich
+Genoa	GOA	it	44.415403	8.850985	Europe/Rome	goa_samp	44.412573	8.887326
+George	GRJ	za	-34.001554	22.382229	Africa/Johannesburg
+George Town	GGT	bs	23.563071	-75.871330	America/Nassau
+Geraldton	GET	au-wa	-28.795361	114.701536	Australia/Perth	get_centre	-28.767471	114.614933
+Gerona	GRO	es	41.899579	2.765625	Europe/Madrid	gro_girona	41.978572	2.816608
+Gibraltar	GIB	gi	36.154476	-5.346746	Europe/Gibraltar
+Gillette	GCC	us-wy	44.345666	-105.536524	America/Denver
+Gladstone	GLT	au-qld	-23.871580	151.223925	Australia/Brisbane	glt_rail	-23.847227	151.262980
+Glasgow	GLA	gb	55.864145	-4.432404	Europe/London	gla_central	55.859401	-4.257653
+Goa	GOI	in	15.383779	73.827182	Asia/Kolkata	goi_vasco	15.395960	73.813125
+Goiania	GYN	br	-16.632648	-49.226675	America/Sao_Paulo
+Gold Coast	OOL	au-qld	-28.166697	153.513382	Australia/Brisbane
+Golmud	GOQ	cn	36.403316	94.791032	Asia/Urumqi	goq_golmud	36.381311	94.908341
+Gorgon	GBT	ir	36.9094009399	54.401298	Asia/Tehran
+Gorno-altaysk	RGK	ru	51.969513	85.834914	Asia/Omsk	rgk_Бийск	52.534709	85.183466
+Gorontalo	GTO	id-go	0.63711899519	122.84999	Asia/Makassar
+Gothenburg	GOT	sv	57.667604	12.295686	Europe/Stockholm	got_nord	57.709439	11.972880
+Gove	GOV	au-nt	-12.269725	136.823467	Australia/Darwin
+Granada	GRX	es	37.185291	-3.777515	Europe/Madrid	grx_granada	37.183917	-3.610490
+Grand Canyon	FLG	us-az	35.139430	-111.673921	America/Phoenix
+Grand Cayman island	GCM	ky	19.294978	-81.359950	America/Cayman
+=Grand Cayman Island GCM
+=Georgetown GCM
+Grande Prairie	YQU	ca-ab	55.176413	-118.874472	America/Edmonton
+Grand Forks	GFK	us-nd	47.949202	-97.176397	America/Chicago
+Grand Island	GRI	us-ne	40.969605	-98.316107	America/Chicago
+Grand Junction	GJT	us-co	39.123260	-108.530063	America/Denver	gjt_amtrak	39.064496	-108.570657
+Grand Rapids	GRR	us-mi	42.884521	-85.529271	America/Detroit	grr_amtrak	42.954417	-85.674618
+Graz	GRZ	at	46.994520	15.444733	Europe/Vienna
+Great Falls	GTF	us-mt	47.481922	-111.356869	America/Denver
+Green Bay	GRB	us-wi	44.492490	-88.127739	America/Chicago
+Greenbrier, Wv	LWB	us-wv	37.856198	-80.405083	America/New_York
+Greensboro	GSO	us-nc	36.105468	-79.936376	America/New_York	gso_galyon	36.068942	-79.786961
+=Greensboro/high Point GSO
+Greenville	GSP	us-sc	34.890960	-82.216355	America/New_York	gsp_amtrak	34.859229	-82.413878
+Greenville	PGV	us-nc	35.633149	-77.380419	America/New_York
+Grenada	GND	gd	12.007347	-61.785791	America/Grenada
+Grozny	GRV	ru	43.303219	45.769812	Europe/Moscow
+Guadalajara	GDL	mx	20.525838	-103.304469	America/Mexico_City
+Guam	GUM	gu	13.479794	144.797174	Pacific/Guam
+Guang Yuan	GYS	cn	32.416804	105.798785	Asia/Shanghai	gys_rail	32.452049	105.822765
+Guangzhou	CAN	cn	23.387512	113.303105	Asia/Shanghai	can_bei	23.377956	113.203680
+Guatemala City	GUA	gt	14.588216	-90.530699	America/Guatemala
+Guayaquil	GYE	ec	-2.15742	-79.88356	America/Guayaquil
+Guernsey	GCI	gg	49.431844	-2.598104	Europe/London
+Guilin	KWL	cn	25.217851	110.046631	Asia/Shanghai	kwl_guilin	25.254431	110.282793
+Guiyang	KWE	cn	26.540525	106.799871	Asia/Shanghai	kwe_guiyang	26.553072	106.709062
+Gulfport	GPT	us-ms	30.415071	-89.073452	America/Chicago
+Gunnison	GUC	us-co	38.537203	-106.935562	America/Denver
+Gunsan	KUV	kr	35.90376	126.61591	Asia/Seoul
+Gunungsitoli	GNS	id	1.16638	97.70468	Asia/Jakarta
+Gurayat	URY	sa	31.41194	37.27947	Asia/Riyadh
+Gwangju	KWJ	kr	35.129786	126.805253	Asia/Seoul
+Hagåtña	PGUM	gu	13.48345	144.79598	Pacific/Guam
+Haikou	HAK	cn	19.939580	110.463554	Asia/Shanghai	hak_meilan	19.942494	110.459443
+Hailar	HLD	cn	49.211950	119.821003	Asia/Shanghai	hld_hailar	49.229518	119.741310
+Hail	HAS	sa	27.438250	41.690455	Asia/Riyadh
+Haiphong	HPH	vn	20.823399	106.727447	Asia/Ho_Chi_Minh
+Hakodate	HKD	jp	41.77	140.82194	Asia/Tokyo
+Halifax	YHZ	ca-ns	44.886969	-63.515538	America/Halifax
+Hamburg	HAM	de	53.632127	10.006249	Europe/Berlin	ham_hbf	53.553393	10.006251
+Hami	HMI	cn	42.840673	93.659661	Asia/Urumqi	hmn_hami	42.899132	93.341928
+Hamilton Island	HTI	au-qld	-20.351491	148.947671	Australia/Lindeman	hti_ferry	-20.346276	148.951821
+Hanamaki	HNA	jp	39.42861	141.13528	Asia/Tokyo
+Handan	HDG	cn	36.524919	114.433898	Asia/Shanghai	hdg_handan	36.601943	114.475866
+Hangzhou	HGH	cn	30.235330	120.436257	Asia/Shanghai	hgh_east	30.290947	120.211642
+Hanoi	HAN	vn	21.214584	105.802064	Asia/Ho_Chi_Minh	han_Gia_Lam	21.052560	105.881145
+Hannover	HAJ	de	52.459147	9.697812	Europe/Berlin	haj_hbf	52.376651	9.742287
+=Hanover HAJ
+Hanzhong	HZG	cn	33.067640	107.012856	Asia/Shanghai	hzg_hanzhong	33.090725	107.031641
+Harare	HRE	zw	-17.918045	31.097778	Africa/Harare
+Harbin	HRB	cn	45.623064	126.242710	Asia/Shanghai	hrb_west	45.714767	126.581673
+Harlingen	HRL	us-tx	26.223840	-97.661600	America/Chicago
+Harrisburg	MDT	us-pa	40.196287	-76.756161	America/New_York	mdt_amtrak	40.260940	-76.877493
+Hartford	BDL	us-ct	41.933225	-72.687226	America/New_York	bdl_amtrak	41.769060	-72.682805
+Haugesund	HAU	no	59.344466	5.217130	Europe/Oslo	hau_haugesund	59.412138	5.270271
+Havana	HAV	cu	22.998134	-82.407869	America/Havana
+Hayden	HDN	us-co	40.484792	-107.219268	America/Denver
+Hayman Island	HIS	au-qld	-20.059999	148.880996	Australia/Lindeman
+Hays, Ks	HYS	us-ks	38.851893	-99.273633	America/Chicago
+Hefei	HFE	cn	31.780000	117.297996	Asia/Shanghai	hfe_south	31.836137	117.216209
+Heihe	HEK	cn	50.179128	127.316771	Asia/Shanghai	hek_heihe	50.231540	127.500239
+Heilongjiang	DQA	cn	46.749136	125.138730	Asia/Shanghai	dqa_daqing	46.597021	125.013576
+Helena	HLN	us-mt	46.610277	-111.988784	America/Denver
+Helsinki	HEL	fi	60.318090	24.966635	Europe/Helsinki	hel_central	60.171814	24.941288
+Hengyang All airports	HBP-rail	cn	26.893222	112.629510	Asia/Shanghai
+=Hengyang Railway Station HNY
+Hengyang All airports	HNY	cn	26.908124	112.626959	Asia/Shanghai	hny_hengyang	26.893222	112.629510
+=Hengyang Railway Station HBP
+Heraklion	HER	gr	35.336632	25.174111	Europe/Athens
+=Irakleion HER
+Hermosillo	HMO	mx	29.089762	-111.051434	America/Hermosillo
+Hervey Bay	HVB	au-qld	-25.320182	152.885982	Australia/Brisbane	hvb_herveybay	-25.290437	152.835434
+Hibbing	HIB	us-mn	47.387280	-92.846411	America/Chicago	hib_duluth	46.767365	-92.122921
+Hilo	ITO	us-hi	19.714485	-155.039760	Pacific/Honolulu
+Hilton Head	HHH	us-sc	32.226796	-80.698918	America/New_York	hhh_savannah	32.082845	-81.148644
+Hiroshima	HIJ	jp	34.440073	132.919135	Asia/Tokyo
+Hobart	HBA	au-tas	-42.837416	147.505660	Australia/Hobart	hba_cityhall	-42.880830	147.332522
+Hobbs, Nm	HOB	us-nm	32.692657	-103.214520	America/Denver
+Ho Chi Minh City	SGN	vn	10.815934	106.664622	Asia/Ho_Chi_Minh
+=Ho Chi minh city SGN
+=Ho Chi minh city SAI
+Hofuf	HOF	sa	25.294718	49.487509	Asia/Riyadh
+=Alahsa HOF
+Hohhot	HET	cn	40.857765	111.823256	Asia/Shanghai	het_eastrail	40.850777	111.766428
+Honiara	HIR	sb	-9.428487	160.048523	Pacific/Guadalcanal
+Hong Kong	HKG	hk	22.315680	113.936088	Asia/Hong_Kong
+Hongping Shennongjia Hongping	HPG	cn	31.620431	110.337810	Asia/Shanghai
+Honolulu	HNL	us-hi	21.332593	-157.919825	Pacific/Honolulu	hnl_downtown	21.313923	-157.866030
+Horn Island	HID	au-qld	-10.589427	142.294264	Australia/Brisbane
+Hotan	HTN	cn	37.040016	79.873329	Asia/Shanghai	htn_hetian	37.097066	79.917100
+Houghton/hancock, Mi	CMX	us-mi	47.168750	-88.494314	America/Detroit
+Houston	HOU	us-fl	29.654639	-95.276556	America/Chicago	hou_amtrak	29.767593	-95.368358
+Houston	IAH	us-fl	29.982495	-95.342480	America/Chicago	iah_amtrak	29.767593	-95.368358
+Huai'an Lianshui	HIA	cn	33.787053	119.135705	Asia/Shanghai	hia_huai'an	33.649216	119.034655
+Hualien	HUN	tw	24.02372	121.61691	Asia/Taipei
+Huang Ping Kai Li	KJH	cn	26.976834	107.985709	Asia/Shanghai
+Huangshi Railway Station	HSD	cn	30.152358	114.941300	Asia/Shanghai
+Huangyan	HYN	cn	28.556050	121.421599	Asia/Shanghai	hyn_taizhou	28.684589	121.290326
+Huatulco	HUX	mx	15.771924	-96.258012	America/Mexico_City
+Hue	HUI	vn	16.397651	107.700223	Asia/Ho_Chi_Minh
+Huizhou	HUZ	cn	23.055438	114.598232	Asia/Shanghai	huz_huizhou	23.150419	114.415895
+Humberside	HUY	gb	53.582850	-0.349342	Europe/London	huy_barnetby	53.575368	-0.408273
+Huntington	HTS	us-wv	38.369601	-82.556598	America/New_York
+Huntsville	HSV	us-al	34.648435	-86.774147	America/Chicago
+Hurghada	HRG	eg	27.17832	33.79944	Africa/Cairo
+Huron, Sd	HON	us-sd	44.385140	-98.221577	America/Chicago
+Hyderabad	HYD	in	17.236574	78.429621	Asia/Kolkata	hyd_umdanagar	17.262394	78.392499
+Iasi	IAS	ro	47.176561	27.617542	Europe/Bucharest
+Ibague	IBE	co	4.42161	-75.133	America/Bogota
+Ibaraki	IBR	jp	36.177515	140.406995	Asia/Tokyo
+Ibiza	IBZ	es	38.876509	1.367596	Europe/Madrid
+Idaho Falls	IDA	us-id	43.514949	-112.067453	America/Boise
+Iguassu Falls	IGU	br	-25.59615	-54.48721	America/Sao_Paulo
+=Foz Do iguacu IGU
+Iguazu	IGR	ar	-25.731309	-54.476393	America/Argentina/Cordoba
+Ilheus	IOS	br	-14.81596	-39.0332	America/Bahia
+Imperatriz	IMP	br	-5.53129	-47.4600	America/Araguaina
+Indianapolis	IND	us-in	39.714494	-86.298453	America/Indiana/Indianapolis
+Innsbruck	INN	at	47.257512	11.351465	Europe/Vienna	inn_wbf	47.254699	11.390642
+International Falls	INL	us-mn	48.565916	-93.396656	America/Chicago
+Inverness	INV	gb	57.539929	-4.064242	Europe/London	inv_inverness	57.480386	-4.222814
+Iquique	IQQ	cl	-20.547421	-70.178375	America/Santiago
+Iquitos	IQT	pe	-3.785424	-73.302667	America/Lima
+Irkutsk	IKT	ru	52.273372	104.357476	Asia/Irkutsk	ikt_pass	52.282358	104.260123
+Iron Mountain	IMT	us-mi	45.815328	-88.119103	America/Menominee
+Isfahan	IFN	ir	32.746588	51.876092	Asia/Tehran
+Ishigaki	ISG	jp	24.34452	124.18698	Asia/Tokyo
+Islamabad	ISB	pk	33.609520	73.098031	Asia/Karachi
+Isle Of man	IOM	im	54.086977	-4.634446	Europe/Isle_of_Man
+=Isle Of Man IOM
+Islip	ISP	us-ny	40.789318	-73.097403	America/New_York	isp_ronkonkoma	40.807935	-73.104727
+Isparta	ISE	tr	37.858999	30.365866	Europe/Istanbul
+Istanbul	IST	tr	40.978384	28.817452	Europe/Istanbul	ist_sirceli	41.015697	28.980573
+=Istanbul SAW
+Ithaca	ITH	us-ny	42.490495	-76.463001	America/New_York
+Ivalo	IVL	fi	68.608453	27.419659	Europe/Helsinki
+Izmir	ADB	tr	38.294308	27.147657	Europe/Istanbul	adb_basmane	38.422368	27.144343
+Izumo	IZO	jp	35.415044	132.885892	Asia/Tokyo
+Jackson Hole	JAC	us-wy	43.603963	-110.736293	America/Denver
+=Jackson JAC
+Jackson	JAN	us-ms	32.309771	-90.074964	America/Chicago	jan_amtrak	32.300005	-90.191318
+Jacksonville	JAX	us-fl	30.491244	-81.683310	America/New_York	jax_amtrak	30.364911	-81.723436
+Jacksonville	OAJ	us-nc	34.830478	-77.605635	America/New_York
+Jaguaruna	JJG	br	-28.677399	-49.066877	America/Sao_Paulo
+Jakarta	CGK	id	-6.126440	106.654636	Asia/Jakarta	cgk_gambir	-6.177812	106.831190
+Jakarta	HLP	id-jk	-6.264978	106.885731	700	hlp_minggu	-6.285294	106.844246
+Jalapa	JAL	mx	19.47508	-96.79751	America/Mexico_City
+Jambi	DJB	id	-1.63802	103.64438	Asia/Jakarta
+Jamestown, Nd	JMS	us-nd	46.924736	-98.678839	America/Chicago
+Jayapura	DJJ	id	-2.570525	140.512822	Asia/Jayapura
+Jazan	GIZ	sa	16.899766	42.582431	Asia/Riyadh
+Jeddah	JED	sa	21.67956	39.15654	Asia/Riyadh
+Jeju	CJU	kr	33.51131	126.49303	Asia/Seoul
+Jember Noto Hadinegoro	JBB	id	-8.243312	113.695976	Asia/Jakarta
+Jerez	XRY	es	36.750056	-6.064750	Europe/Madrid
+Jersey	JER	je	49.205714	-2.195113	Europe/Jersey
+Jiagedaqi	JGD	cn	50.377336	124.107722	Asia/Shanghai	jgd_jiagedaqi	50.419456	124.127293
+Jiamusi	JMU	cn	46.846556	130.462322	Asia/Shanghai	jmu_Jiamusi	46.804046	130.383414
+Ji'an	JGS	cn	26.849927	114.748370	Asia/Shanghai	jgs_ji'an	27.107374	115.022017
+Jiaxing	JXS-rail	cn	30.690840	120.802271	Asia/Shanghai
+Jiayuguan	JGN	cn	39.861145	98.343144	Asia/Shanghai	jxs_jiayuguan	39.764100	98.253802
+Jinan	TNA	cn	36.858312	117.213209	Asia/Shanghai	tna_jinan-east	36.681130	117.030865
+Jinchang Jinchuan	JIC	cn	38.540011	102.346493	Asia/Shanghai	jic_jinchang	38.371260	102.064113
+Jinghong	JHG	cn	21.970233	100.767613	Asia/Shanghai	jhg_Xishuangbanna	22.010662	100.797787
+Jining	JNG	cn	35.297993	116.347818	Asia/Shanghai	jng_jining	35.392354	116.602398
+Jinjiang	JJN	cn	24.800669	118.592188	Asia/Shanghai	jjn_Quanzhou	24.973858	118.569174
+Jinju	HIN	kr	35.08854	128.0704	Asia/Seoul
+Jinzhou	JNZ	cn	41.096588	121.071538	Asia/Shanghai	jnz_jinzhou	41.125071	121.142964
+Jiujiang	JIU	cn	29.481893	115.807457	Asia/Shanghai	jiu_jiujang	29.704220	116.007946
+Jixi Shi Xingkaihu	JXA	cn	45.30611	130.99667	Asia/Shanghai
+Joao Pessoa	JPA	br	-7.14838	-34.95068	America/Recife
+Joensuu	JOE	fi	62.657665	29.613637	Europe/Helsinki
+Johannesburg	HLA	za	-25.933917	27.926072	Africa/Johannesburg	hla_rw_johan	-26.197351	28.039733
+Johannesburg	JNB	za	-26.132516	28.231254	Africa/Johannesburg	jnb_rw_johan	-26.197351	28.039733
+Johnstown, Pa	JST	us-pa	40.319610	-78.833246	America/New_York	jst_amtrak	40.329777	-78.921452
+Johor Bahru	JHB	my	1.64131	103.66962	Asia/Kuala_Lumpur
+Joinville	JOI	br	-26.224328	-48.801908	America/Sao_Paulo
+Joplin	JLN	us-mo	37.157737	-94.501641	America/Chicago
+Jouf	AJF	sa	29.788630	40.101726	Asia/Riyadh
+Juazeiro Do norte	JDO	br	-7.21895980835	-39.2700996	America/Fortaleza
+Juba	JUB	ss	4.866868	31.602163	Africa/Juba
+Jujuy	JUJ	ar	-24.39278	-65.09778	America/Argentina/Jujuy
+Juliaca	JUL	pe	-15.470719	-70.156669	America/Lima
+Juneau	JNU	us-ak	58.359247	-134.583281	America/Juneau
+Juzhou	JUZ	cn	28.968169	118.901218	Asia/Shanghai	juz_quzhou	28.922858	118.883088
+Jyvaskyla	JYV	fi	62.403533	25.681490	Europe/Helsinki
+Kagoshima	KOJ	jp	31.801895	130.715861	Asia/Tokyo
+Kahului	OGG	us-hi	20.893037	-156.437599	Pacific/Honolulu
+Kajaani	KAJ	fi	64.281082	27.674553	Europe/Helsinki
+Kalamata	KLX	gr	37.055137	22.034463	Europe/Athens
+Kalamazoo	AZO	us-mi	42.240390	-85.555577	America/Detroit	azo_amtrak	42.295431	-85.583106
+Kalgoorlie	KGI	au-wa	-30.785347	121.458639	Australia/Perth	kgi_railway	-30.745619	121.467530
+=Kalgoorlie-boulder KGI
+Kaliningrad	KGD	ru	54.882069	20.585560	Europe/Kaliningrad	kgd_yuzhniy	54.693560	20.500458
+Kalispell	FCA	us-mt	48.307511	-114.252349	America/Denver
+Kamloops	YKA	ca-bc	50.705484	-120.441769	America/Vancouver
+Kandy	KDZ	lk	7.32512	80.64211	Asia/Colombo
+Kangding	KGT	cn	30.132907	101.750849	Asia/Shanghai
+Kano	KAN	ng	12.045164	8.522176	Africa/Lagos
+Kansas City	MCI	us-mo	39.301181	-94.714005	America/Chicago	mci_downtown	39.097980	-94.586289
+Kaohsiung	KHH	tw	22.57709	120.35001	Asia/Taipei
+Karachi	KHI	pk	24.900888	67.168099	Asia/Karachi
+Karaganda	KGF	kz	49.674917	73.329032	Asia/Almaty	kgf_rail	49.793212	73.095118
+Karamay	KRY	cn	45.467757	84.958022	Asia/Urumqi
+Karlovy Vary	KLV	cz	50.201887	12.915367	Europe/Prague
+Karlsruhe/Baden Baden	FKB	de	48.778081	8.088224	Europe/Berlin	fkb_rastatt	48.860196	8.215254
+=Karlsruhe/baden-baden FKB
+Karpathos	AOK	gr	35.427036	27.149140	Europe/Athens
+Karratha	KTA	au-wa	-20.708276	116.771028	Australia/Perth	kta_karratha	-20.734897	116.847849
+Kashi	KHG	cn	39.537139	76.014020	Asia/Shanghai	khg_kashi	39.457483	76.034700
+Kathmandu	KTM	np	27.700879	85.357008	Asia/Kathmandu
+Katowice	KTW	pl	50.470808	19.072694	Europe/Warsaw	ktw_tarnowskie	50.446738	18.866850
+Kavala	KVA	gr	40.921758	24.623100	Europe/Athens
+Kayseri	ASR	tr	38.765018	35.482285	Europe/Istanbul
+Kazan	KZN	ru-ta	55.607849	49.298587	Europe/Moscow
+Kearney, Ne	EAR	us-ne	40.724873	-99.012686	America/Chicago
+Kefallinia	EFL	gr	38.119507	20.505210	Europe/Athens
+Kelowna	YLW	ca-bc	49.951267	-119.381535	America/Vancouver
+Kemerovo	KEJ	ru	55.281325	86.116616	Asia/Novokuznetsk
+Kemi/tornio	KEM	fi	65.780991	24.575684	Europe/Helsinki
+Kendari	KDI	id-sg	-4.08161	122.41823	Asia/Makassar
+Kerkyra	CFU	gr	39.607237	19.914116	Europe/Athens
+Ketchikan	KTN	us-ak	55.356425	-131.708778	America/Anchorage
+Key West	EYW	us-fl	24.553564	-81.754877	America/New_York
+Khabarovsk	KHV	ru	48.526007	135.170878	Asia/Vladivostok	khv_pass	48.496773	135.073868
+Kharkov	HRK	ua	49.920144	36.281196	Europe/Kiev	hrk_osnova	49.936796	36.238437
+Khartoum	KRT	sd	15.595060	32.548817	Africa/Khartoum	krt_railway	15.593830	32.527316
+Khudzhand	LBD	tj	40.220021	69.698031	Asia/Dushanbe
+Kiev	KBP	ua	50.342592	30.895756	Europe/Kiev	KBP_passajirskii	50.439662	30.489849
+Kigali	KGL	rw	-1.964439	30.134726	Africa/Kigali
+Kilimanjaro	JRO	tz	-3.424123	37.065230	Africa/Dar_es_Salaam
+Killeen	GRK	us-tx	31.075194	-97.824713	America/Chicago
+Kingston	KIN	jm	17.937505	-76.777908	America/Jamaica
+Kinshasa	FIH	cd	-4.388018	15.446000	Africa/Kinshasa	fih_matete	-4.390863	15.353432
+Kisumu	KIS	ke	-0.0861390009522438	34.7289009	Africa/Nairobi
+Kita Kyushu	KKJ	jp	33.838915	131.031108	Asia/Tokyo
+Kitchener	YKF	ca-on	43.455346	-80.385904	America/Toronto	ykf_kitchener	43.455664	-80.493541
+Kittila	KTT	fi	67.695368	24.859700	Europe/Helsinki
+Knoxville	TYS	us-tn	35.805719	-83.989765	America/New_York
+Kochi	COK	in-kl	10.15555	76.39139	Asia/Kolkata
+Kochi	KCZ	jp	33.547729	133.674500	Asia/Tokyo
+Koggala	KCT	lk	5.99368	80.3203	Asia/Colombo
+Koh Samui	USM	th	9.551323	100.063792	Asia/Bangkok
+Kokkola/pietarsaari	KOK	fi	63.719400	23.134346	Europe/Helsinki
+Kolkata	CCU	in	22.646065	88.439207	Asia/Kolkata
+Komatsu	KMQ	jp	36.39461	136.40654	Asia/Tokyo
+Kona	KOA	us-hi	19.736053	-156.040662	Pacific/Honolulu
+=Kailua Kona KOA
+Korla	KRL	cn	41.689561	86.124190	Asia/Urumqi	krl_korla	41.747047	86.196179
+Koror	ROR	pw	7.366022	134.541871	Pacific/Palau
+Kosice	KSC	sk	48.672072	21.236723	Europe/Bratislava
+Kos	KGS	gr	36.801419	27.090674	Europe/Athens
+Kosrae, Federated state of micronesia	KSA	fm	5.352962	162.956564	Pacific/Kosrae
+Kota Bharu	KBR	my	6.16685	102.29301	Asia/Kuala_Lumpur
+Kota Kinabalu	BKI	my	5.93721	116.05118	Asia/Kuching
+Kotte	DWO	lk	6.907257	79.909913	Asia/Colombo
+Kozhikode	CCJ	in	11.140124	75.951043	Asia/Kolkata
+Krabi	KBV	th	8.097021	98.981994	Asia/Bangkok
+Krakow	KRK	pl	50.071994	19.802269	Europe/Warsaw	krk_glowny	50.067926	19.947195
+Krasnodar	KRR	ru	45.033897	39.138738	Europe/Moscow	krr_central	45.019150	38.990442
+Krasnoyarsk	KJA	ru	56.180794	92.483899	Asia/Krasnoyarsk	kja_pass	56.007774	92.830919
+Kristiansand	KRS	no	58.202674	8.074247	Europe/Oslo	krs_central	58.145555	7.986895
+Kuala Lumpur	KUL	my	2.754528	101.703664	Asia/Kuala_Lumpur	kul_sentral	3.134188	101.687087
+Kuala Terengganu	TGG	my	5.38263988494873	103.10299682	Asia/Kuala_Lumpur
+Kuantan	KUA	my	3.77539	103.20906	Asia/Kuala_Lumpur
+Kuching	KCH	my	1.4847	110.34693	Asia/Kuching
+Kulyab	TJU	tj	37.983506	69.807529	Asia/Dushanbe	tju_kulyab	37.892776	69.775654
+Kumamoto	KMJ	jp	32.834505	130.858783	Asia/Tokyo
+Kume-jima	UEO	jp	26.36351	126.71381	Asia/Tokyo
+Kunming	KMG	cn	24.995581	102.742267	Asia/Shanghai	kmg_kunming	25.016546	102.721381
+Kunshan nan Railway Station	KVN-rail	cn	31.352836	120.952162	Asia/Shanghai
+Kununurra	KNX	au-wa	-15.784119	128.712660	Australia/Perth	knx_kununurra	-15.779493	128.741036
+Kuopio	KUO	fi	63.008714	27.788816	Europe/Helsinki
+Kupang	KOE	id-nt	-10.1716003417969	123.67099761	Asia/Makassar
+Kuqa	KCA	cn	41.714362	82.987528	Asia/Urumqi	kca_库车	41.694114	83.017846
+Kushiro	KUH	jp	43.041	144.193	Asia/Tokyo
+Kutaisi	KUT	ge	42.181465	42.465812	Asia/Tbilisi
+Kuusamo	KAO	fi	65.996131	29.226460	Europe/Helsinki
+Kuwait	KWI	kw	29.240000	47.970764	Asia/Kuwait
+Kwajalein, Marshall islands	KWA	mh	8.723709	167.735330	Pacific/Kwajalein
+Laayoune	EUN	eh	27.153269	-13.218018	Africa/El_Aaiun
+Labuan Bajo	LBJ	id-nt	-8.48666000366211	119.888999938	Asia/Makassar
+Labuan	LBU	my	5.30068	115.25018	Asia/Kuching
+La Coruna	LCG	es	43.302685	-8.380747	Europe/Madrid	lcg_centro	43.351820	-8.410321
+=A Coruna LCG
+La Crosse	LSE	us-wi	43.875149	-91.263979	America/Chicago	lse_amtrak	43.833611	-91.246547
+Lafayette	LFT	us-la	30.208489	-91.993245	America/Chicago	lft_amtrak	30.226281	-92.013945
+=Lafayette/New Iberia LFT
+Lagos	LOS	ng	6.577370	3.321160	Africa/Lagos	los_rwjn	6.525291	3.364070
+Lahore	LHE	pk	31.520476	74.411341	Asia/Karachi	lhe_cantt	31.528954	74.360701
+Lajes	TER	pt	38.753722	-27.085629	Atlantic/Azores
+Lake Charles	LCH	us-la	30.122718	-93.219927	America/Chicago	lch_amtrak	30.238369	-93.216235
+Lamezia Terme	SUF	it	38.909408	16.246931	Europe/Rome
+=LameziaTerme SUF
+Lampang	LPT	th	18.27093	99.50417	Asia/Bangkok
+Lampedusa	LMP	it	35.497627	12.618658	Europe/Rome
+Lanai City-lanai, hi	LNY	us-hi	20.790873	-156.949798	Pacific/Honolulu
+Langgur	LUV	id	-5.66162	132.73143	Asia/Jayapura
+Langkawi	LGK	my	6.342234	99.731563	Asia/Kuala_Lumpur
+Lannion	LAI	fr	48.756754	-3.470887	Europe/Paris	lai_sncf	48.726911	-3.460335
+Lansing	LAN	us-mi	42.775127	-84.589154	America/Detroit
+Lanzarote	ACE	es	28.952553	-13.607021	Atlantic/Canary
+Lanzhou	LHW	cn	36.507111	103.617306	Asia/Shanghai	lhw_lanzhou	36.034005	103.852127
+Laoag	LAO	ph	18.183320	120.534165	800
+La Cumbre	LCM	ar	-31.00580	-64.53199	America/Argentina/Cordoba
+La Paz	LAP	mx	24.075664	-110.367536	America/Mazatlan
+La Paz	LPB	bo	-16.507846	-68.179156	America/La_Paz
+Laredo	LRD	us-tx	27.543705	-99.455357	America/Chicago
+La Rioja	IRJ	ar	-29.38164	-66.79584	America/Argentina/La_Rioja
+Larnaca	LCA	cy	34.871266	33.607778	Asia/Nicosia
+La Rochelle	LRH	fr	46.176205	-1.194046	Europe/Paris	lrh_sncf	46.167684	-1.151364
+La Romana	LRM	do	18.448767	-68.912462	America/Santo_Domingo
+La Serena	LSC	cl	-29.917215	-71.203959	America/Santiago
+Laramie, Wy	LAR	us-wy	41.319968	-105.671432	America/Denver
+Las Palmas	LPA	es	27.937874	-15.389852	Atlantic/Canary	lpa_hoya	28.069841	-15.418147
+=Gran Canaria LPA
+Las Vegas	LAS	us-nv	36.084974	-115.149913	America/Los_Angeles
+Launceston	LST	au-tas	-41.543532	147.205657	Australia/Hobart	lst_mall	-41.437335	147.138783
+Laurel	PIB	us-ms	31.467850	-89.333331	America/Chicago	pib_hattiesburg	31.327390	-89.286158
+Lawton	LAW	us-ok	34.572757	-98.413583	America/Chicago
+Lazaro Cardenas	LZC	mx	17.999128	-102.220262	America/Mexico_City
+Learmonth	LEA	au-wa	-22.039123	114.104993	Australia/Perth	lea_exmouth	-21.930171	114.122999
+Leeds	LBA	gb	53.869503	-1.659938	Europe/London	lba_central	53.794586	-1.546749
+=Leeds/bradford LBA
+Leipzig/halle	LEJ	de	51.421223	12.220562	Europe/Berlin
+Le Mans	ZLN-rail	fr	47.994840	0.192230	Europe/Paris
+Leon/Guanajuato	BJX	mx	20.985556	-101.479303	America/Mexico_City
+=Leon/guanajuato BJX
+Leon	LEN	es	42.590908	-5.647073	Europe/Madrid
+Leticia	LET	co	-4.19355	-69.94316	America/Bogota
+Lewiston	LWS	us-id	46.377039	-117.011588	America/Los_Angeles
+Lexington	LEX	us-ky	38.037792	-84.598190	America/New_York
+Lhasa	LXA	cn	29.290282	90.901389	Asia/Urumqi	lxa_lhasa	29.622661	91.069696
+Lhoksumawe	LSW	id-ac	5.22667980194092	96.9503021240	Asia/Jakarta
+Lianyungang	LYG	cn	34.565384	118.881883	Asia/Shanghai	lyg_lianyungang	34.610612	119.164942
+Liberal, Ks	LBL	us-ks	37.047285	-100.951344	America/Chicago
+Liberia	LIR	cr	10.600667	-85.537156	America/Costa_Rica
+Libo	LLB	cn	25.447111	107.963286	Asia/Shanghai
+Libreville	LBV	ga	0.457243	9.410563	Africa/Libreville
+Liege	LGG	be	50.641401	5.457938	Europe/Brussels	lgg_liege	50.623790	5.567372
+Lihue	LIH	us-hi	21.978662	-159.348885	Pacific/Honolulu
+=Kauai Island LIH
+Lijiang City	LJG	cn	26.679504	100.250543	Asia/Shanghai	ljg_lijiang	26.810638	100.256350
+Lille	LIL	fr	50.572086	3.106005	Europe/Paris	lil_flandres	50.635876	3.072703
+=Lille XDB
+Lilongwe	LLW	mw	-13.78938	33.781	Africa/Blantyre
+Lima	LIM	pe	-12.022677	-77.107743	America/Lima	lim_paradero	-12.015856	-77.098924
+Limoges	LIG	fr	45.862337	1.176606	Europe/Paris	lig_centre	45.836091	1.268660
+Lincang	LNJ	cn	23.741248	100.026947	Asia/Shanghai	lnj_linchang	23.886468	100.092302
+Lincoln	LNK	us-ne	40.848543	-96.757753	America/Chicago
+LingLing	LLF	cn	26.340082	111.619755	Asia/Shanghai	llf_yongzhou	26.452600	111.570454
+Linkoping	LPI	se	58.409122	15.674286	Europe/Stockholm	lpi_central	58.416260	15.625599
+Linyi	LYI	cn	35.047178	118.411628	Asia/Shanghai	lyi_rwy	35.036550	118.346097
+Linz	LNZ	at	48.230912	14.188905	Europe/Vienna	lnz_hbf	48.289791	14.291197
+Liping	HZH	cn	26.315905	109.156709	Asia/Shanghai	hzh_duyun	26.231209	107.517509
+Lisbon	LIS	pt	38.769042	-9.129410	Europe/Lisbon	lis_oriente	38.767670	-9.099154
+Little Rock	LIT	us-ar	34.728087	-92.220230	America/Chicago	lit_union	34.750858	-92.285720
+Liupanshui Yue Zhao	LPF	cn	26.607710	104.970009	Asia/Shanghai	lpf_rail	26.590212	104.852426
+Liuzhou	LZH	cn	24.202848	109.404238	Asia/Shanghai	lzh_liuzhou	24.306901	109.387534
+Liverpool	LPL	gb	53.337511	-2.857553	Europe/London	lpl_south_parkway	53.337511	-2.857553
+Livingstone	LVI	zm	-17.823005	25.818239	Africa/Lusaka
+Ljubljana	LJU	si	46.230567	14.456275	Europe/Ljubljana	lju_centre	46.058248	14.513742
+Lleida	ILD	es	41.728577	0.543824	Europe/Madrid	ild_pirineus	41.621327	0.632470
+Lodz	LCJ	pl	51.725449	19.402282	Europe/Warsaw	lcj_kaliska	51.758813	19.429798
+Logrono	RJL	es	42.456355	-2.319249	Europe/Madrid
+Lome	LFW	tg	6.167494	1.250399	Africa/Lome
+London - Gatwick	LGW	gb	51.159793	-0.175989	Europe/London	lgw_crawley	51.116091	-0.161088
+=London LGW
+London	LCY	gb	51.503148	0.049737	Europe/London
+London	LHR	gb	51.470829	-0.452125	Europe/London	lhr_hayes	51.502399	-0.421155
+=London - Heathrow LHR
+London	LTN	gb	51.878487	-0.373359	Europe/London	ltn_airpark	51.872314	-0.395354
+London	SEN	gb	51.567625	0.700260	Europe/London
+London, On canada	YXU	ca	43.027890	-81.149072	America/Toronto
+Londrina	LDB	br	-23.33362	-51.13007	America/Sao_Paulo
+Long Beach	LGB	us-ca	33.818225	-118.144351	America/Los_Angeles
+Longreach	LRE	au-qld	-23.439516	144.271854	Australia/Brisbane	lre_railway	-23.439739	144.248353
+Longview	GGG	us-tx	32.387355	-94.719330	America/Chicago	ggg_amtrak	32.493767	-94.727479
+Lord Howe Island	LDH	au-nsw	-31.540838	159.077947	Australia/Lord_Howe
+=Lord Howe island LDH
+Loreto	LTO	mx	25.98919	-111.34836	America/Hermosillo
+Lorient	LRT	fr	47.753998	-3.436568	Europe/Paris	lrt_sncf	47.754385	-3.369393
+Los Angeles	LAX	us-ca	33.943548	-118.408121	America/Los_Angeles	lax_aviation	33.929509	-118.377525
+Los Mochis	LMM	mx	25.689502	-109.084359	America/Mazatlan
+Louisville	SDF	us-ky	38.186378	-85.741838	America/Kentucky/Louisville
+Lourdes	LDE	fr	43.186778	0.002722	Europe/Paris	lde_tarbes	43.239528	0.068108
+=Lourdes/Tarbes LDE
+Luanda	LAD	ao	-8.847832	13.235068	Africa/Luanda	lad_central	-8.805022	13.244638
+Luang Prabang	LPQ	la	19.89791	102.16076	Asia/Vientiane
+Lubbock	LBB	us-tx	33.656206	-101.822128	America/Chicago
+Lubumbashi	FBM	cd	-11.588163	27.529805	Africa/Lubumbashi
+Lucknow	LKO	in	26.765006	80.884425	Asia/Kolkata
+Lulea	LLA	se	65.548731	22.123441	Europe/Stockholm	lla_central	65.583668	22.166491
+Luliang	LLV	cn	37.684496	111.137650	Asia/Shanghai
+Luoyang	LYA	cn	34.735878	112.389630	Asia/Shanghai	lya_luoyang	34.686257	112.437354
+Lusaka	LUN	zm	-15.325704	28.444983	Africa/Lusaka
+Luwuk	LUW	id	-1.03892	122.77191	Asia/Makassar
+Luxembourg	LUX	lu	49.634450	6.217907	Europe/Luxembourg	lux_luxembourg	49.600098	6.134630
+Luxi	LUM	cn	24.402932	98.531491	Asia/Shanghai	lum_dehong	24.436537	98.580327
+Luxor	LXR	eg	25.674003	32.700964	Africa/Cairo	lxr_luxor	25.696044	32.644487
+Luzhou	LZO	cn	28.842639	105.383233	Asia/Shanghai	lzo_luzhou	28.942345	105.453821
+Luzon Island	CRK	ph	15.18583	120.56028	Asia/Manila
+=Angeles City CRK
+Lviv	LWO	ua	49.816401	23.955448	Europe/Kiev	lwo_lvov	49.840391	23.993883
+Lynchburg	LYH	us-va	37.330500	-79.193469	America/New_York	lyh_amtrak	37.407325	-79.157502
+Lyon	GNB	fr	45.359907	5.333002	Europe/Paris	gnb_grenoble	45.190502	5.714326
+Lyon	LYS	fr	45.720979	5.076671	Europe/Paris
+=Lyon XYD
+Maastricht	MST	nl	50.913147	5.765836	Europe/Amsterdam
+Macao	MFM	mo	22.156350	113.575330	Asia/Macau	mfm_zhuhai	22.257900	113.515229
+Macapa	MCP	br-ap	0.049677	-51.068628	America/Belem
+Maceio	MCZ	br-al	-9.515497	-35.792588	America/Maceio
+Mackay	MKY	au-qld	-21.176259	149.181536	Australia/Brisbane	mky_railway	-21.173440	149.159006
+Madinah	MED	sa	24.55342	39.70506	Asia/Riyadh
+Madison	MSN	us-wi	43.136174	-89.345459	America/Chicago
+Madrid	MAD	es	40.467767	-3.568904	Europe/Madrid
+Magadan	GDX	ru	59.914538	150.731621	Asia/Magadan
+Magnitogorsk	MQF	ru	53.392052	58.762342	Asia/Yekaterinburg	mqf_pass	53.438655	58.985560
+Mahe Island	SEZ	sc	-4.670929	55.512042	Indian/Mahe
+Majuro, Marshall islands	MAJ	mh	7.065580	171.271091	Pacific/Majuro
+Makhachkala	MCX	ru	42.821198	47.656164	Europe/Moscow
+Malabo	SSG	cg	3.758147	8.716376	Africa/Malabo
+Malaga	AGP	es	36.676125	-4.489484	Europe/Madrid	agp_malaga	36.711654	-4.433149
+Malang	MLG	id-ji	-7.92655992508	112.71499	Asia/Jakarta
+Malargue	LGS	ar	-35.4936	-69.57427	America/Cordoba
+Male	MLE	mv	4.189262	73.527211	Indian/Maldives
+Malindi	MYD	ke	-3.229580	40.101323	Africa/Nairobi
+Malta	MLA	mt	35.855376	14.484968	Europe/Malta
+Mammoth Lakes	MMH	us-ca	37.624285	-118.835550	America/Los_Angeles
+Mamuju	MJU	id	-2.58333	119.03333	Asia/Makassar
+Manado	MDC	id	1.54945	124.92588	Asia/Makassar
+Managua	MGA	ni	12.144810	-86.171351	America/Managua
+Manaus	MAO	br	-3.031160	-60.045532	America/Manaus
+Manchester	MAN	gb	53.362451	-2.273247	Europe/London
+Manchester	MHT	us-nh	42.927743	-71.438607	America/New_York
+Mandalay	MDL	mm	21.705295	95.969382	Asia/Rangoon
+Manhattan	MHK	us-ks	39.136805	-96.669887	America/Chicago
+Manila	MNL	ph	14.519436	121.012824	Asia/Manila
+Manokwari	MKW	id	-0.89183	134.04918	Asia/Jayapura
+Manzanillo	ZLO	mx	19.148307	-104.559964	America/Mexico_City
+Manzhouli Xijiao	NZH	cn	49.571390	117.331692	Asia/Shanghai	nzh_rail	49.585502	117.451885
+Maputo	MPM	mz	-25.924500	32.574511	Africa/Maputo
+Maraba	MAB	br	-5.36859	-49.13802	America/Araguaina
+Maracaibo	MAR	ve	10.555793	-71.723793	America/Caracas
+Mar del Plata	MDQ	ar	-37.933356	-57.581851	America/Argentina/Buenos_Aires
+Mariehamn	MHQ	fi	60.124672	19.907307	Europe/Mariehamn
+Maringa	MGF	br	-23.47639	-52.01641	America/Sao_Paulo
+Maroochydore	MCY	au-qld	-26.605334	153.088332	Australia/Brisbane	mcy_nambour	-26.625393	152.958052
+=Sunshine Coast MCY
+Marquette	MQT	us-mi	46.349798	-87.387010	America/Detroit
+Marrakech	RAK	ma	31.602426	-8.028468	Africa/Casablanca
+Marsa Alam	RMF	eg	25.555480	34.593101	Africa/Cairo
+Marseille	MRS	fr	43.441087	5.220890	Europe/Paris	mrs_x	43.441866	5.237284
+=Marseille XRF
+Marsh Harbour	MHH	bs	26.513519	-77.077707	America/Nassau
+Martha's Vineyard	MVY	us-ma	41.389358	-70.611691	America/New_York
+=Martha’s Vineyard MVY
+Mashad	MHD	ir	36.226962	59.641950	Asia/Tehran
+=Mashhad MHD
+Matamoros	MAM	mx	25.771061	-97.531127	America/Matamoros
+Matsumoto	MMJ	jp	36.16676	137.92267	Asia/Tokyo
+Matsuyama	MYJ	jp	33.829183	132.704462	Asia/Tokyo
+Mauritius	MRU	mu	-20.431859	57.676392	Indian/Mauritius
+Mayaguez	MAZ	pr	18.253544	-67.149824	America/Puerto_Rico
+Mazatlan	MZT	mx	23.167315	-106.270470	America/Mazatlan
+Mcallen	MFE	us-tx	26.181164	-98.239715	America/Chicago
+Mcarthur River	MCV	au-nt	-16.442946	136.076366	Australia/Darwin
+Mccook, Ne	MCK	us-ne	40.207889	-100.597346	America/Chicago
+Medan	KNO	id	3.64222	98.88528	Asia/Jakarta
+Medellin	MDE	co	6.171281	-75.427628	America/Bogota
+Medford	MFR	us-or	42.368357	-122.874278	America/Los_Angeles
+Meixian	MXZ	cn	24.349080	116.139856	Asia/Shanghai	mxz_meizhou	24.259169	116.132663
+Melbourne	MEL	au-vic	-37.670121	144.849289	Australia/Melbourne	meb_Southern Cross	-37.817557	144.951858
+Melbourne	MLB	us-fl	28.097440	-80.632037	America/New_York
+Melilla	MLN	es	35.277620	-2.958030	Africa/Ceuta
+Memanbetsu	MMB	jp	43.88061	144.16405	Asia/Tokyo
+Memmingen	FMM	de	47.989113	10.232580	Europe/Berlin
+Memphis	MEM	us-tn	35.044680	-89.981635	America/Chicago	mem_central	35.131890	-90.059498
+Mendoza	MDZ	ar	-32.827906	-68.798938	America/Argentina/Mendoza
+Menorca	MAH	es	39.862174	4.224973	Europe/Madrid
+Merauke	MKQ	id-pa	-8.518572	140.415081	Asia/Jayapura
+Merida	MID	mx	20.93698	-89.65767	America/Merida
+Merida OffLine Point	QWX	es
+Meridian	MEI	us-ms	32.333433	-88.744840	America/Chicago	mei_union	32.364020	-88.695905
+Merlo Valle Del Conlara	RLO	ar	-32.34980	-65.17993	America/Cordoba
+Metz/Nancy	ETZ	fr	48.980011	6.242892	Europe/Paris	etz_metz	49.108537	6.176888
+=Metz/Nancy XZI
+Mexicali	MXL	mx	32.628151	-115.247672	America/Tijuana
+Mexico City	MEX	mx	19.435582	-99.083197	America/Mexico_City	tlc_fc_toluca	19.291283	-99.638362
+Mexico City	TLC	mx	19.337656	-99.569934	America/Mexico_City	tlc_fc_toluca	19.291283	-99.638362
+Miami	MIA	us-fl	25.794958	-80.278367	America/New_York
+Mian Yang	MIG	cn	31.425995	104.750002	Asia/Shanghai	mig_mianyang	31.460192	104.718285
+Midland	MAF	us-tx	31.937173	-102.208119	America/Chicago
+Mikonos	JMK	gr	37.434112	25.345794	Europe/Athens
+=Mykonos JMK
+Milan	BGY	it	45.665759	9.697942	Europe/Rome	bgy_segrate	45.480272	9.296812
+=Bergamo BGY
+Milan	LIN	it	45.460836	9.278569	Europe/Rome	lin_lambrate	45.484686	9.237135
+Milan	MXP	it	45.626979	8.712439	Europe/Rome
+Mildura	MQL	au-vic	-34.230593	142.084563	Australia/Melbourne	mql_railway	-34.182125	142.162804
+Milwaukee	MKE	us-wi	42.947853	-87.902827	America/Chicago
+Minatitlan	MTT	mx	18.102308	-94.576820	America/Mexico_City
+Mineralnye Vody	MRV	ru	44.217977	43.086706	Europe/Moscow
+Minneapolis	MSP	us-mn	44.883092	-93.210742	America/Chicago	msp_target	44.983032	-93.277389
+Minot	MOT	us-nd	48.255339	-101.291390	America/Chicago	mot_amtrak	48.236181	-101.297939
+Minsk	MSQ	by	53.889993	28.034246	Europe/Minsk	msq_passajirskii	53.890566	27.548797
+Miri	MYY	my	4.32201	113.98681	Asia/Kuching
+Mirny	MJZ	ru-sa	62.532786	114.025864	Asia/Yakutsk
+Misawa	MSJ	jp	40.70322	141.36836	Asia/Tokyo
+Missoula	MSO	us-mt	46.918566	-114.082871	America/Denver
+Miyako	MMY	jp	24.78283	125.29511	Asia/Tokyo
+Miyazaki	KMI	jp	31.87722	131.44861	Asia/Tokyo
+Moab	CNY	us-ut	38.75500107	-109.7549	America/Denver
+Mobile	MOB	us-al	30.681380	-88.244586	America/Chicago
+Mohe County	OHE	cn	52.911546	122.428592	Asia/Shanghai	ohe_mohe	52.988697	122.509676
+Moline	MLI	us-il	41.454009	-90.506169	America/Chicago
+Mombasa	MBA	ke	-4.032438	39.603523	Africa/Nairobi	mba_station	-4.057599	39.659603
+Moncton	YQM	ca-nb	46.116436	-64.688143	America/Halifax	yqm_via	46.083976	-64.785282
+Monroe	MLU	us-la	32.511342	-92.043844	America/Chicago
+Monrovia	ROB	lr	6.241997	-10.352032	Africa/Monrovia
+Montego Bay	MBJ	jm	18.498378	-77.917801	America/Jamaica
+Monterey	MRY	us-ca	36.587592	-121.850373	America/Los_Angeles
+Monteria	MTR	co	8.825250	-75.823880	America/Bogota
+Monterrey	MTY	mx	25.776152	-100.114003	America/Monterrey
+Montevideo	MVD	uy	-34.841144	-56.026423	America/Montevideo
+Montgomery	MGM	us-al	32.304960	-86.390682	America/Chicago
+Montpellier	MPL	fr	43.579344	3.958001	Europe/Paris	mpl_centre	43.604801	3.881483
+=Montpellier XPJ
+Montreal	YUL	ca-qc	45.470976	-73.737039	America/Toronto
+Montrose	MTJ	us-co	38.497858	-107.896844	America/Denver
+Moranbah	MOV	au-qld	-22.060346	148.073755	Australia/Brisbane	mov_mackay	-21.173440	149.159006
+Moree	MRZ	au-nsw	-29.495740	149.850376	Australia/Sydney	mrz_railway	-29.473961	149.847844
+Morelia	MLM	mx	19.843481	-101.027179	America/Mexico_City
+Morgantown, Wv	MGW	us-wv	39.643602	-79.920101	America/New_York
+Moroni	HAH	km	-11.536422	43.274907	Indian/Comoro
+Moscow	DME	ru	55.415471	37.899059	Europe/Moscow	dme_belo	55.774897	37.580380
+Moscow	SVO	ru	55.967207	37.416365	Europe/Moscow	svo_belo	55.774897	37.580380
+=Moscow VKO
+Mount Isa	ISA	au-qld	-20.667725	139.491755	Australia/Brisbane	isa_Mount Isa Railway	-20.725836	139.485312
+Mount Pleasant	MPN	fk	-51.822314	-58.464824	Atlantic/Stanley
+Muan Intl	MWX	kr	34.99139	126.38278	Asia/Seoul
+Mudanjiang	MDG	cn	44.537317	129.588640	Asia/Shanghai	mdg_mudanjiang	44.591266	129.613459
+Muenster/osnabrueck	FMO	de	52.130634	7.694477	Europe/Berlin	fmo_greven	52.090507	7.599527
+Multan	MUX	pk	30.20322	71.41911	Asia/Karachi
+Mumbai	BOM	in	19.099456	72.874493	Asia/Kolkata
+Munich	MUC	de	48.353917	11.786956	Europe/Berlin	muc_hbf	48.140528	11.560270
+Murcia	MJV	es	37.776486	-0.816670	Europe/Madrid	mjv_renfe	37.974538	-1.130743
+Murcia	RMU	es	37.806976	-1.129812	Europe/Madrid	rmu_murcia	37.974589	-1.131099
+=Murcia XUT
+Murmansk	MMK	ru	68.785059	32.759336	Europe/Moscow	mmk_murmansk	68.971467	33.068756
+Muscat	MCT	om	23.601479	58.289954	Asia/Muscat
+Muskegon, Mi	MKG	us-mi	43.164475	-86.228653	America/Detroit
+Mwanza	MWZ	tz	-2.442293	32.922724	Africa/Dar_es_Salaam
+Myrtle Beach	MYR	us-sc	33.681029	-78.922484	America/New_York
+Mytilini	MJT	gr	39.053747	26.603850	Europe/Athens
+Nadi	NAN	fj	-17.755399	177.4429931	Pacific/Fiji
+Nadym	NYM	ru-yan	65.480841	72.691812	Asia/Yekaterinburg
+Nagasaki	NGS	jp	32.913813	129.923101	Asia/Tokyo
+Nagoya	NGO	jp	34.859076	136.815413	Asia/Tokyo
+Nagpur	NAG	in	21.09096	79.05494	Asia/Kolkata
+Nairobi	NBO	ke	-1.330105	36.923878	Africa/Nairobi
+Namangan	NMA	uz	40.9846000671	71.55670166	Asia/Tashkent
+Nampula	APL	mz	-15.107672	39.284181	Africa/Maputo
+Nanaimo	YCD	ca-bc	49.053121	-123.874873	America/Vancouver
+Nanchang	KHN	cn	28.858893	115.916301	Asia/Shanghai	khn_nanchangbei	28.739396	115.865510
+Nanchong	NAO	cn	30.788297	106.166436	Asia/Shanghai	nao_nanchong	30.808322	106.087063
+Nanjing	NKG	cn	31.733241	118.871843	Asia/Shanghai	nkg_nanjing	32.086075	118.797952
+Nanning	NNG	cn	22.609998	108.171992	Asia/Shanghai	nng_nanning	22.827870	108.316490
+Nantes	NTE	fr	47.159635	-1.601067	Europe/Paris	nte_nantes	47.192833	-1.549354
+=Nantes QJZ
+Nantong	NTG	cn	32.072169	120.977020	Asia/Shanghai	ntg_nantong	32.068655	120.862468
+Nantucket	ACK	us-ma	41.256751	-70.064002	America/New_York
+Nanyang	NNY	cn	32.981030	112.618673	Asia/Shanghai	nny_nanyang	33.000063	112.512966
+Naples	NAP	it	40.877780	14.282352	Europe/Rome	nap_centrale	40.852752	14.273811
+Napier	NPE	nz	-39.466795	176.872345	Pacific/Auckland
+Nashville	BNA	us-tn	36.132265	-86.669322	America/Chicago	bna_centre	36.161756	-86.773713
+Nassau	NAS	bs	25.050071	-77.466459	America/Nassau
+Natal	NAT	br	-5.91142	-35.2477	America/Recife
+Navegantes	NVT	br	-26.880711	-48.649454	America/Sao_Paulo
+Navoi	NVI	uz	40.122706	65.176622	Asia/Samarkand
+Nay Pyi Taw	NYT	mm	19.614532	96.213293	Asia/Rangoon
+Ndjamena	NDJ	td	12.128094	15.033507	Africa/Ndjamena
+Ndola	NLA	zm	-12.995884	28.658361	Africa/Lusaka
+Neiva	NVA	co	2.947108	-75.292672	America/Bogota
+Nejran	EAM	sa	17.61144	44.41917	Asia/Riyadh
+Nelson	NSN	nz	-41.300139	173.224888	Pacific/Auckland
+Neuquen	NQN	ar	-38.952660	-68.140109	America/Argentina/Salta
+Nevis	NEV	kn	17.203834	-62.591949	-400
+New Bern	EWN	us-nc	35.077489	-77.042256	America/New_York
+Newburgh	SWF	us-ny	41.496455	-74.099908	America/New_York
+Newcastle - Aust	NTL	au-nsw	-32.804595	151.840017	Australia/Sydney
+=Newcastle NTL
+Newcastle-On-Tyne	NCL	gb	55.037404	-1.710881	Europe/London	ncl_newcastle	54.968197	-1.617945
+=Newcastle NCL
+New Haven	HVN	us-ct	41.269085	-72.890711	America/New_York	hvn_union	41.296732	-72.926799
+New Haven rail station, ct	ZVE	us-ct	41.296732	-72.926799	America/New_York	zve_hvn	41.269085	-72.890711
+Newman	ZNE	au-wa	-23.417800	119.803001	Australia/Perth	zne_railway	-23.336183	119.737668
+New Orleans	MSY	us-la	29.985349	-90.257628	America/Chicago	msy_center	29.972519	-90.193207
+Newport News	PHF	us-va	37.132444	-76.500264	America/New_York	phf_amtrak	37.021708	-76.451083
+=Hampton PHF
+New Plymouth	NPL	nz	-39.009920	174.178985	Pacific/Auckland	npl_warehouse	-39.057189	174.076072	16
+New York	EWR	us-ny	40.690980	-74.177365	America/New_York
+New York	JFK	us-ny	40.643959	-73.783403	America/New_York	jfk_jamaica	40.699033	-73.809538
+=New York - Kennedy Intl JFK
+New York	LGA	us-ny	40.774152	-73.871883	America/New_York	lga_woodside	40.745571	-73.902149
+=New York - Newark LGA
+Nha Trang	CXR	vn	11.99815	109.21937	Asia/Ho_Chi_Minh
+Niamey	NIM	ne	13.477102	2.177268	Africa/Niamey
+Nice	NCE	fr	43.659421	7.205490	Europe/Paris
+Niigata	KIJ	jp	37.5711	139.0646	Asia/Tokyo
+Nijmegen Railway Station	QNQ	nl	51.843144	5.853141	Europe/Paris
+Nimes	ZYN	fr	43.761873	4.421887	Europe/Paris	zyn_centre	43.843132	4.374487
+Ningbo	NGB	cn	29.827933	121.467014	Asia/Shanghai	ngb_ningbo	29.861766	121.536750
+Nizhnekamsk	NBC	ru-ta	55.564457	52.102004	Europe/Moscow	nbc_Круглое Поле	55.619987	52.172620
+=Naberevnye Chelny NBC
+Nizhnevartovsk	NJC	ru-khm	60.950986	76.495545	Asia/Yekaterinburg	njc_central	60.954265	76.604018
+Nizhniy Novgorod	GOJ	ru	56.218815	43.790431	Europe/Moscow	goj_moskovskiysk	56.320691	43.945632
+=Nizhny Novgorod GOJ
+Norfolk	ORF	us-va	36.898787	-76.205601	America/New_York	orf_norfolk	36.843793	-76.276028
+Norilsk	NSK	ru-kya	69.321812	87.344364	Asia/Krasnoyarsk
+Norrkoping	NRK	se	58.583221	16.233923	Europe/Stockholm	nrk_central	58.596127	16.183391
+North Bend, or	OTH	us-or	43.416068	-124.249259	America/Los_Angeles
+North Eleuthera	ELH	bs	25.476182	-76.683351	America/Nassau
+North Platte, ne	LBF	us-ne	41.132764	-100.697923	America/Chicago
+Norwich	NWI	gb	52.669535	1.276744	Europe/London	nwi_norwich	52.626938	1.306721
+Nottingham	EMA	gb	52.826355	-1.329742	Europe/London
+Nouakchott	NKC	mr	18.098388	-15.951976	Africa/Nouakchott
+Noumea	NOU	nc	-22.016389	166.216111	Pacific/Noumea
+Novokuznetsk	NOZ	ru-kem	53.805628	86.864179	Asia/Novokuznetsk	noz_pass	53.745873	87.118115
+Novosibirsk	OVB	ru	55.009730	82.669243	Asia/Novosibirsk	ovb_ob	54.991072	82.724132
+Novyj Urengoj	NUX	ru-yan	66.072992	76.525936	Asia/Yekaterinburg	nux_pass	66.090073	76.692880
+=Novy Urengoy NUX
+Nuevo Laredo	NLD	mx	27.449991	-99.567917	America/Matamoros
+Nuremberg	NUE	de	49.493912	11.079279	Europe/Berlin	nue_hbf	49.445302	11.083399
+Nyingchi/Linzhi Mainling/Milin	LZY	cn	29.306145	94.334717	Asia/Shanghai
+Oakland	OAK	us-ca	37.712099	-122.212434	America/Los_Angeles
+Oaxaca	OAX	mx	17.001101	-96.721675	America/Mexico_City
+Obihiro	OBO	jp	42.73333	143.21722	Asia/Tokyo
+Odessa	ODS	ua	46.440335	30.677887	Europe/Kiev	ods_glavnaja	46.467543	30.740989
+=Odesa ODS
+Oita	OIT	jp	33.476796	131.732397	Asia/Tokyo
+Okayama	OKJ	jp	34.760400	133.853214	Asia/Tokyo
+Okha	OHH	ru-sak	53.519150	142.887745	Asia/Sakhalin
+Oki Island	OKI	jp	36.18112	133.32484	Asia/Tokyo
+Okinawa	OKA	jp	26.206650	127.651306	Asia/Tokyo
+Oklahoma City	OKC	us-ok	35.395782	-97.595808	America/Chicago	okc_amtrak	35.464774	-97.512467
+Olbia	OLB	it	40.903832	9.517677	Europe/Rome	olb_stazione	40.923415	9.495279
+Olympic Dam	OLP	au-sa	-30.483317	136.884310	Australia/Adelaide	olp_pimba	-31.250196	136.801483
+Omaha	OMA	us-ne	41.299863	-95.899772	America/Chicago	oma_amtrak	41.249861	-95.927856
+Omsk	OMS	ru	54.957199	73.316887	Asia/Omsk	oms_Омск-Пассажирский	54.938402	73.386299
+Ontario	ONT	us-ca	34.060621	-117.596942	America/Los_Angeles	ont_amtrak	34.061580	-117.648832
+Oradea	OMR	ro	47.02528	21.9025	Europe/Bucharest
+Oran	ORN	dz	35.620773	-0.606160	Africa/Algiers	orn_gare	35.697553	-0.638298
+Orenburg	REN	ru-ore	51.791181	55.456247	Asia/Yekaterinburg	ren_orenburg	51.777415	55.075817
+Orlando	MCO	us-fl	28.430201	-81.308113	America/New_York
+Orlando	SFB	us-fl	28.775260	-81.243355	America/New_York
+Osaka	ITM	jp	34.791253	135.441603	Asia/Tokyo
+Osaka	KIX	jp	34.435458	135.243934	Asia/Tokyo
+Osh	OSS	kg	40.607511	72.786023	Asia/Bishkek	oss_rail	40.577666	72.813966
+Oslo	OSL	no	60.193431	11.099227	Europe/Oslo
+Oslo	TRF	no	59.179092	10.252758	Europe/Oslo	trf_sandefjord	59.135750	10.222892
+Osorno	ZOS	cl	-40.608656	-73.064548	America/Santiago
+Ostrava	OSR	cz	49.695201	18.120359	Europe/Prague	osr_hln	49.851705	18.268252
+Ottawa	XDS	ca-on	45.4164	-75.6517	America/Toronto
+Ottawa	YOW	ca-on	45.322879	-75.666987	America/Toronto
+Ouagadougou	OUA	bf	12.355354	-1.514180	Africa/Ouagadougou
+Ouango Fitini	OFI	ci	9.597292	-4.051234	Africa/Abidjan
+Ouarzazate	OZZ	ma	30.935221	-6.907510	Africa/Casablanca
+Oujda	OUD	ma	34.786292	-1.939644	Africa/Casablanca
+Oulu	OUL	fi	64.928974	25.372883	Europe/Helsinki	oul_oulu	65.010944	25.482972
+Ovda	VDA	il	29.935552	34.953964	Asia/Jerusalem
+Padang	PDG	id	-0.87499	100.35188	Asia/Jakarta
+Paderborn/lippstadt	PAD	de	51.609551	8.619189	Europe/Berlin	pad_hbf	51.712702	8.741221
+Paducah, Ky	PAH	us-ky	37.061344	-88.766841	America/Chicago
+Page, Az	PGA	us-az	36.924213	-111.450489	America/Phoenix
+Palanga	PLQ	lt	55.971539	21.097805	Europe/Vilnius
+Palangkaraya	PKY	id-u-a	-2.22513008118	113.943000	Asia/Pontianak
+Palembang	PLM	id	-2.89825	104.69990	Asia/Jakarta
+Palermo	PMO	it	38.111802	13.311886	Europe/Rome	pmo_balsamo	38.109033	13.367697
+Palma Mallorca	PMI	es	39.547923	2.730095	Europe/Madrid
+=Palma De mallorca PMI
+Palmas	PMW	br	-10.24167	-48.35278	America/Araguaina
+Palm Springs	PSP	us-ca	33.823212	-116.508399	America/Los_Angeles
+Palmerston North	PMR	nz	-40.323522	175.621358	Pacific/Auckland
+Palu	PLW	id	-0.91854	119.90964	Asia/Makassar
+Pamplona	PNA	es	42.767893	-1.640726	Europe/Madrid	pna_pamplona	42.824658	-1.662153
+=Pamplona EEP
+Panama City	ECP	us-fl	30.343681	-85.794854	America/Chicago	ecp_panama	30.178454	-85.659873
+Panama City	PTY	pa	9.067555	-79.387370	America/Panama
+=Tocumen PTY
+Pangkalpinang	PGK	id-bb	-2.16219997406	106.138999	Asia/Jakarta
+Pantelleria	PNL	it	36.818340	11.966861	Europe/Rome
+Papeete	PPT	pf	-17.559786	-149.609516	Pacific/Tahiti
+Paphos	PFO	cy	34.71804	32.48573	Asia/Nicosia
+Paraburdoo	PBO	au-wa	-23.174592	117.746633	Australia/Perth	pbo_railway	-23.218810	117.637673
+Paramaribo	PBM	sr	5.456582	-55.200288	America/Paramaribo
+Parana	PRA	ar	-31.79478	-60.48036	America/Argentina/Cordoba
+Paris	CDG	fr	49.013314	2.542376	Europe/Paris	cdg_ory	48.728281	2.359664
+Paris	ORY	fr	48.728281	2.359664	Europe/Paris	ory_cdg	49.013314	2.542376
+Parkersburg, Wv	PKB	us-wv	39.345524	-81.435629	America/New_York
+Pasco	PSC	us-wa	46.259066	-119.117415	America/Los_Angeles	psc_intermodal	46.237065	-119.086782
+Patrai	GPA	gr	38.150500	21.416100	Europe/Athens
+Pau	PUF	fr	43.382921	-0.414663	Europe/Paris	puf_sncf	43.291519	-0.368720
+Pavlodar	PWQ	kz	52.195	77.07389	Asia/Almaty
+Pekanbaru	PKU	id	0.46079	101.44454	Asia/Jakarta
+Pellston	PLN	us-mi	45.570637	-84.785145	America/Detroit
+Pelotas	PET	br	-31.71835	-52.32769	America/Sao_Paulo
+Pemba	POL	mz	-12.990657	40.527156	Africa/Maputo
+Penang	PEN	my	5.293578	100.265583	Asia/Kuala_Lumpur
+Penticton	YYF	ca-bc	49.460482	-119.605564	America/Vancouver
+Pensacola	PNS	us-fl	30.475998	-87.194185	America/Chicago
+Peoria	PIA	us-il	40.666674	-89.691249	America/Chicago
+Pereira	PEI	co	4.815997	-75.736451	America/Bogota
+Perm	PEE	ru	57.920209	56.019509	Asia/Yekaterinburg	pee_perm	58.004490	56.184465
+Perpignan	PGF	fr	42.741127	2.869455	Europe/Paris	pgf_sncf	42.695546	2.879345
+Perth_int	PER	au-wa	-31.941493	115.974555	Australia/Perth	per_Perth central	-31.951125	115.859810
+Perth	PER	au-wa	-31.933727	115.960155	Australia/Perth	per_Perth central	-31.951125	115.859810
+Perugia	PEG	it	43.094474	12.503727	Europe/Rome	peg_perugia	43.103108	12.375049
+Pescara	PSR	it	43.095051	12.502535	Europe/Rome
+Peshawar	PEW	pk	33.990882	71.519548	Asia/Karachi
+Petropavlovsk	PKC	ru-kam	53.169879	158.425206	Asia/Kamchatka
+Philadelphia	PHL	us-pa	39.876452	-75.243301	America/New_York	phl_30th-street	39.955504	-75.182018
+Philadelphia 30th. street rail station, pa	ZFV	us-pa	39.955504	-75.182018	America/New_York	zfv_phl	39.876452	-75.243301
+Phnom Penh	PNH	kh	11.553333	104.845223	Asia/Phnom_Penh
+Phoenix	PHX	us-az	33.436448	-112.013626	America/Phoenix
+Phuket	HKT	th	8.107813	98.306489	Asia/Bangkok
+Phu Quoc	PQC	vn	10.223421	103.963205	Asia/Ho_Chi_Minh
+Piedras Negras	PDS	mx	28.62739	-100.53521	America/Mexico_City
+Pierre, Sd	PIR	us-sd	44.375308	-100.287985	America/Chicago
+Pisa	PSA	it	43.696556	10.405189	Europe/Rome	psa_rossoro	43.722939	10.386927
+Pittsburgh	PIT	us-pa	40.495646	-80.255546	America/New_York	pit_amtrak	40.443618	-79.993119
+Piura	PIU	pe	-5.205953	-80.618290	America/Lima
+Pleiku	PXU	vn	14.00452	108.01716	Asia/Saigon
+Plovdiv	PDV	bg	42.077109	24.844535	Europe/Sofia
+Pocatello	PIH	us-id	42.908982	-112.585069	America/Boise
+Podgorica	TGD	me	42.359434	19.245075	Europe/Podgorica
+Pohnpei, Federated states of micronesia	PNI	fm	6.981160	158.203613	Pacific/Pohnpei
+Pointe A pitre	PTP	gp	16.270368	-61.526671	America/Guadeloupe
+=Pointe A Pitre PTP
+Pointe Noire	PNR	cg	-4.81603	11.8866	Africa/Brazzaville
+Poitiers	PIS	fr	46.586197	0.311817	Europe/Paris	pis_centre	46.581802	0.332588
+=Poitiers XOP
+Pomala	PUM	id-sg	-4.18333	121.61667	Asia/Makassar
+Ponta Delgada (azores)	PDL	pt-az	37.749779	-25.710602	Atlantic/Azores
+Pontianak	PNK	id	-0.146554	109.404600	Asia/Pontianak
+Poona	PNQ	in	18.586463	73.920645	Asia/Kolkata
+Port Au prince	PAP	ht	18.575408	-72.295057	America/Port-au-Prince
+=Port Au Prince PAP
+Port Elizabeth	PLZ	za	-33.983514	25.611721	Africa/Johannesburg
+Port Harcourt	PHC	ng	5.016254	6.953762	Africa/Lagos
+Port Hedland	PHE	au-wa	-20.377972	118.631924	Australia/Perth	phe_bofing siding	-20.391816	118.621057
+Portland	PDX	us-or	45.588895	-122.592865	America/Los_Angeles
+Portland	PWM	us-me	43.647534	-70.310414	America/New_York
+Port Lincoln	PLO	au-sa	-34.603295	135.873996	Australia/Adelaide	plo_railway	-34.724669	135.866649
+Port Macquarie	PQQ	au-nsw	-31.431873	152.867512	Australia/Sydney
+Port Moresby	POM	pg	-9.443380	147.220001	Pacific/Port_Moresby
+Porto Alegre	POA	br	-29.989830	-51.176148	America/Sao_Paulo	poa_mercado	-30.026502	-51.228158
+Port Of spain	POS	tt	10.601934	-61.339491	America/Port_of_Spain
+=Port Of Spain POS
+Porto	OPO	pt	41.239279	-8.671773	Europe/Lisbon	opo_campanha	41.149032	-8.585225
+Porto Seguro	BPS	br	-16.441368	-39.080645	America/Bahia
+Porto Velho	PVH	br-ro	-8.714498	-63.898251	America/Porto_Velho
+Port Vila	VLI	vu	-17.699300	168.3200073	1100
+Posadas	PSS	ar	-27.38584	-55.97073	America/Argentina/Cordoba
+Poza Rica	PAZ	mx	20.599144	-97.460714	America/Mexico_City
+Poznan	POZ	pl	52.414354	16.828470	Europe/Warsaw	poz_garbary	52.415724	16.937124
+Prague	PRG	cz	50.105160	14.268955	Europe/Prague	prg_centre	50.082584	14.436582
+Praia	RAI	cv	14.946028	-23.487194	Atlantic/Cape_Verde
+Praslin Island	PRI	sc	-4.323777	55.692457	400
+Praya Lombok Intl	LOP	id-nb	-8.761351	116.273875	Asia/Makassar
+Prescott, Az	PRC	us-az	34.646365	-112.418454	America/Phoenix
+Preveza/lefkada	PVK	gr	38.930165	20.771041	Europe/Athens
+=Preveza/Lefkas PVK
+Prince George	YXS	ca-bc	53.884128	-122.673666	America/Vancouver
+Proserpine	PPP	au-qld	-20.489909	148.553786	Australia/Brisbane	ppp_proserpine	-20.403002	148.578529
+Providence	PVD	us-ri	41.726095	-71.436429	America/New_York	pvd_providence	41.828736	-71.413705
+Providenciales	PLS	tc	21.775801	-72.265885	America/Grand_Turk
+Pucallpa	PCL	pe	-8.384953	-74.573385	America/Lima
+Puebla	PBC	mx	19.163506	-98.375433	America/Mexico_City
+Pueblo, Co	PUB	us-co	38.283392	-104.495355	America/Denver
+Puerto Escondido	PXM	mx	15.875116	-97.091211	America/Mexico_City
+Puerto Maldonado	PEM	pe	-12.600912	-69.221847	America/Lima
+Puerto Montt	PMC	cl	-41.433726	-73.098364	America/Santiago
+Puerto Plata	POP	do	19.7579	-70.570033	America/Santo_Domingo
+Puerto Vallarta	PVR	mx	20.678035	-105.249386	America/Mexico_City
+Pula	PUY	hr	44.899461	13.923413	Europe/Zagreb
+Pullman	PUW	us-wa	46.744437	-117.114142	America/Vancouver
+Punta Arenas	PUQ	cl	-53.005541	-70.846272	America/Santiago
+Punta Cana	PUJ	do	18.562650	-68.363327	America/Santo_Domingo
+Punta del Este	PDP	uy	-34.861332	-55.097979	America/Montevideo
+=Punta Del este PDP
+Putussibau	PSU	id-bo	0.83558	112.93714	Asia/Pontianak
+Qaisumah	AQI	sa	28.334333	46.121874	Asia/Riyadh
+Qianjiang Shi Zhoubai	JIQ	cn	29.513912	108.832441	Asia/Shanghai	jiq_qianjiang	29.442079	108.790391
+Qingdao	TAO	cn	36.267780	120.386720	Asia/Shanghai	tao_chengyang	36.297670	120.365949
+Qingyang	IQN	cn	35.801012	107.610865	Asia/Shanghai	iqn_qingyang	35.718360	107.643219
+Qiqihar	NDG	cn	47.254213	123.925088	Asia/Shanghai	ndg_qiqihar	47.338034	123.994724
+Quebec	YQB	ca	46.791044	-71.383400	America/Toronto
+=Quebec City YQB
+Queenstown	ZQN	nz	-45.021099	168.738998	Pacific/Auckland
+Queretaro	QRO	mx	20.622722	-100.187349	America/Mexico_City
+Quimper	UIP	fr	47.973013	-4.175132	Europe/Paris	uip_sncf	47.994769	-4.091432
+Qui Nhon	UIH	vn	13.952407	109.049360	Asia/Ho_Chi_Minh
+Quito	UIO	ec	-0.124795	-78.360965	America/Guayaquil
+Rabat	RBA	ma	34.036399	-6.749482	Africa/Casablanca
+Rach Gia	VKG	vn	9.94968	105.13366	Asia/Ho_Chi_Minh
+Rafha	RAH	sa	29.62642	43.49061	Asia/Riyadh
+Raleigh Durham	RDU	us-nc	35.876480	-78.792729	America/New_York
+=Raleigh/durham RDU
+=Raleigh RDU
+Ramstein	RMS	de	49.443351	7.588022	Europe/Berlin
+Rapid City	RAP	us-sd	44.038424	-103.060443	America/Denver	rap_center	44.081846	-103.223972
+Rarotonga, Cook islands	RAR	ck	-21.199840	-159.797624	Pacific/Rarotonga
+=Avarua RAR
+Ras Al khaimah	RKT	ae	25.616805	55.941913	Asia/Dubai
+Rasht	RAS	ir	37.321789	49.619567	Asia/Tehran
+Recife	REC	br-pe	-8.131581	-34.917797	America/Recife
+Redding, Ca	RDD	us-ca	40.505736	-122.299592	America/Los_Angeles	rdd_amtrak	40.582570	-122.392455
+Redmond	RDM	us-or	44.253424	-121.160871	America/Los_Angeles
+Reggio Calabria	REG	it	38.073811	15.654127	Europe/Rome	reg_centro	38.102116	15.633763
+Regina	YQR	ca-sk	50.433489	-104.655304	America/Regina
+Reims	XIZ	fr	49.215009	3.994626	Europe/Paris
+Rennes	RNS	fr	48.068630	-1.727499	Europe/Paris	rns_centre	48.103147	-1.672009
+=Rennes ZFJ
+Reno	RNO	us-nv	39.505568	-119.775793	America/Los_Angeles	rno_amtrak	39.528892	-119.811488
+Resistencia	RES	ar	-27.44999	-59.05612	America/Argentina/Cordoba
+Reykjavik	KEF	is	63.995650	-22.623593	Atlantic/Reykjavik	kef_center	64.142665	-21.939908
+Reynosa	REX	mx	26.00891	-98.22851	America/Matamoros
+Rhinelander	RHI	us-wi	45.625975	-89.462747	America/Chicago
+Rhodes	RHO	gr	36.402573	28.091993	Europe/Athens	rho_rhodos	36.446392	28.232321
+Ribeirao Preto	RAO	br	-21.139637	-47.775971	America/Sao_Paulo
+Richmond	RIC	us-va	37.508379	-77.333344	America/New_York	ric_amtrak	37.617506	-77.496283
+Richmond	YRMD	au-qld	-20.699704	143.117515	1000	yrmd_richmond	-20.735471	143.141390
+Riga	RIX	lv	56.922293	23.979902	Europe/Riga	rix_passajirskii	56.946391	24.120150
+Rimini	RMI	it	44.022983	12.619511	Europe/Rome
+Rio Branco	RBR	br	-9.583	-67.4836	America/Rio_Branco
+Rio de Janeiro	GIG	br	-22.811384	-43.251549	America/Sao_Paulo	gig_central	-22.903162	-43.190636
+=Rio De janeiro GIG
+Rio de Janeiro	SDU	br	-22.912950	-43.167066	America/Sao_Paulo	sdu_central	-22.903162	-43.190636
+=Rio De Janeiro SDU
+=Rio De janeiro SDU
+Rio Gallegos	RGL	ar	-51.60887	-69.31264	America/Argentina/Rio_Gallegos
+Rio Grande	RGA	ar	-53.781581	-67.753451	America/Argentina/Ushuaia
+Rio Grande	RIG	br	-32.08262	-52.16654	America/Sao_Paulo
+Rio Hondo	RHD	ar	-27.506476	-64.933189	America/Argentina/Cordoba
+Riverton, Wy	RIW	us-wy	43.060196	-108.458293	America/Denver
+Riyadh	RUH	sa	24.956695	46.697227	Asia/Riyadh	ruh_sar	24.854927	46.764347
+Roanoke	ROA	us-va	37.320296	-79.970071	America/New_York
+Roatan	RTB	hn	16.318179	-86.527098	America/Tegucigalpa
+Rochester	ROC	us-ny	43.115715	-77.666553	America/New_York	roc_amtrak	43.163864	-77.606894
+Rochester	RST	us-mn	43.910316	-92.486939	America/Chicago
+Rockhampton	ROK	au-qld	-23.377971	150.478536	Australia/Brisbane	rok_rockhampton	-23.393126	150.511576
+Rock Springs	RKS	us-wy	41.599110	-109.069920	America/Denver
+Rodez	RDZ	fr	44.410830	2.483571	Europe/Paris	rdz_sncf	44.362671	2.581444
+Roma	RMA	au-qld	-26.543954	148.779478	Australia/Brisbane	rma_railway	-26.576698	148.788466
+Rome	CIA	it	41.798194	12.590986	Europe/Rome	cia_termini	41.900776	12.502627
+Rome	FCO	it	41.794966	12.252160	Europe/Rome	fco_termini	41.900776	12.502627
+Rosario	ROS	ar	-32.90361	-60.785	America/Argentina/Cordoba
+Rostov	ROV	ru	47.255620	39.802880	Europe/Moscow	rov_glavnji	47.218311	39.692174
+Roswell	ROW	us-nm	33.305995	-104.526245	America/Denver
+Rota, Northern mariana islands	ROP	mp	14.171596	145.243704	Pacific/Saipan
+Rotterdam	RTM	nl	51.950490	4.431321	Europe/Amsterdam	rtm_cs	51.925090	4.468528
+Rovaniemi	RVN	fi	66.558249	25.827301	Europe/Helsinki	rvn_center	66.498959	25.704185
+Rzeszow	RZE	pl	50.112859	22.012398	Europe/Warsaw
+Saarbruecken	SCN	de	49.219441	7.114281	Europe/Berlin	scn_hbf	49.240790	6.990029
+Saba Island	SAB	cw	17.645123	-63.220625	America/Kralendijk
+Sabang	SBG	id	5.871323	95.341869	Asia/Jakarta
+Sacramento	SMF	us-ca	38.692511	-121.588369	America/Los_Angeles
+Saginaw	MBS	us-mi	43.531630	-84.089822	America/Detroit
+Saint Etienne	EBU	fr	45.531609	4.293837	Europe/Paris	ebu_sncf	45.436404	4.378265
+Saint Eustatius	EUX	bq	17.493103	-62.980677	America/Kralendijk
+Saint John, nb	YSJ	ca-nb	45.329378	-65.890073	America/Moncton
+Saint Johns	YYT	ca-nl	47.616851	-52.745705	America/St_Johns
+Saipan	SPN	mp	15.121996	145.723418	Pacific/Saipan
+Salalah	SLL	om	17.03872	54.0913	Asia/Muscat
+Salamanca	SLM	es	40.948278	-5.495574	Europe/Madrid	slm_central	40.971515	-5.648438
+Salekhard	SLY	ru-yan	66.590553	66.586291	Asia/Yekaterinburg
+Salisbury-ocean City	SBY	us-md	38.342158	-75.517048	America/New_York
+Salta	SLA	ar	-24.844028	-65.478437	America/Argentina/Salta
+Saltillo	SLW	mx	25.549190	-100.932123	America/Monterrey
+Salt Lake City	SLC	us-ut	40.786400	-111.982508	America/Denver
+=Salt Lake city SLC
+Salvador	SSA	br	-12.912956	-38.334901	America/Bahia
+Salzburg	SZG	at	47.791109	12.997554	Europe/Vienna	szg_hbf	47.812905	13.047044
+Samara	KUF	ru	53.508769	50.147149	Europe/Samara	kuf_samara	53.184173	50.121443
+Samarkand	SKD	uz	39.696295	66.991334	Asia/Samarkand	skd_station	39.686173	66.928850
+Samos	SMI	gr	37.691026	26.915508	Europe/Athens
+Sanaa	SAH	ye	15.471015	44.223830	Asia/Aden
+San Andres island	ADZ	co	12.58359	-81.71119	America/Bogota
+San Angelo	SJT	us-tx	31.354232	-100.502974	America/Chicago
+San Antonio	SAT	us-tx	29.527773	-98.473198	America/Chicago	sat_downtown	29.429200	-98.489312
+San Carlos de bariloche	BRC	ar	-41.15117	-71.15754	America/Argentina/Salta
+=San Carlos DeBariloche BRC
+San Cristobal island	SCY	ec	-0.908562	-89.616033	Pacific/Galapagos
+Sandakan	SDK	my	5.9009	118.05949	Asia/Kuching
+San Diego	SAN	us-ca	32.731976	-117.197625	America/Los_Angeles
+San Francisco	SFO	us-ca	37.617019	-122.383889	America/Los_Angeles
+San Jose Cabo	SJD	mx	23.162310	-109.717239	America/Mazatlan
+=San Jose cabo SJD
+San Jose	SJC	us	37.364871	-121.923733	America/Los_Angeles
+San Jose	SJO	cr	9.998303	-84.203791	America/Costa_Rica
+San Juan	SJU	pr	18.437723	-66.004422	America/Puerto_Rico
+San Juan	UAQ	ar	-31.57147	-68.41819	America/Argentina/San_Juan
+San Luis	LUQ	ar	-33.27319	-66.35642	America/Argentina/San_Luis
+San Luis obispo	SBP	us-ca	35.239001	-120.640722	America/Los_Angeles	sbp_amtrak	35.276532	-120.654018
+San Luis potosi	SLP	mx	22.25430	-100.93081	America/Mexico_City
+=San Luis Potosi SLP
+San Martin DeLos Andes	CPC	ar	-40.07538	-71.13729	America/Argentina/Salta
+San Pedro sula	SAP	hn	15.456215	-87.927623	America/Tegucigalpa
+=San Pedro Sula SAP
+San Rafael	AFA	ar	-34.58831	-68.403854	America/Argentina/Mendoza
+San Salvador	SAL	sv	13.445241	-89.056839	America/El_Salvador
+San Sebastian De Gomera	GMZ	es-cn	28.031807	-17.211596	Atlantic/Canary
+San Sebastian	EAS	es	43.356331	-1.793652	Europe/Madrid
+Santa Ana	SNA	us-ca	33.677764	-117.861923	America/Los_Angeles	sna_tustin	33.708226	-117.806891
+Santa Barbara	SBA	us-ca	34.424803	-119.836198	America/Los_Angeles	sba_amtrak	34.413432	-119.691915
+Santa Cruz de la palma	SPC	es	28.621753	-17.752328	Atlantic/Canary	spc_santacruz	28.680751	-17.767305
+=Santa Cruz de la Palma SPC
+Santa Cruz	VVI	bo	-17.647867	-63.140774	America/La_Paz
+Santa Fe	SAF	us-nm	35.618112	-106.084029	America/Denver	saf_depot	35.683455	-105.946977
+Santa Fe	SFN	ar	-31.71167	-60.81167	America/Argentina/Cordoba
+Santa Maria, ca	SMX	us-ca	34.899488	-120.447995	America/Los_Angeles
+Santa Marta	SMR	co	11.117365	-74.232891	America/Bogota
+Santander	SDR	es	43.424525	-3.828592	Europe/Madrid	sdr_centro	43.457662	-3.811433
+Santarem	STM	br	-2.424851	-54.786271	America/Manaus
+Santa Rosa	RSA	ar	-36.58832	-64.27569	America/Argentina/Salta
+Santa Rosa	STS	us-ca	38.510468	-122.805450	America/Los_Angeles
+Santiago de Compostela	SCQ	es	42.896775	-8.421607	Europe/Madrid	scq_centro	42.870839	-8.542926
+=Santiago De compostela SCQ
+Santiago del Estero	SDE	ar	-27.76562	-64.31012	America/Argentina/Cordoba
+Santiago	SCL	cl	-33.397238	-70.793452	America/Santiago	scl_pudahuel	-33.444878	-70.741567
+Santiago	STI	do	19.401869	-70.601667	America/Santo_Domingo
+Santo Domingo	SDQ	do	18.430652	-69.676858	America/Santo_Domingo
+Sanya	SYX	cn	18.307420	109.411830	Asia/Shanghai	syx_sanya	18.297359	109.494104
+Sao Jose do campo	SJK	br	-23.22817	-45.86274	America/Sao_Paulo
+Sao Jose do rio preto	SJP	br	-20.813995	-49.406396	America/Sao_Paulo
+Sao Luis	SLZ	br-ma	-2.583570	-44.237308	America/Belem
+=Sao Luiz SLZ
+Sao Paulo	CGH	br	-23.627614	-46.659493	America/Sao_Paulo	cgh_brás	-23.545910	-46.616022
+Sao Paulo	GRU	br	-23.425771	-46.481667	America/Sao_Paulo	gru_brás	-23.545910	-46.616022
+Sao Paulo	VCP	br	-23.010008	-47.141553	America/Sao_Paulo	vcp_brás	-23.545910	-46.616022
+Sapporo	CTS	jp	42.787726	141.680633	Asia/Tokyo
+=Chitose / Tomakomai CTS
+Sarajevo	SJJ	ba	43.825724	18.337887	Europe/Sarajevo	sjj_centre	43.855904	18.410371
+Sarasota	SRQ	us-fl	27.387347	-82.553441	America/New_York
+Sary	SRY	ir	36.635739	53.197129	Asia/Tehran
+Saskatoon	YXE	ca-sk	52.170020	-106.689815	America/Regina
+Satu Mare	SUJ	ro	47.706492	22.881269	Europe/Bucharest
+Sault Sainte Marie	CIU	us-mi	46.257868	-84.473936	America/Detroit
+Saumlaki	SXK	id-ma	-7.9886097908	131.305999	Asia/Jayapura
+Savannah	SAV	us-ga	32.135252	-81.210342	America/New_York	sav_amtrak	32.082795	-81.148077
+Scottsbluff, Ne	BFF	us-ne	41.869141	-103.593432	America/Denver
+Seattle	SEA	us-wa	47.443458	-122.301719	America/Los_Angeles
+Seattle	BFI	us-wa	47.536901	-122.303688	America/Los_Angeles
+Semarang	SRG	id	-6.975616	110.376030	Asia/Jakarta
+Semipalatinsk	PLX	kz	50.343873	80.218056	Asia/Almaty
+Sendai	SDJ	jp	38.13972	140.91694	Asia/Tokyo
+Seoul	GMP	kr	37.559380	126.803151	Asia/Seoul
+Seoul	ICN	kr	37.449403	126.451227	Asia/Seoul
+Sevilla	SVQ	es	37.424032	-5.898897	Europe/Madrid	svq_justa	37.392896	-5.974416
+=Sevilla XQA
+Shang-I	KNH	tw	24.436125	118.368389	Asia/Taipei
+Shanghai	PVG	cn	31.150396	121.806521	Asia/Shanghai	pvg_shanghainan	31.152951	121.430971
+=Shanghai, China ALL
+Shanghai	SHA	cn	31.193156	121.340525	Asia/Shanghai	sha_hongqiao	31.251118	121.455093
+Shannon	SNN	ie	52.692228	-8.920634	Europe/Dublin
+Shantou	SWA	cn	23.429362	116.761751	Asia/Shanghai	swa_shantou	23.376048	116.756592
+Sharjah	SHJ	ae	25.32857	55.51715	Asia/Dubai
+Sharm El Sheikh	SSH	eg	27.981067	34.389201	Africa/Cairo
+=Sharm El-sheikh SSH
+Sharurah	SHW	sa	17.469508	47.112568	Asia/Riyadh
+Shenandoah Valley airport, va	SHD	us-va	38.263687	-78.900495	America/New_York
+Shenyang	SHE	cn	41.638694	123.495721	Asia/Shanghai	she_shenyang	41.796271	123.395236
+Shenzhen	SZX	cn	22.643972	113.821074	Asia/Shanghai	szx_shenzhenxi	22.528277	113.906980
+Shijiazhuang	SJW	cn	38.280149	114.696628	Asia/Shanghai	sjw_shijiazhuangbei	38.067135	114.467728
+Shi Quan He Ali	NGQ	cn	32.101591	80.058789	Asia/Shanghai
+Shirahama	SHM	jp	33.66222	135.36444	Asia/Tokyo
+Shiraz	SYZ	ir	29.53924	52.58979	Asia/Tehran
+Shizuoka	FSZ	jp	34.79611	138.18944	Asia/Tokyo
+Shreveport	SHV	us-la	32.452836	-93.826986	America/Chicago
+Shymkent	CIT	kz	42.366729	69.490324	Asia/Almaty	cit_rail	42.298649	69.611330
+Sialkot	SKT	pk	32.5356	74.3639	Asia/Karachi
+Sibiu	SBZ	ro	45.789293	24.094548	Europe/Bucharest	sbz_gara	45.799944	24.162168
+Sibolga Ferdinand	FLZ	id	1.553905	98.896655	Asia/Jakarta
+Sibu	SBW	my	2.26160	111.98532	Asia/Kuching
+Siem Reap	REP	kh	13.408435	103.814581	Asia/Phnom_Penh
+Sigiriya	GIU	lk	7.95666980743	80.72850036	Asia/Colombo
+Simao	SYM	cn	22.793751	100.963307	Asia/Shanghai	sym_xishuangbanna	22.010662	100.797787
+Simferopol	SIP	ua	45.020706	33.998534	Europe/Simferopol
+=Ternopil SIP
+Singapore	SIN	sg	1.361077	103.990114	Asia/Singapore	sin_simei	1.342345	103.953793
+Sioux City	SUX	us-ia	42.401506	-96.378391	America/Chicago
+Sioux Falls	FSD	us-sd	43.580971	-96.731330	America/Chicago
+Sitka	SIT	us-ak	57.051877	-135.364011	America/Anchorage
+Skiathos	JSI	gr	39.176552	23.500879	Europe/Athens
+Skopje	SKP	mk	41.957132	21.627905	Europe/Skopje	skp_centre	41.990638	21.445470
+Sochi	AER	ru-kda	43.449093	39.941748	Europe/Moscow
+=Adler/Sochi AER
+Sofia	SOF	bg	42.689506	23.404686	Europe/Sofia	sof_centre	42.712723	23.320871
+Solo City	SOC	id-jt	-7.51609	110.75689	Asia/Jakarta
+Song Pan	JZH	cn	32.853254	103.686985	Asia/Shanghai
+Sorong	SOQ	id	-0.92636	131.12119	Asia/Jayapura
+Southampton	SOU	gb	50.950712	-1.360408	Europe/London
+South Bend	SBN	us-in	41.701110	-86.312138	America/Indiana/Indianapolis	sbn_amtrak	41.677656	-86.286208
+Spanish Town, virgin gorda	VIJ	vg	18.450324	-64.427566	America/Tortola
+Split	SPU	hr	43.536789	16.299867	Europe/Zagreb	spu_predgrade	43.521822	16.455392
+Spokane	GEG	us-wa	47.625171	-117.537527	America/Los_Angeles	geg_amtrak	47.655972	-117.415362
+Springfield	SGF	us-mo	37.238168	-93.397216	America/Chicago
+Springfield	SPI	us-il	39.843969	-89.671207	America/Chicago
+Stamford Rail station, ct	ZTF	us-ct	41.047472	-73.540525	America/New_York
+State College	SCE	us-pa	40.851540	-77.850890	America/New_York
+Stavanger	SVG	no	58.882319	5.628881	Europe/Oslo	svg_paradis	58.956490	5.742269
+Stavropol	STW	ru	45.106120	42.112731	Europe/Moscow
+St Barthelemy	SBH	bl	17.903550	-62.844753	America/St_Barthelemy
+St Croix Island	STX	vi	17.704435	-64.800820	America/St_Thomas
+=Saint Croix STX
+St Denis	RUN	re	-20.891180	55.512349	Indian/Reunion
+St George	SGU	us-ut	37.030813	-113.508396	America/Denver
+St Kitts	SKB	kn	17.311071	-62.713544	America/St_Kitts
+=Saint Kitts SKB
+St Louis	STL	us-mo	38.740178	-90.364020	America/Chicago	stl_gateway	38.623125	-90.204718
+=Saint Louis STL
+St Lucia	SLU	lc	14.020228	-60.996015	America/St_Lucia
+St Lucia	UVF	lc	13.736777	-60.950074	America/St_Lucia
+=Saint Lucia UVF
+St Maarten	SXM	sx	18.044786	-63.113167	America/Lower_Princes
+=Saint Maarten SXM
+St Martin	SFG	mf	18.102082	-63.048004	America/Marigot
+Stockholm	ARN	se	59.354229	17.947294	Europe/Stockholm	arn_central	59.329933	18.057730
+Stockholm	BMA	se	59.355319	17.945194	Europe/Stockholm	bma_sundbyberg	59.360825	17.971703
+St Petersburg	LED	ru	59.797596	30.269058	Europe/Moscow	led_airport	59.813244	30.323432
+=Saint Petersburg LED
+St Pierre	ZSE	re	-21.32004	55.42358	Indian/Reunion
+Strasbourg	SXB	fr	48.540987	7.621840	Europe/Paris	sxb_ville	48.585776	7.735051
+=Strasbourg XWG
+St Thomas Island	STT	vi	18.335466	-64.971036	America/St_Thomas
+=Saint Thomas STT
+Stuttgart	STR	de	48.690558	9.193137	Europe/Berlin	str_hbf	48.786221	9.182923
+Sudbury, On	YSB	ca-on	46.623092	-80.795441	America/Toronto	ysb_via	46.487326	-80.992294
+Sukhothai	THS	th	17.23799	99.81818	Asia/Bangkok
+Sulaymaniyah	ISU	iq	35.560177	45.325603	Asia/Baghdad
+Sumbawa	SWQ	id	-8.487778	117.413365	Asia/Makassar
+Sun Valley	SUN	us-id	43.506476	-114.300839	America/Boise
+Surabaya	SUB	id	-7.375319	112.794786	Asia/Jakarta
+Surat Thani	URT	th	9.134316	99.142716	700
+Surgut	SGC	ru-khm	61.339859	73.408709	Asia/Yekaterinburg	sgc_surgut	61.290552	73.325149
+Suva	SUV	fj	-18.046106	178.560220	Pacific/Fiji
+Suzhou	SZV	cn	31.267303	120.397336	Asia/Shanghai	szv_suzhou	31.329496	120.612036
+Sydney_int	SYD	au-nsw	-33.936172	151.165876	Australia/Sydney	syd_Sydney Central	-33.883405	151.205973
+Sydney	SYD	au-nsw	-33.933733	151.179620	Australia/Sydney	syd_Sydney Central	-33.883405	151.205973
+Sydney	YQY	ca-ns	46.167663	-60.047549	America/Halifax
+Syktyvkar	SCW	ru-ko	61.663925	50.851021	Europe/Moscow	scw_pass	61.657528	50.791194
+Syracuse	SYR	us-ny	43.114031	-76.112056	America/New_York	syr_reg-tc	43.076969	-76.168569
+Tabriz	TBZ	ir	38.1338996887207	46.2350006	Asia/Tehran
+Tabuk	TUU	sa	28.371688	36.597722	Asia/Riyadh
+Tacna	TCQ	pe	-18.049999	-70.277113	America/Lima
+Tacoma	TCM	us-wa	-47.135726	-122.485622	America/Los_Angeles
+Taichung	RMQ	tw	24.263294	120.634549	Asia/Taipei
+Taif	TIF	sa	21.48342	40.54433	Asia/Riyadh
+Tainan	TNN	tw	22.948076	120.215697	Asia/Taipei
+Taipei	TPE	tw	25.079595	121.233383	Asia/Taipei	tpe_taojuan	24.989365	121.314600
+Taipei	TSA	tw	25.063492	121.551986	Asia/Taipei	tpe_taojuan	24.989365	121.314600
+Taiyuan	TYN	cn	37.754245	112.634279	Asia/Shanghai	tyn_taiyuan	37.859184	112.587973
+Takamatsu	TAK	jp	34.219066	134.018675	Asia/Tokyo
+Talara	TYL	pe	-4.576000	-81.256123	America/Lima
+Tallahassee	TLH	us-fl	30.395742	-84.345012	America/New_York
+Tallinn	TLL	ee	59.417418	24.798916	Europe/Tallinn	tll_tallinn	59.439791	24.736603
+Tambolaka	TMC	id-nt	-9.40972	119.24449	Asia/Makassar
+Tamky	VCL	vn	15.414128	108.703470	Asia/Ho_Chi_Minh
+Tampa	TPA	us-fl	27.982568	-82.534700	America/New_York
+Tampere	TMP	fi	61.420808	23.618566	Europe/Helsinki
+Tampico	TAM	mx	22.29645	-97.86593	America/Monterrey
+Tamworth	TMW	au-nsw	-31.083900	150.847000	Australia/Sydney	tmw_railway	-31.086380	150.930489
+Tangier	TNG	ma	35.726868	-5.914654	Africa/Casablanca	tng_ville	35.770196	-5.785994
+Tangshan Sannuhe	TVS	cn	39.724610	117.999510	Asia/Shanghai	tvs_tangshanbei	39.816741	118.120667
+Tanjung Pandan	TJQ	id	-2.74571990967	107.754997	Asia/Jakarta
+Tanjung Pinang	TNJ	id	0.92268	104.53231	Asia/Jakarta
+Tapachula	TAP	mx	14.790338	-92.368307	America/Merida
+Tarakan	TRK	id	3.32669	117.56557	Asia/Makassar
+Tarapoto	TPP	pe	-6.512121	-76.368900	America/Lima
+Tartu	TAY	ee	58.310492	26.690517	Europe/Tallinn
+Tashkent	TAS	uz	41.264050	69.265638	Asia/Tashkent
+Tawau	TWU	my	4.31337	118.12195	Asia/Kuching
+Tbilisi	TBS	ge	41.674073	44.959035	Asia/Tbilisi
+Teesside	MME	gb	54.512274	-1.433974	Europe/London
+Tegucigalpa	TGU	hn	14.055447	-87.221184	America/Tegucigalpa
+Tehran	IKA	ir	35.409078	51.154715	Asia/Tehran	ika_railway	35.657764	51.396215
+Tehran	THR	ir	35.691938	51.321806	Asia/Tehran	thr_railway	35.657764	51.396215
+Tel Aviv Yafo	TLV	il	32.000649	34.870713	Asia/Jerusalem
+=Tel Aviv-yafo TLV
+Tembagapura	TIM	id	-4.527082	136.889386	Asia/Jayapura
+Temuco	ZCO	cl	-38.770221	-72.638216	America/Santiago
+Tenerife	TFN	es	28.485618	-16.341990	Atlantic/Canary	tfn_taco	28.447165	-16.295515
+Tenerife	TFS	es	28.048421	-16.577564	Atlantic/Canary	tfs_taco	28.447165	-16.295515
+Teng Chong Hump	TCZ	cn-yn	24.936752	98.482389	Asia/Shanghai
+Tepic	TPQ	mx	21.41945	-104.84258	America/Mazatlan
+Teresina	THE	br-pi	-5.063789	-42.820963	America/Fortaleza
+Ternate	TTE	id	0.83141	127.38149	Asia/Jayapura
+Terrace	YXT	ca-bc	54.472756	-128.576773	America/Vancouver
+Texarkana	TXK	us-ar	33.454274	-93.996265	America/Chicago	txk_amtrak	33.419177	-94.042933
+Thanh Hoa Tho Xuan	THD	vn	19.901177	105.467924	Asia/Ho_Chi_Minh
+Thessaloniki	SKG	gr	40.523980	22.976299	Europe/Athens	skg_centre	40.645613	22.929178
+Thira	JTR	gr	36.403026	25.473280	Europe/Athens
+Thiruvananthapuram	TRV	in	8.48212	76.920114	Asia/Kolkata
+Thunder Bay	YQT	ca-on	48.372306	-89.311241	America/Thunder_Bay
+Tianjin	TSN	cn	39.120939	117.348871	Asia/Shanghai	tsn_tianjindong	39.136491	117.211075
+Tijuana	TIJ	mx	32.545421	-116.973482	America/Los_Angeles
+Timisoara	TSR	ro	45.808799	21.331055	Europe/Bucharest
+Tirana	TIA	al	41.417309	19.715419	Europe/Tirane	tia_centre	41.330251	19.816806
+Tirgu Mures	TGM	ro	46.466985	24.423859	Europe/Bucharest
+Tiruchchirappalli	TRZ	in	10.76536	78.70972	Asia/Kolkata
+Tivat	TIV	me	42.412422	18.718454	Europe/Podgorica
+Tobago	TAB	tt	11.152331	-60.839798	America/Port_of_Spain
+Tokushima	TKS	jp	34.134852	134.618367	Asia/Tokyo
+Tokyo	HND	jp	35.551139	139.788126	Asia/Tokyo	hnd_city	35.680831	139.772975
+Tokyo	NRT	jp	35.764162	140.384982	Asia/Tokyo	nrt_city	35.680831	139.772975
+Toledo	TOL	us-oh	41.592809	-83.806110	America/New_York	tol_union	41.637985	-83.540078
+Tomsk	TOF	ru	56.388027	85.209330	Asia/Novosibirsk	tof_tomsk	56.461075	84.992499
+Tonghua	TNH	cn	42.250506	125.705770	Asia/Shanghai	tnh_tonghua	41.753422	125.979408
+Tongliao	TGO	cn	43.559421	122.209667	Asia/Shanghai	tgo_tongliao	43.604371	122.272483
+Tongren	TEN	cn	27.882228	109.310353	Asia/Shanghai	ten_tongren	27.739250	109.204834
+Tongxiang	TVX-rail	cn	30.537048	120.569155	Asia/Shanghai
+Toowoomba	TWB	au-qld	-27.544278	151.917056	Australia/Brisbane	twb_Central	-27.557081	151.952011
+Toowoomba	WTB	au-qld	-27.551400	151.787734	Australia/Brisbane	twb_Central	-27.557081	151.952011
+Toronto	YYZ	ca-on	43.683346	-79.614652	America/Toronto
+Torreon	TRC	mx	25.562835	-103.398664	America/Monterrey
+Toulon	TLN	fr	43.092295	6.158255	Europe/Paris	tln_toulon	43.128481	5.928444
+=Toulon XZV
+Toulouse	TLS	fr	43.630086	1.374536	Europe/Paris	tls_centre	43.622506	1.448179
+Tours	XSH-rail	fr	47.385895	0.724980	Europe/Paris
+Townsville	TSV	au-qld	-19.256595	146.771065	Australia/Brisbane	tsv_railway	-19.269390	146.808232
+Toyama	TOY	jp	36.643041	137.188911	Asia/Tokyo
+Trabzon	TZX	tr	40.994846	39.779679	Europe/Istanbul
+Trapani	TPS	it	37.901535	12.495671	Europe/Rome
+Trat	TDX	th	12.281358	102.324954	Asia/Bangkok
+Traverse	TVC	us-mi	44.743568	-85.583875	America/Detroit
+=Traverse City TVC
+Treasure Cay, bahamas	TCB	bs	26.741189	-77.381731	America/Nassau
+Trelew	REL	ar	-43.2105	-65.27032	America/Argentina/Catamarca
+Treviso	TSF	it	45.654257	12.202318	Europe/Rome
+Trieste	TRS	it	45.825630	13.473686	Europe/Rome	trs_centrale	45.657901	13.770043
+Trincomalee	TRR	lk	8.53851	81.18185	Asia/Colombo
+Tripoli	TIP	ly	32.668817	13.144044	100
+Tromsø	TOS	no	69.679703	18.906889	Europe/Oslo
+Trondheim	TRD	no	63.454153	10.916742	Europe/Oslo	trd_central	63.436071	10.400964
+Truk, Federated states of micronesia	TKK	fm	7.457434	151.841425	Pacific/Chuuk
+Trujillo	TRU	pe	-8.085617	-79.107633	America/Lima
+Tucson	TUS	us-az	32.120712	-110.937343	America/Phoenix	tus_amtrak	32.222980	-110.966588
+Tucuman	TUC	ar	-26.833376	-65.107605	America/Argentina/Tucuman
+Tulsa	TUL	us-ok	36.190495	-95.889850	America/Chicago
+Tumbes	TBP	pe	-3.551194	-80.384422	America/Lima
+Tunis	TUN	tn	36.847254	10.218646	Africa/Tunis
+Tunxi	TXN	cn	29.727933	118.258165	Asia/Shanghai	txn_huangshan	29.722733	118.323734
+Turaif	TUI	sa	31.688591	38.733767	Asia/Riyadh
+Turin	TRN	it	45.191688	7.643075	Europe/Rome
+Turku	TKU	fi	60.511020	22.273833	Europe/Helsinki
+Turpan	TLQ	cn	43.025136	89.099358	Asia/Shanghai
+Tuxtla Gutierrez	TGZ	mx	16.561153	-93.019302	America/Mexico_City
+Tuyhoa	TBB	vn	13.049891	109.344397	Asia/Ho_Chi_Minh
+Twin Falls	TWF	us-id	42.483628	-114.484950	America/Boise
+Tyler	TYR	us-tx	32.351262	-95.409864	America/Chicago
+Tyumen	TJM	ru	57.18957	65.3243	Asia/Yekaterinburg
+Uberlandia	UDI	br	-18.88284	-48.22559	America/Sao_Paulo
+Ube	UBJ	jp	33.933151	131.275509	Asia/Tokyo
+Udaipur	UDR	in	24.6177	73.8961	Asia/Calcutta
+Udon Thani	UTH	th	17.38644	102.78825	Asia/Bangkok
+Ufa	UFA	ru-ba	54.564590	55.886310	Asia/Yekaterinburg	ufa_ufa	54.748306	55.948761
+Ujung Pandang	UPG	id	-5.06163	119.55404	Asia/Makassar
+Ulaanbaatar	ULN	mn	47.852660	106.763200	Asia/Ulaanbaatar
+Ulanhot	HLH	cn	46.193281	122.008364	Asia/Shanghai	hlh_ulanhot	46.069883	122.063927
+Ulan-ude	UUD	ru-bu	51.804553	107.443398	Asia/Irkutsk	uud_pass	51.839508	107.583913
+=UlanUde UUD
+Ulsan	USN	kr	35.593693	129.356252	Asia/Seoul
+Umea	UME	se	63.793192	20.289811	Europe/Stockholm
+Urgench	UGC	uz	41.584436	60.633916	Asia/Samarkand	ugc_rail	41.536129	60.631123
+Urmieh	OMH	ir	37.662814	45.059118	Asia/Tehran
+Urumqi	URC	cn	43.901969	87.474955	Asia/Urumqi	urc_urumqi	43.779043	87.585561
+Ushuaia	USH	ar	-54.839722	-68.312067	America/Argentina/Ushuaia
+Ust-kamenogorsk	UKK	kz	50.025661	82.505935	Asia/Almaty	ukk_Zashchita	50.005634	82.564433
+Uyo	QUO	ng	4.8725	8.093	Africa/Lagos
+Vaasa	VAA	fi	63.044175	21.760270	Europe/Helsinki	vaa_vaasa	63.096964	21.623241
+Vail/eagle	EGE	us-co	39.640395	-106.910598	America/Denver
+=Vail/Eagle EGE
+Valdivia	ZAL	cl	-39.650834	-73.080890	America/Santiago
+Valdosta	VLD	us-ga	30.783759	-83.271662	America/New_York
+Valence	XHK-rail	fr	44.927053	4.893038	Europe/Paris
+Valencia	VLC	es	39.491748	-0.473328	Europe/Madrid	vlc_js	39.474659	-0.378180
+Valladolid	VLL	es	41.705338	-4.845586	Europe/Madrid	vll_uni	41.659182	-4.704773
+=Valladolid XIV
+Valledupar	VUP	co	10.433705	-73.247683	America/Bogota
+Valparaiso	VPS	us-fl	30.495238	-86.549477	America/Chicago
+Valverde	VDE	es	27.815047	-17.886322	Europe/Madrid	vde_valverde	27.808936	-17.915140
+Vancouver	YVR	ca-bc	49.193691	-123.180399	America/Vancouver
+Varadero	VRA	cu	23.03444	-81.43528	America/Havana
+Varna	VAR	bg	43.236393	27.825278	Europe/Sofia	var_central	43.198112	27.911560
+Vaxjo	VXO	se	56.924483	14.731888	Europe/Stockholm	vxo_central	56.876591	14.805356
+Venice	VCE	it	45.502161	12.339447	Europe/Rome	vce_mestre	45.481584	12.230657
+Veracruz	VER	mx	19.142141	-96.183217	America/Mexico_City
+Vernal	VEL	us-ut	40.442801	-109.514216	America/Denver
+Verona	VRN	it	45.402765	10.907571	Europe/Rome	vrn_portanova	45.428601	10.981477
+Victoria Falls	VFA	zw	-18.09588	25.83901	Africa/Harare
+Victoria	YYJ	ca	48.640963	-123.430581	America/Vancouver
+Viedma	VDM	ar	-40.86922	-63.00039	America/Argentina/Salta
+Vienna	VIE	at	48.120533	16.565971	Europe/Vienna	vie_hbf	48.119774	16.564057
+Vientiane	VTE	la	17.975356	102.568143	Asia/Vientiane	vte_vientiane	17.961663	102.612062
+Vieques, Pr	VQS	pr	18.133879	-65.494131	America/Puerto_Rico
+Vigo	VGO	es	42.225541	-8.632907	Europe/Madrid	vgo_guixar	42.239576	-8.712325
+Villahermosa	VSA	mx	17.997	-92.81736	America/Merida
+Villa Mercedes	VME	ar	-33.635	-65.41870	America/Argentina/San_Luis
+Villavicencio	VVC	co	4.16787	-73.61376	America/Bogota
+Vilnius	VNO	lt	54.634288	25.281074	Europe/Vilnius	vno_vilniaus	54.668775	25.284164
+Vinh City	VII	vn	18.73757	105.67076	Asia/Ho_Chi_Minh
+Visby	VBY	se	57.660410	18.338583	Europe/Stockholm
+Vitoria	VIX	br-es	-20.256708	-40.289135	America/Sao_Paulo
+Vladikavkaz	OGZ	ru-se	43.201601	44.604169	Europe/Moscow	ogz_beslan	43.194915	44.543681
+Vladivostok	VVO	ru-pri	43.395955	132.166281	Asia/Vladivostok	vvo_pass	43.113393	131.882749
+Volgograd	VOG	ru-vgg	48.792216	44.353411	Europe/Volgograd
+Volos	VOL	gr	39.224881	22.793875	Europe/Athens
+Voronezh	VOZ	ru-vor	51.812502	39.225222	Europe/Moscow
+Waco	ACT	us-tx	31.609061	-97.223182	America/Chicago
+Wadi Ad Dawasir	WAE	sa	20.499173	45.204288	Asia/Riyadh
+Wagga Wagga	WGA	au-nsw	-35.159378	147.465660	Australia/Sydney	wga_railway	-35.120480	147.369167
+Walla Walla	ALW	us-wa	46.087361	-118.284210	America/Vancouver
+Wanxian	WXN	cn	30.797330	108.431553	Asia/Shanghai	wxn_wanzhou	30.754687	108.400746
+Warner Robins	WRB	us-ga	32.625756	-83.588465	America/New_York
+Warsaw	WAW	pl	52.170958	20.973251	Europe/Warsaw
+Warsaw	WMI	pl	52.445994	20.651882	Europe/Warsaw
+Washington	BWI	us	39.179774	-76.668849	America/New_York
+=Baltimore BWI
+Washington	DCA	us	38.853320	-77.043335	America/New_York
+Washington	IAD	us	38.953153	-77.448105	America/New_York	iad_dcunion	38.897363	-77.005177
+Waterloo	ALO	us-ia	42.550428	-92.395804	America/Chicago
+Watertown	ART	us-ny	43.994228	-76.022983	America/New_York
+Wausau	CWA	us-wi	44.784354	-89.672004	America/Chicago
+Wedjh	EJH	sa	26.19855	36.47638	Asia/Riyadh
+Weihai	WEH	cn	37.188452	122.239246	Asia/Shanghai	weh_weihai	37.421866	122.143911
+Weipa	WEI	au-qld	-12.680760	141.924291	Australia/Brisbane	wei_weipa	-12.657721	141.864647
+Wellington	WLG	nz	-41.330191	174.811559	Pacific/Auckland	wlg_station	-41.278910	174.780533	25
+Wenatchee	EAT	us-wa	47.401829	-120.206748	America/Vancouver	eat_columbia	47.420935	-120.305867
+Wenshan Puzhehei	WNH	cn	23.375833	104.243056	Asia/Shanghai
+Wenzhou	WNZ	cn	27.911822	120.850898	Asia/Shanghai	wnz_wenzhou	27.980134	120.686400
+Westchester County	HPN	us-ny	41.067932	-73.704149	America/New_York	hpn_chester	41.001026	-73.664393
+Westerland	GWT	de	54.913620	8.330261	Europe/Berlin
+West Palm beach	PBI	us-fl	26.688454	-80.090371	America/New_York	pbi_palmbeach	26.712592	-80.062306
+=West Palm Beach PBI
+West Yellowstone	WYS	us-mt	44.686737	-111.114284	America/Denver	wys_idaho	43.494712	-112.037523
+Whitehorse	YXY	ca-yt	60.713933	-135.076411	America/Vancouver
+Whyalla	WYA	au-sa	-33.052916	137.520892	Australia/Adelaide	wya_portaugusta	-32.493207	137.766876
+Wichita Falls	SPS	us-tx	33.964851	-98.490887	America/Chicago
+Wichita	ICT	us-ks	37.653041	-97.428678	America/Chicago
+Wilkes-barre	AVP	us-pa	41.337091	-75.729469	America/New_York
+=WilkesBarre AVP
+Williamsport	IPT	us-pa	41.245283	-76.920086	America/New_York
+Williston	ISN	us-nd	48.179565	-103.632503	America/Chicago	isn_amtrak	48.142826	-103.619297
+Wilmington	ILM	us-nc	34.267117	-77.910509	America/New_York
+Wilmington Rail station, de	ZWI	us-de	39.736233	-75.550084	America/New_York
+Windhoek	WDH	na	-22.487459	17.463615	Africa/Windhoek
+Windsor	YQG	ca-on	42.267423	-82.962983	Canada/Newfoundland
+Winnipeg	YWG	ca	49.905284	-97.224438	America/Winnipeg
+Winston-salem	INT	us-nc	36.133433	-80.224822	America/New_York
+Wonju	WJU	kr	37.43808	127.96038	Asia/Seoul
+Worland, Wy	WRL	us-wy	43.971754	-107.951251	America/Denver
+Wroclaw	WRO	pl	51.104437	16.898803	Europe/Warsaw	wro_glowny	51.098299	17.036905
+Wu Hai	WUA	cn	39.793071	106.808353	Asia/Shanghai	wua_wuhai	39.667688	106.804109
+Wuhan	WUH	cn	30.769890	114.211460	Asia/Shanghai	wuh_jinyintan	30.650012	114.242810
+Wuxi	WUX	cn	31.503065	120.432437	Asia/Shanghai	wux_wuxi	31.596342	120.461776
+Wuyishan	WUS	cn	27.706917	118.002684	Asia/Shanghai	wus_wuyishan	27.729973	118.031433
+Xiamen	XMN	cn	24.536962	118.127239	Asia/Shanghai	xmn_xiamen	24.469131	118.116487
+Xiangfan	XFN	cn	32.148897	112.292272	Asia/Shanghai	xfn_xiangyangdong	32.097846	112.227675
+Xi An	XIY	cn	34.440448	108.759965	Asia/Shanghai	xiy_咸阳	34.343982	108.737263
+=Xi’an XIY
+Xichang	XIC	cn	27.978232	102.189193	Asia/Shanghai	xic_xichang	27.876528	102.224030
+Xilinhot	XIL	cn	43.919391	115.966653	Asia/Shanghai	xil_xilinhot	43.914574	116.024695
+Xingyi	ACX	cn	25.081167	104.959382	Asia/Shanghai	acx_xingyi	25.166427	104.987299
+Xining	XNN	cn	36.525256	102.040161	Asia/Shanghai	xnn_xiningbei	36.664809	101.768637
+Xinyuan	NLT	cn	43.429229	83.379189	Asia/Urumqi
+Xuzhou	XUZ	cn	34.053206	117.561089	Asia/Shanghai	xuz_xuzoudong	34.266617	117.304517
+Yakima	YKM	us-wa	46.570331	-120.539492	America/Vancouver	
+Yakutsk	YKS	ru-sa	62.097755	129.762378	Asia/Yakutsk
+Yamagata	GAJ	jp	38.410664	140.366110	Asia/Tokyo
+Yan'an	ENY	cn	36.639015	109.557096	Asia/Shanghai	eny_yan'an	36.557864	109.481897
+Yanbu	YNB	sa	24.140827	38.062620	Asia/Riyadh
+Yancheng	YNZ	cn	33.431540	120.208576	Asia/Shanghai	ynz_rail	33.381555	120.176054
+Yangon	RGN	mm	16.902897	96.136458	Asia/Rangoon
+Yangzhou Taizhou	YTY	cn	32.560497	119.718229	Asia/Shanghai
+Yanji	YNJ	cn	42.888493	129.446892	Asia/Shanghai	ynj_yanji	42.886384	129.498092
+Yantai	YNT	cn	37.408517	121.376456	Asia/Shanghai	ynt_yantai	37.547553	121.384238
+Yaounde	NSI	cm	3.715174	11.547464	Africa/Douala
+Yap, Federates states of micronesia	YAP	fm	9.498278	138.086149	Pacific/Chuuk
+Yekaterinburg	SVX	ru-sve	56.750254	60.803652	Asia/Yekaterinburg	svx_pass	56.858686	60.608947
+=Ekaterinburg SVX
+Yellowknife	YZF	ca-nt	62.470436	-114.435451	America/Edmonton
+Yeosu	RSU	kr	34.842328	127.61685	Asia/Seoul
+Yerevan	EVN	am	40.151559	44.397616	Asia/Yerevan	evn_station	40.154163	44.508410
+Yibin	YBP	cn	28.795008	104.555255	Asia/Shanghai	ybp_yibin	28.752612	104.601437
+Yichang	YIH	cn	30.551543	111.483389	Asia/Shanghai	yih_yichangdong	30.659626	111.369923
+Yichun Shi	LDS	cn	47.751186	129.022393	Asia/Shanghai	lds_yichun	47.729421	128.928057
+Yinchuan	INC	cn	38.471000	106.018218	Asia/Shanghai	inc_yinchuan	38.490861	106.173113
+Yining	YIN	cn	43.952550	81.333358	Asia/Shanghai	yin_yining	43.966819	81.277610
+Yiwu	YIW	cn	29.341470	120.032175	Asia/Shanghai	yiw_yiwu	29.379503	120.044010
+Yogyakarta	JOG	id	-7.78818	110.43176	Asia/Jakarta
+Yoshkar-ola	JOK	ru-me	56.700458	47.907319	Europe/Moscow
+Yueyanng Railway Station	YUG-rail	cn	29.377191	113.122018	Asia/Shanghai
+Yulin	UYN	cn	38.273622	109.731116	Asia/Shanghai	uyn_yulin	38.273083	109.719872
+Yuma	YUM	us-az	32.668624	-114.598923	America/Phoenix	yum_amtrak	32.722163	-114.615393
+Yun Cheng	YCU	cn	35.113202	111.043466	Asia/Shanghai	ycu_yuncheng	35.025519	110.990961
+Yushu	YUS	cn	32.839716	97.037641	Asia/Urumqi	yus_yushu	33.011446	97.090443
+Yuzhno-sakhalinsk	UUS	ru-sak	46.887738	142.724225	Asia/Sakhalin
+=YuzhnoSakhalinsk UUS
+Zacatecas	ZCL	mx	22.900294	-102.680127	America/Monterrey
+Zagreb	ZAG	hr	45.731543	16.059637	Europe/Zagreb	zag_glavni	45.804662	15.979901
+Zahedan	ZAH	ir	29.475700378418	60.9062004089	Asia/Tehran
+Zakinthos Island	ZTH	gr	37.753123	20.886264	Europe/Athens
+Zanzibar	ZNZ	tz	-6.219273	39.221095	Africa/Dar_es_Salaam
+Zaporozhye	OZH	ua	47.867000579834	35.31570053	Asia/Jakarta
+Zaragoza	ZAZ	es	41.659538	-1.046506	Europe/Madrid	zaz_delicias	41.658285	-0.910255
+=Zaragoza XZZ
+Zhangjiakou	ZQZ	cn	40.739579	114.946428	Asia/Shanghai
+Zhangye Ganzhou	YZY	cn	38.814877	100.655217	Asia/Shanghai	yzy_张掖	38.973660	100.521027
+Zhanjiang	ZHA	cn	21.215142	110.364516	Asia/Urumqi	zha_zhanjiangnan	21.187395	110.387895
+Zhaotong	ZAT	cn	27.325790	103.753959	Asia/Shanghai	zat_rail	27.384273	103.792174
+Zhengzhou	CGO	cn	34.525604	113.847510	Asia/Shanghai	cgo_zhengzhounan	34.711115	113.684040
+Zhenjiang	DYN-rail	cn	32.000273	119.592199	Asia/Shanghai
+Zhenjiang	ZUJ	cn	32.198210	119.434517	Asia/Shanghai	zuj_rail	32.198283	119.434647
+Zhijiang County	HJJ	cn	27.439811	109.702248	Asia/Shanghai	hjj_huaihua	27.557329	109.970111
+Zhongwei	ZHY	cn	37.568737	105.152571	Asia/Shanghai	zhy_中卫_zhongwei	37.522010	105.188138
+Zhoushan	HSN	cn	29.934419	122.361361	Asia/Shanghai	hsn_ningbodong	29.847440	121.586139
+Zhuhai	ZUH	cn	22.009796	113.377357	Asia/Shanghai	zuh_zhuhai	22.257900	113.515229
+Zhuzhou Railway Station	DHU-rail	cn	27.842412	113.154551	Asia/Shanghai
+Zihuatanejo	ZIH	mx	17.606715	-101.463607	America/Mexico_City
+=Ixtapa/zihuatanejo ZIH
+Zunyi Xinzhou	ZYI	cn	27.586994	107.003905	Asia/Shanghai	zyi_zunyi	27.702005	106.949084
+Zurich	ZRH	ch	47.451218	8.563890	Europe/Zurich	zrh_hbf	47.377804	8.537969

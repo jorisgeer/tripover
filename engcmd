@@ -1,0 +1,33 @@
+#!/usr/bin/perl -W
+
+use 5.012;
+use strict;
+
+# stop at compile-time warnings
+local $SIG{__WARN__} = sub { print "$_[0]\n"; exit 1; };
+
+sub info($) { print("$_[0]\n"); return 1; }
+sub error($) { print("error: $_[0]\n"); return 0; }
+
+my $engname = 'to-engcmd';
+
+sub do_cmd($)
+{
+  my $cmd = shift;
+
+  my $tmpname = $engname . '.tmp';
+  my $subname = $engname . '.sub';
+
+  open(my $fh,'>',$tmpname) or error_exit("cannot create $tmpname: $!");
+  print($fh $cmd . "\n");
+  close($fh);
+
+  info("submit '$cmd'");
+
+# rename to submit: server will pick up from here.
+  rename($tmpname,$subname);
+}
+
+foreach my $arg (@ARGV) {
+  do_cmd($arg);
+}

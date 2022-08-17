@@ -1,0 +1,124 @@
+## config.in - emka build configuration template
+# config - emka build configuration
+
+## predefine a few common compilers here
+## double hash lines are not passed to the output
+
+# You can edit this file, however changes are lost when rerunning emka config
+# For permanent changes, edit the template file config.in
+
+# This file is part of Tripover, a broad-search journey planner.
+
+#  Copyright (C) 2014-2017 Joris van der Geer.
+
+## patterned after clang 3.9
+[compiler = clang]
+  cdef = -DNOW=%.now
+  cinc =
+  copt = -O2 -march=native
+  cdiag = -Weverything -Wno-sign-conversion -Wno-padded -Wno-disabled-macro-expansion -Wfatal-errors -Werror=format
+  csyn = -w -fsyntax-only
+  cfmt = -fno-caret-diagnostics -fno-color-diagnostics -fno-diagnostics-show-option -fno-diagnostics-fixit-info -fno-diagnostics-show-note-include-stack
+  cdbg = -g #line-tables-only
+  cextra = -pthread -std=c11 -fstack-protector # -ftrapv -fsanitize=safe-stack
+
+  cana = # -fsanitize=undefined,integer,unsigned-integer-overflow -fsanitize-blacklist=asan.ign
+
+@if asan
+  csan = -fsanitize=address
+
+  .c.s = %compiler --analyze %.c
+
+## patterned after gcc 7.1.0
+[compiler = gcc]
+  cdef = -DNOW=%.now
+  cinc =
+  copt = -O2 -march=native -fstrict-aliasing -fstrict-overflow
+  cdiag = -Wall -Wextra -pedantic -Wfatal-errors -Werror=maybe-uninitialized -Werror=format -Werror=uninitialized
+  cdiag += -Wno-sign-conversion
+  cdiag += -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls -Wformat=2 -Winit-self -Wstrict-overflow
+  cdiag += -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wcast-align -Wconversion -Wstrict-prototypes -Wduplicated-branches
+  cdiag += -Wchkp -Wnull-dereference -Wduplicated-branches -Wduplicated-cond -Wunsafe-loop-optimizations -Wunused-macros -Wlogical-op
+  cdiag += -Wdisabled-optimization
+  csyn = -w -fsyntax-only
+  cfmt = -fmessage-length=0 -fno-diagnostics-show-caret -fno-diagnostics-show-option -fno-diagnostics-color
+  cdbg = -g1 -frecord-gcc-switches
+  cextra = -pthread -std=c11
+
+  cana = # -fsanitize=undefined -fsanitize-address-use-after-scope
+
+@if asan
+  csan = -fsanitize=address
+
+
+[compiler = pathcc]
+  cdef = -DNOW=%.now
+  cinc =
+  copt = -O3 -OPT:Ofast
+  cdiag = -Wall -Wextra
+  csyn = -w -fsyntax-only
+  cfmt =
+  cdbg =
+  cextra = -pthread -std=c99
+  cana =
+
+@if asan
+  csan =
+
+[compiler = cc]
+  cdef = -DNOW=%.now
+  cinc =
+  copt = -O
+  cdiag =
+  csyn = -c
+  cfmt =
+  cdbg =
+  cextra =
+  cana =
+  csan =
+
+## no syntax-check only for standard compiler
+  .c. =
+
+[compiler = all]
+
+# regular compile
+  .c.o = %compiler -c %cdef %cinc %copt %cdiag %cfmt %cdbg %cextra %cana %csan %.c
+
+# syntax-check only, precedes regular compile
+  .c. = %compiler %csyn %cinc %cfmt %cextra %.c
+
+[linker = clang]
+  lopt =
+  ldiag = -Weverything -fno-caret-diagnostics
+  ldbg = -g #line-tables-only
+  lextra = -pthread # -fsanitize=safe-stack
+  lana = # -fsanitize=undefined,integer,unsigned-integer-overflow
+
+@if asan
+  lsan = -fsanitize=address
+
+[linker = gcc]
+  lopt =
+  ldiag = -Wall
+  ldbg = -g
+  lextra = -pthread
+  lana = # -fsanitize=undefined -fsanitize-address-use-after-scope
+
+@if asan
+  lsan = -fsanitize=address
+
+[linker = pathcc]
+  lopt =
+  ldiag = -Wall
+  ldbg = -g
+  lextra = -pthread
+  lana = # -fsanitize=undefined -fsanitize-address-use-after-scope
+
+[linker = all]
+  .o.x = %linker -o %.x %lopt %ldiag %ldbg %lextra %lana %lsan %.o -lrt -lm
+
+ignoredir = data doc queries
+ignoresrc = vis.c viserve.c osmtest.c osmprep.c hash.c
+
+# end of config
