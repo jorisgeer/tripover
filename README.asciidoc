@@ -41,7 +41,7 @@ Trips that existing planners cannot handle often look promising.
 * Combine multiple datasets automatically
 * local commandline client and CGI web interfaces
 * initial provision for handling of reserved transport
-* automtic inference of walkable distances and eligible taxi routes
+* automatic inference of walkable distances and eligible taxi routes
 * walkable distances and taxi routes estimated over a road network
 * Up to 11 transfers, 15 in special cases.
 
@@ -136,9 +136,5 @@ Joris van der Geer
 
 
 == Contributing
-
-== License
-This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
-To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 
 Last changed 20 Jan 2016

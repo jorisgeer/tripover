@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>Lam Lha journey planning</title>
+
+<link rel="canonical" href="http://lamlha.net/index.html" />
+
+<meta http-equiv="refresh" content="14400" />
+
+ <meta name="author" content="Joris van der Geer" />
+ <meta name="description" content="Broad-search journey planner for ground and air public transport" />
+ <meta name="keywords" content="journey planning,transit routing,gtfs,plane,train,bus,ferry,timetable" />
+
+ <link rel="stylesheet" href="lamlha.css" />
+ <link rel="stylesheet" href="leaflet/leaflet.css" />
+
+ <script src="lamlha.js"></script>
+ <script src="leaflet/leaflet.js"></script>
+
+</head>
+
+<body id="body">
+
+ <div id="head" maintenance=0>
+  <img id="progress" src="img/43px_on_transparent.gif" alt="progress">
+  <a id="home" rel="nofollow" href="index.html"><img alt="home" src="img/global_time-78.png"></a>
+  <h1 id="hd-t1">Welcome to<span id="timenwheel" title="Tibetan goddess of travel">&ensp;Lam Lha&ensp;</span>journey planning&ensp;</h1>
+  <h2>Travel worldwide with train, bus, plane or ferry.</h2>
+ </div>
+
+ <div id="mapdir">
+
+  <div id="dir">
+
+   <div id="tabset">
+    <span class="tabopt" id="setA" onclick="onsetAclick()">set A</span>
+    <span class="tabopt" id="setB" onclick="onsetBclick()">set B</span>
+    <span class="tabopt" id="setC" onclick="onsetCclick()">set C</span>
+    <span class="tabopt" id="setH" onclick="onsetHclick()">?</span>
+   </div>
+   <form id="srcopt" name="srcopt">
+    From<br><input id="depname" size="20" maxlength='256' type="text" autocomplete='on' placeholder='click in map or type' onchange='ondepchange()' onblur='ondepchange()'></input><label id="rmdep" onclick="onrmdep()">&times;</label><br><br>
+    To<br><input id="arrname" size="20" maxlength='256' type="text" autocomplete='on' placeholder='click in map or type' onchange='onarrchange()' onblur='onarrchange()'></input><label id="rmarr" onclick="onrmarr()">&times;</label><br><br>
+    Date<br>
+    <select name="depdate" id="depdate" onchange='onoptchange()'></select>
+    <select name="deptime" id="deptime" onchange='onoptchange()'></select><br>
+    <select name="timezone" id="timezone" onchange='onoptchange()'></select><br><br>
+    Time range<br>
+    <select name='plusday' id='plusday' onchange='onoptchange()'></select>
+    <select name='minday' id='minday' onchange='onoptchange()'></select><br><br>
+    <input type='checkbox' id='netshow' onchange='togglenet()'>Show coverage</input><br>
+    <br>Map type<br>
+    <select name='mapstyle' id='mapstyle' onchange='onmapchange()'></select>
+   </form>
+
+   <form id="advopt" name="advopt"><br>
+    Search mode<br>
+    <select name="srcmode" id="srcmode" onchange='onoptchange()'></select><br><br>
+    Timezone for display<br>
+    <select name="dsptimezone" id="dsptimezone" onchange='onoptchange()'></select><br><br>
+    Maximum walk distance<br>
+    <select id="maxwalk" onchange='onoptchange()'></select><br><br>
+    Included transport modes<br>
+    <input type="checkbox" id="plane" checked onchange='onoptchange()'>air&emsp;</input>
+    <input type="checkbox" id="train" checked onchange='onoptchange()'>rail</input>
+    <input type="checkbox" id="bus" checked onchange='onoptchange()'>bus</input><br>
+    <input type="checkbox" id="ferry" checked onchange='onoptchange()'>ferry</input>
+    <input type="checkbox" id="taxi" checked onchange='onoptchange()'>taxi</input>
+    <input type="checkbox" id="walk" checked onchange='onoptchange()'>walk</input><br>
+   </form>
+
+   <form id="optC" name="optC"><br>
+   Minimum transfer times<br>
+   <select id="minttcat" name="minttcat" onchange='onminttcatchg()'></select><br><br>
+   <select id="minttval" name="minttval" onchange='onminttvalchg()'></select><br><br>
+
+   Search effort level<br>
+   <select id="effort" name="effort" onchange='onoptchange()'></select><br><br>
+   </form>
+
+   <span id="optH" class="helptxt">
+<h3>How to use the journey planner</h3>
+<p class="helppara">Whenever you click on the map, we search for the nearest place where you can find transport.<br><br>
+Once you have selected two places, we search for a suitable trip between these points on the given date. If there is no suitable trip on this date, we can search a few days ahead.<br>
+You can specify how far to look ahead or past your given date.</p>
+<h3>Selecting start and end</h3>
+<p class="helppara">You can specify names for the start and end points or click on the map. A trip is planned once both points are given.</p>
+<p class="helppara">The first click with the left button &mdash; or touch and hold for tables and phones &mdash; selects the start point.
+The second click selects the end point and a trip is searched immediately. You can open the result in a separate window and keep it for reference.
+Subsequent clicks select a new end point, while keeping the start point, and a new trip is planned.</p>
+<p class="helppara">
+You can erase points using the red cross besides the <span style="color:green">from</span> and <span style="color:green">to</span> name fields. If you erase the start but keep the end, a next click will select a new start and plans a trip to the existing end.
+</p>
+<h3>Your options</h3>
+<p class="helppara">You can find all options under the <span style="color:green">setA</span>, <span style="color:green">setB</span> and <span style="color:green">setC</span> tabs.</p>
+<p class="helppara">You can specify how far you are willing to walk, minimum transfer times and whether to prefer fewer transfers or shorter trips.</p>
+<p class="helppara">Advanced options are specifying flexible date searches, setting the timezone or selecting what transport mode to use.</p>
+   </span>
+
+  </div>
+
+  <div id="map"></div>
+
+ </div>
+
+ <form id="dohopsrc" style="display:none">
+   <input type="text" name="a1">
+   <input type="text" name="a2">
+   <input type="text" name="d1">
+   <input type="text" name="d2">
+ </form>
+
+ <div id="foot">
+
+  <div id="depfulnam"></div>
+  <div id="arrfulnam"></div>
+  <div id="status"></div>
+
+  <div id="ft-links">
+   <a class="ftlink" href="about.html">About</a> <span class="ft-sepa">&ensp;</span>&ensp;
+   <a class="ftlink" href="privacy.html"
+    title="The primary use of the data you submit to the server is to provide the planning service. This data consists of geographical coordinates, time and search parameters, and your IP address. This data may be stored temporarily for engineering purposes, but is never stored permanently and never distributed."
+    >Privacy</a> <span class="ft-sepa">&ensp;</span>&ensp;
+   <a class="ftlink" href="coverage.html">Coverage</a> <span class="ft-sepa">&ensp;</span>&ensp;
+   <a class="ftlink" href="howitworks.html">How it works</a> <span class="ft-sepa">&ensp;</span>&ensp;
+   <a class="ftlink" href="feedback.html">Feedback</a> <span class="ft-sepa">&ensp;</span>&ensp;
+  </div>
+
+ </div>
+
+</body>
+</html>
